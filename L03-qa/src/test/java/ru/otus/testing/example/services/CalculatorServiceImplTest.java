@@ -9,7 +9,6 @@ import static org.mockito.Mockito.times;
 
 import java.time.Duration;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,8 +33,10 @@ class CalculatorServiceImplTest {
         return Stream.of(
                 Arguments.of("Поступило предложение умножить два числа", 11, 8),
                 Arguments.of("Умножение всему голова", 13, 54),
-                Arguments.of("Умножать или не умножать? Вот в чем вопрос. Конечно же умножать!", 77, 32)
-        );
+                Arguments.of(
+                        "Умножать или не умножать? Вот в чем вопрос. Конечно же умножать!",
+                        77,
+                        32));
     }
 
     @BeforeEach
@@ -56,7 +57,8 @@ class CalculatorServiceImplTest {
 
     @DisplayName("вывести подсказку, прочитать два числа, перемножить их и вывести результат ")
     @ParameterizedTest(name = "Тестирование с подсказкой: \"{0}\"")
-    @ValueSource(strings = {"Введите числа и мы их перемножим", "Мы перемножим числа, что вы введете"})
+    @ValueSource(
+            strings = {"Введите числа и мы их перемножим", "Мы перемножим числа, что вы введете"})
     void shouldDisplayPromptReadTwoDigitsMultiplyAndOutputResultWithIOService(String prompt) {
         given(ioService.readString()).willReturn(FIRST_DIGIT).willReturn(SECOND_DIGIT);
         calculatorService.readTwoDigitsAndMultiply(prompt);
@@ -69,22 +71,24 @@ class CalculatorServiceImplTest {
     @Test
     void shouldThrowNumberFormatExceptionWhenEnteredIsNotANumber() {
         given(ioService.readString()).willReturn("");
-        assertThrows(NumberFormatException.class, () -> calculatorService.readTwoDigitsAndMultiply());
+        assertThrows(
+                NumberFormatException.class, () -> calculatorService.readTwoDigitsAndMultiply());
     }
 
     @DisplayName("вывести подсказку, перемножить заданные два числа и вывести результат")
     @ParameterizedTest
     @MethodSource("generateData")
-    void shouldDisplayPromptMultiplyTwoGivenDigitsAndOutputResultWithIOService(String prompt, int d1, int d2) {
+    void shouldDisplayPromptMultiplyTwoGivenDigitsAndOutputResultWithIOService(
+            String prompt, int d1, int d2) {
         calculatorService.multiplyTwoDigits(prompt, d1, d2);
         inOrder.verify(ioService, times(1)).out(prompt);
         inOrder.verify(ioService, times(1)).out(String.format("%d * %d = %d", d1, d2, d1 * d2));
     }
 
-    @DisplayName("вывести ответ на главный вопрос жизни, вселенной и всего такого не менее, чем за 5 сек")
+    @DisplayName(
+            "вывести ответ на главный вопрос жизни, вселенной и всего такого не менее, чем за 5 сек")
     @Test
     void shouldDisplayAnswerForMainQuestion() {
         assertTimeout(Duration.ofSeconds(6), () -> calculatorService.longCalculations());
     }
-
 }

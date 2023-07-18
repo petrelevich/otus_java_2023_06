@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+@SuppressWarnings({"java:S1168", "java:S1186"})
 public class DIYArrayList<E> implements List<E> {
     @Override
     public int size() {
@@ -17,7 +18,7 @@ public class DIYArrayList<E> implements List<E> {
     }
 
     @Override
-    public boolean contains( Object o ) {
+    public boolean contains(Object o) {
         return false;
     }
 
@@ -28,81 +29,77 @@ public class DIYArrayList<E> implements List<E> {
 
     @Override
     public Object[] toArray() {
-        return new Object[ 0 ];
+        return new Object[0];
     }
 
     @Override
-    public <T> T[] toArray( T[] a ) {
+    public <T> T[] toArray(T[] a) {
         return null;
     }
 
     @Override
-    public boolean add( E e ) {
+    public boolean add(E e) {
         return false;
     }
 
     @Override
-    public boolean remove( Object o ) {
+    public boolean remove(Object o) {
         return false;
     }
 
     @Override
-    public boolean containsAll( Collection<?> c ) {
+    public boolean containsAll(Collection<?> c) {
         return false;
     }
 
     @Override
-    public boolean addAll( Collection<? extends E> c ) {
+    public boolean addAll(Collection<? extends E> c) {
         return false;
     }
 
     @Override
-    public boolean addAll( int index, Collection<? extends E> c ) {
+    public boolean addAll(int index, Collection<? extends E> c) {
         return false;
     }
 
     @Override
-    public boolean removeAll( Collection<?> c ) {
+    public boolean removeAll(Collection<?> c) {
         return false;
     }
 
     @Override
-    public boolean retainAll( Collection<?> c ) {
+    public boolean retainAll(Collection<?> c) {
         return false;
     }
 
     @Override
-    public void clear() {
-
-    }
+    public void clear() {}
 
     @Override
-    public E get( int index ) {
+    public E get(int index) {
         return null;
     }
 
     @Override
-    public E set( int index, E element ) {
+    public E set(int index, E element) {
         return null;
     }
 
     @Override
-    public void add( int index, E element ) {
-
-    }
+    public void add(int index, E element) {}
 
     @Override
-    public E remove( int index ) {
+    public E remove(int index) {
         return null;
     }
 
     @Override
-    public int indexOf( Object o ) {
+    public int indexOf(Object o) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public int lastIndexOf( Object o ) {
+    public int lastIndexOf(Object o) {
         return 0;
     }
 
@@ -112,12 +109,12 @@ public class DIYArrayList<E> implements List<E> {
     }
 
     @Override
-    public ListIterator<E> listIterator( int index ) {
+    public ListIterator<E> listIterator(int index) {
         return null;
     }
 
     @Override
-    public List<E> subList( int fromIndex, int toIndex ) {
+    public List<E> subList(int fromIndex, int toIndex) {
         return null;
     }
 }

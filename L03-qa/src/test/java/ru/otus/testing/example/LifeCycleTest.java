@@ -2,6 +2,7 @@ package ru.otus.testing.example;
 
 import org.junit.jupiter.api.*;
 
+@SuppressWarnings({"java:S2699"})
 class LifeCycleTest {
 
     // Подготовительные мероприятия. Метод выполнится один раз, перед всеми тестами

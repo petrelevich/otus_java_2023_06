@@ -1,4 +1,3 @@
 package ru.otus.testing.exercise;
 
-public class TemplateNotFoundException extends RuntimeException {
-}
+public class TemplateNotFoundException extends RuntimeException {}

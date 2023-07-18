@@ -1,11 +1,12 @@
 package homework;
 
+@SuppressWarnings({"java:S1135"}) // при выполнении ДЗ эту аннотацию надо удалить
 public class Customer {
     private final long id;
     private String name;
     private long scores;
 
-    //todo: 1. в этом классе надо исправить ошибки
+    // todo: 1. в этом классе надо исправить ошибки
 
     public Customer(long id, String name, long scores) {
         this.id = id;
@@ -35,11 +36,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", scores=" + scores +
-                '}';
+        return "Customer{" + "id=" + id + ", name='" + name + '\'' + ", scores=" + scores + '}';
     }
 
     @Override

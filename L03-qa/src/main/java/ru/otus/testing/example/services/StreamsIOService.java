@@ -8,7 +8,6 @@ public class StreamsIOService implements IOService {
     private final PrintStream out;
     private final Scanner sc;
 
-
     public StreamsIOService(PrintStream out, InputStream in) {
         this.out = out;
         this.sc = new Scanner(in);

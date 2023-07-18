@@ -1,13 +1,11 @@
 package ru.otus.testing.example.services;
 
-
 public class CalculatorServiceImpl implements CalculatorService {
     private final IOService ioService;
 
     public CalculatorServiceImpl(IOService ioService) {
         this.ioService = ioService;
     }
-
 
     @Override
     public void readTwoDigitsAndMultiply() {
