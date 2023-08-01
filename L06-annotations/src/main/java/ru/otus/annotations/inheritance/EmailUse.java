@@ -1,6 +1,4 @@
 package ru.otus.annotations.inheritance;
 
 @ImmutableEmail
-public class EmailUse {
-
-}
+public class EmailUse {}

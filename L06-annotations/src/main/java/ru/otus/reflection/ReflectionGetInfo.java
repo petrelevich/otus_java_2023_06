@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-
+@SuppressWarnings("java:S106")
 public class ReflectionGetInfo {
     public static void main(String[] args) throws NoSuchMethodException {
 

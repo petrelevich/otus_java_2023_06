@@ -2,6 +2,7 @@ package ru.otus.reflection;
 
 import java.lang.reflect.Array;
 
+@SuppressWarnings("java:S106")
 public class ReflectionArray {
     public static void main(String[] args) {
         int[] arrayInt = new int[0];

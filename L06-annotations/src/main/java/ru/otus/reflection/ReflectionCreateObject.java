@@ -3,6 +3,7 @@ package ru.otus.reflection;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
+@SuppressWarnings("java:S106")
 public class ReflectionCreateObject {
     public static void main(String[] args) throws Exception {
 

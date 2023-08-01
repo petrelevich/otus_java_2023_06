@@ -1,5 +1,6 @@
 package ru.otus.annotations.inheritance;
 
+@SuppressWarnings("java:S106")
 public class Demo {
     public static void main(String[] args) {
 
@@ -13,7 +14,8 @@ public class Demo {
 
         Class<?> clazzChild = EmailUseChild.class;
 
-        System.out.println("immutableEmail:" + clazzChild.isAnnotationPresent(ImmutableEmail.class));
+        System.out.println(
+                "immutableEmail:" + clazzChild.isAnnotationPresent(ImmutableEmail.class));
         System.out.println("email:" + clazzChild.isAnnotationPresent(Email.class));
         System.out.println("immutable:" + clazzChild.isAnnotationPresent(Immutable.class));
 

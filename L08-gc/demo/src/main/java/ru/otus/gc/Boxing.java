@@ -1,6 +1,5 @@
 package ru.otus.gc;
 
-
 /*
 -Xms256m
 -Xmx256m
@@ -8,10 +7,11 @@ package ru.otus.gc;
 -XX:+UseG1GC
 */
 
+@SuppressWarnings({"java:S106", "java:S1144", "java:S125"})
 public class Boxing {
     public static void main(String[] args) throws InterruptedException {
         calcInteger();
-//        calcInt();
+        //        calcInt();
         System.out.println("done");
     }
 
@@ -28,7 +28,6 @@ public class Boxing {
         }
         System.out.println(counter);
     }
-
 
     private static void calcInt() throws InterruptedException {
         final int limit = Integer.MAX_VALUE;

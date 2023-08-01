@@ -1,7 +1,6 @@
 package ru.otus.gc.bench;
 
 import com.sun.management.GarbageCollectionNotificationInfo;
-
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.util.List;
@@ -35,6 +34,7 @@ VM options:
     -XX:MaxGCPauseMillis=10
 */
 
+@SuppressWarnings({"java:S106", "java:S1130"})
 public class GcDemo {
     private volatile int objectArraySize = 5 * 1000 * 1000;
 
@@ -71,11 +71,16 @@ public class GcDemo {
             for (int idx = 0; idx < local; idx++) {
                 array[idx] = new String(new char[0]);
             }
-            Thread.sleep(10); //Label_1
+            Thread.sleep(10); // Label_1
         }
     }
 
-    private static void switchOnMxBean(GcDemo gcDemo) throws MalformedObjectNameException, NotCompliantMBeanException, InstanceAlreadyExistsException, MBeanRegistrationException, InterruptedException {
+    private static void switchOnMxBean(GcDemo gcDemo)
+            throws MalformedObjectNameException,
+                    NotCompliantMBeanException,
+                    InstanceAlreadyExistsException,
+                    MBeanRegistrationException,
+                    InterruptedException {
         MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
         ObjectName name = new ObjectName("ru.otus:type=gcDemo");
 
@@ -84,25 +89,44 @@ public class GcDemo {
     }
 
     private static void switchOnMonitoring() {
-        List<GarbageCollectorMXBean> gcbeans = java.lang.management.ManagementFactory.getGarbageCollectorMXBeans();
+        List<GarbageCollectorMXBean> gcbeans =
+                java.lang.management.ManagementFactory.getGarbageCollectorMXBeans();
         for (GarbageCollectorMXBean gcbean : gcbeans) {
             System.out.println("GC name:" + gcbean.getName());
             NotificationEmitter emitter = (NotificationEmitter) gcbean;
-            NotificationListener listener = (notification, handback) -> {
-                GarbageCollectionNotificationInfo info = GarbageCollectionNotificationInfo
-                        .from((CompositeData) notification.getUserData());
-                String gcName = info.getGcName();
-                String gcAction = info.getGcAction();
-                String gcCause = info.getGcCause();
+            NotificationListener listener =
+                    (notification, handback) -> {
+                        GarbageCollectionNotificationInfo info =
+                                GarbageCollectionNotificationInfo.from(
+                                        (CompositeData) notification.getUserData());
+                        String gcName = info.getGcName();
+                        String gcAction = info.getGcAction();
+                        String gcCause = info.getGcCause();
 
-                long startTime = info.getGcInfo().getStartTime();
-                long duration = info.getGcInfo().getDuration();
+                        long startTime = info.getGcInfo().getStartTime();
+                        long duration = info.getGcInfo().getDuration();
 
-                System.out.println("start:" + startTime + " Name:" + gcName + ", action:" + gcAction + ", gcCause:" + gcCause + "(" + duration + " ms)");
-            };
+                        System.out.println(
+                                "start:"
+                                        + startTime
+                                        + " Name:"
+                                        + gcName
+                                        + ", action:"
+                                        + gcAction
+                                        + ", gcCause:"
+                                        + gcCause
+                                        + "("
+                                        + duration
+                                        + " ms)");
+                    };
             emitter.addNotificationListener(
                     listener,
-                    notification -> notification.getType().equals(GarbageCollectionNotificationInfo.GARBAGE_COLLECTION_NOTIFICATION),
+                    notification ->
+                            notification
+                                    .getType()
+                                    .equals(
+                                            GarbageCollectionNotificationInfo
+                                                    .GARBAGE_COLLECTION_NOTIFICATION),
                     null);
         }
     }

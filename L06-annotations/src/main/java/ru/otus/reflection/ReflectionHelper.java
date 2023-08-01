@@ -2,10 +2,9 @@ package ru.otus.reflection;
 
 import java.util.Arrays;
 
-
+@SuppressWarnings({"java:S3011", "java:S112"})
 public class ReflectionHelper {
-    private ReflectionHelper() {
-    }
+    private ReflectionHelper() {}
 
     public static Object getFieldValue(Object object, String name) {
         try {

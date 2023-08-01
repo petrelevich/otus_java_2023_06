@@ -1,5 +1,6 @@
 package ru.otus.reflection;
 
+@SuppressWarnings("java:S106")
 public class Auseful {
     public static void main(String[] args) throws Exception {
 
@@ -17,9 +18,11 @@ public class Auseful {
 
         Class<?> list = Class.forName("java.util.ArrayList");
         var isIterableList = Iterable.class.isAssignableFrom(list);
-        System.out.println("isIterableString:" + isIterableString + ", isIterableList:" + isIterableList);
+        System.out.println(
+                "isIterableString:" + isIterableString + ", isIterableList:" + isIterableList);
 
-        var hasAnnotation = DemoClass.class.getMethod("toString").isAnnotationPresent(SimpleAnnotation.class);
+        var hasAnnotation =
+                DemoClass.class.getMethod("toString").isAnnotationPresent(SimpleAnnotation.class);
         System.out.println("hasAnnotation:" + hasAnnotation);
     }
 }

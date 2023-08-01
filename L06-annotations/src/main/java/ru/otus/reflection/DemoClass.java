@@ -1,5 +1,6 @@
 package ru.otus.reflection;
 
+@SuppressWarnings({"java:S106", "java:S1104", "java:S1144"})
 public class DemoClass {
 
     public int publicFieldForDemo;
@@ -10,7 +11,6 @@ public class DemoClass {
         this.valuePrivate = valuePrivate;
     }
 
-
     public String getValuePrivate() {
         return valuePrivate;
     }
@@ -19,7 +19,6 @@ public class DemoClass {
         this.valuePrivate = valuePrivate;
     }
 
-
     private void privateMethod() {
         System.out.println("privateMethod executed");
     }
@@ -27,9 +26,12 @@ public class DemoClass {
     @Override
     @SimpleAnnotation
     public String toString() {
-        return "DemoClass{" +
-                "publicFieldForDemo=" + publicFieldForDemo +
-                ", value='" + valuePrivate + '\'' +
-                '}';
+        return "DemoClass{"
+                + "publicFieldForDemo="
+                + publicFieldForDemo
+                + ", value='"
+                + valuePrivate
+                + '\''
+                + '}';
     }
 }

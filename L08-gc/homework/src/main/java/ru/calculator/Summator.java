@@ -11,7 +11,7 @@ public class Summator {
     private Integer someValue = 0;
     private final List<Data> listValues = new ArrayList<>();
 
-    //!!! сигнатуру метода менять нельзя
+    // !!! сигнатуру метода менять нельзя
     public void calc(Data data) {
         listValues.add(data);
         if (listValues.size() % 6_600_000 == 0) {

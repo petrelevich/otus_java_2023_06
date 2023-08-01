@@ -2,7 +2,7 @@ package ru.otus.gc.bench;
 
 public interface GcDemoControlMBean {
 
-  int getObjectArraySize();
+    int getObjectArraySize();
 
-  void setObjectArraySize(int size);
+    void setObjectArraySize(int size);
 }

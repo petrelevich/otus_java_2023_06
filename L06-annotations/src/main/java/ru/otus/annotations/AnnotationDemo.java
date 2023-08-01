@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+@SuppressWarnings("java:S106")
 public class AnnotationDemo {
     public static void main(String[] args) {
         AnyClass anyClass = new AnyClass(1, 2);
@@ -19,12 +20,13 @@ public class AnnotationDemo {
             if (annotations.length > 0) {
                 System.out.printf("method \"%s\", has annotations:%n", method.getName());
             }
-            for(Annotation annotation: annotations) {
+            for (Annotation annotation : annotations) {
                 System.out.print("\t");
                 System.out.println(annotation.annotationType().getName());
                 if (annotation instanceof AnnotationMethod annotationMethod) {
                     System.out.print("\t\t");
-                    System.out.printf("AnnotationMethod runLevel = %d", annotationMethod.runLevel());
+                    System.out.printf(
+                            "AnnotationMethod runLevel = %d", annotationMethod.runLevel());
                 }
             }
         }

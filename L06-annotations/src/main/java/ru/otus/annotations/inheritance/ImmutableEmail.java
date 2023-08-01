@@ -11,5 +11,4 @@ import java.lang.annotation.Target;
 @Email
 @Immutable
 @Inherited
-public @interface ImmutableEmail {
-}
+public @interface ImmutableEmail {}

@@ -1,13 +1,12 @@
 package ru.otus.gc.bench;
 
-
+@SuppressWarnings("java:S106")
 class GcDemoControl implements GcDemoControlMBean {
     private final GcDemo gcDemo;
 
     public GcDemoControl(GcDemo gcDemo) {
         this.gcDemo = gcDemo;
     }
-
 
     @Override
     public int getObjectArraySize() {
