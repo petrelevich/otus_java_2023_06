@@ -12,7 +12,7 @@ public class Demo {
         producer.event("eventA");
         producer.event("eventB");
 
-        //Критически важно удалять, когда не нужны
+        // Критически важно удалять, когда не нужны
         producer.removeListener(consumerA);
         producer.removeListener(consumerB.getListener());
 

@@ -1,5 +1,6 @@
 package ru.otus.objectpool;
 
+@SuppressWarnings("java:S106")
 public class ConnectionPostgres implements Connection {
     @Override
     public void connect() {
@@ -17,8 +18,7 @@ public class ConnectionPostgres implements Connection {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
-            new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
     }
-
 }

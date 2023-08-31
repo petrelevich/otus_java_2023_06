@@ -1,7 +1,9 @@
 package ru.otus.singleton;
 
+@SuppressWarnings({"java:S106", "java:S1192"})
 public class LazySingleton {
     private static LazySingleton instance = null;
+
     private LazySingleton() {
         System.out.println("run constructor");
     }
@@ -16,7 +18,8 @@ public class LazySingleton {
         return instance;
     }
 
-    public synchronized static LazySingleton getInstance2() {
+    @SuppressWarnings({"java:S106", "java:S1192", "java:S4144", "java:S2168"})
+    public static synchronized LazySingleton getInstance2() {
         // ок, но медленно
         if (instance == null) {
             System.out.println("lazy init");
@@ -26,8 +29,10 @@ public class LazySingleton {
         return instance;
     }
 
+    @SuppressWarnings("java:S2168")
     public static LazySingleton getInstance3() {
-        // сложно и не работает - см https://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html
+        // сложно и не работает - см
+        // https://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html
         if (instance == null) {
             synchronized (LazySingleton.class) {
                 if (instance == null) {
@@ -41,6 +46,7 @@ public class LazySingleton {
     }
 }
 
+@SuppressWarnings({"java:S106", "java:S3457"})
 class LazySingletonDemo {
     public static void main(String[] args) {
         System.out.println("--- begin ---");

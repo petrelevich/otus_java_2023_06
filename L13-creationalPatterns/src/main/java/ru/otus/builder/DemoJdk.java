@@ -1,26 +1,23 @@
 package ru.otus.builder;
 
+import static java.util.Calendar.MONDAY;
+
 import java.util.Calendar;
 import java.util.Locale;
 
-import static java.util.Calendar.MONDAY;
-
-/**
- * Примеры builder в JDK.
- */
+/** Примеры builder в JDK. */
+@SuppressWarnings({"java:S106", "java:S1854", "java:S1481"})
 public class DemoJdk {
     public static void main(String[] args) {
         // Locale
-        Locale locale = new Locale.Builder()
-                .setLanguage("ru")
-                .setRegion("RU")
-                .build();
+        Locale locale = new Locale.Builder().setLanguage("ru").setRegion("RU").build();
 
         // Calendar
-        Calendar cal = new Calendar.Builder()
-                .setCalendarType("iso8601")
-                .setWeekDate(2021, 1, MONDAY)
-                .build();
+        Calendar cal =
+                new Calendar.Builder()
+                        .setCalendarType("iso8601")
+                        .setWeekDate(2021, 1, MONDAY)
+                        .build();
 
         // StringBuilder
         // not fluent
@@ -34,10 +31,7 @@ public class DemoJdk {
         System.out.println(str);
 
         // fluent
-        StringBuilder builder2 = new StringBuilder()
-                .append("aa ")
-                .append("bb ")
-                .append("cc");
+        StringBuilder builder2 = new StringBuilder().append("aa ").append("bb ").append("cc");
 
         String str2 = builder2.toString();
 

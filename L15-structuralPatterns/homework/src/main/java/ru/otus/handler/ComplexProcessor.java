@@ -1,12 +1,11 @@
 package ru.otus.handler;
 
-import ru.otus.model.Message;
-import ru.otus.listener.Listener;
-import ru.otus.processor.Processor;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import ru.otus.listener.Listener;
+import ru.otus.model.Message;
+import ru.otus.processor.Processor;
 
 public class ComplexProcessor implements Handler {
 
@@ -44,12 +43,13 @@ public class ComplexProcessor implements Handler {
     }
 
     private void notify(Message msg) {
-        listeners.forEach(listener -> {
-            try {
-                listener.onUpdated(msg);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
+        listeners.forEach(
+                listener -> {
+                    try {
+                        listener.onUpdated(msg);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                });
     }
 }

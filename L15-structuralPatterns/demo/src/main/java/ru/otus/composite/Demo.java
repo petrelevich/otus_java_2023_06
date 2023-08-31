@@ -1,8 +1,7 @@
 package ru.otus.composite;
 
-/**
- * <img src="http://starcraft.7x.ru/site.starcraft.ru/strategy/part_01_screen01-1.gif"/>
- */
+/** <img src="http://starcraft.7x.ru/site.starcraft.ru/strategy/part_01_screen01-1.gif"/> */
+@SuppressWarnings("java:S106")
 public class Demo {
     public static void main(String[] args) {
         Unit marine1 = new Marine();

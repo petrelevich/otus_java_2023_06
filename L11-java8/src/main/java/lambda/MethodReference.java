@@ -1,5 +1,6 @@
 package lambda;
 
+@SuppressWarnings("java:S1612")
 public class MethodReference {
     public interface Finder {
         public int find(String s1, String s2);

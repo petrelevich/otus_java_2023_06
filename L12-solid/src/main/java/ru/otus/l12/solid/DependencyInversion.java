@@ -1,18 +1,14 @@
 package ru.otus.l12.solid;
 
 /**
- * @author sergey
- * created on 09.09.19.
+ * @author sergey created on 09.09.19.
  */
+@SuppressWarnings("java:S1068")
 public class DependencyInversion {
 
-    interface SteeringWheel {
+    interface SteeringWheel {}
 
-    }
-
-    interface Engine {
-
-    }
+    interface Engine {}
 
     /*неправильно*/
     class CarInvalid {
@@ -36,11 +32,7 @@ public class DependencyInversion {
         }
     }
 
-    class GasEngine implements Engine {
-    }
+    class GasEngine implements Engine {}
 
-    class GenericWheel implements SteeringWheel {
-    }
+    class GenericWheel implements SteeringWheel {}
 }
-
-

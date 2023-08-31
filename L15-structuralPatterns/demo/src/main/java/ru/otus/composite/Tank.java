@@ -1,8 +1,7 @@
 package ru.otus.composite;
 
-/**
- * Танк.
- */
+/** Танк. */
+@SuppressWarnings("java:S106")
 public class Tank implements Unit {
     @Override
     public void move() {

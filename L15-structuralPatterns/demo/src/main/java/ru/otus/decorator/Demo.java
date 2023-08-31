@@ -1,6 +1,6 @@
 package ru.otus.decorator;
 
-
+@SuppressWarnings({"java:S106", "java:S125"})
 public class Demo {
     public static void main(String[] args) {
         var ds = new DataSourceImpl();
@@ -13,11 +13,11 @@ public class Demo {
         // Пример из JDK - система ввода вывода
         // InputStream, FileInputStream, BufferedInputStream
 
-//        FileInputStream fis = new FileInputStream("/objects.gz");
-//        BufferedInputStream bis = new BufferedInputStream(fis);
-//        GzipInputStream gis = new GzipInputStream(bis);
-//        ObjectInputStream ois = new ObjectInputStream(gis);
-//        SomeObject someObject = (SomeObject) ois.readObject();
+        //        FileInputStream fis = new FileInputStream("/objects.gz");
+        //        BufferedInputStream bis = new BufferedInputStream(fis);
+        //        GzipInputStream gis = new GzipInputStream(bis);
+        //        ObjectInputStream ois = new ObjectInputStream(gis);
+        //        SomeObject someObject = (SomeObject) ois.readObject();
     }
 
     private static void printer(DataSource ds) {

@@ -3,6 +3,7 @@ package ru.outs.command;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
+@SuppressWarnings("java:S106")
 class Executor {
     private final SomeObject object;
     private final Queue<Command> commands = new ArrayDeque<>();

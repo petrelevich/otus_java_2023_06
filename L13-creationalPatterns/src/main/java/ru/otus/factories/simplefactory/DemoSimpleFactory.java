@@ -1,11 +1,10 @@
 package ru.otus.factories.simplefactory;
 
 /**
- * @author sergey
- * created on 19.09.18.
- * @author spv
- * edited 28.08.20.
+ * @author sergey created on 19.09.18.
+ * @author spv edited 28.08.20.
  */
+@SuppressWarnings("java:S106")
 public class DemoSimpleFactory {
     public static void main(String[] args) {
         // Пример:
@@ -55,5 +54,4 @@ public class DemoSimpleFactory {
     private static void readData(Configuration config) {
         System.out.println(config.params());
     }
-
 }

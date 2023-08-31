@@ -2,6 +2,7 @@ package ru.otus.l12.encapsulation.demo2;
 
 import ru.otus.l12.encapsulation.demo1.Department;
 
+@SuppressWarnings({"java:S106"})
 public class EncapsusationDemo2 {
 
     public static void main(String[] args) {
@@ -23,5 +24,4 @@ public class EncapsusationDemo2 {
             System.out.println(department);
         }
     }
-
 }

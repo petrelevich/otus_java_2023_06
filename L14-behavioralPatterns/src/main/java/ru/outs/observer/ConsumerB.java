@@ -1,5 +1,6 @@
 package ru.outs.observer;
 
+@SuppressWarnings("java:S106")
 public class ConsumerB {
 
     /*
@@ -8,7 +9,6 @@ public class ConsumerB {
      */
 
     private static final Listener listener = data -> System.out.println("ConsumerB data:" + data);
-
 
     public Listener getListener() {
         return listener;

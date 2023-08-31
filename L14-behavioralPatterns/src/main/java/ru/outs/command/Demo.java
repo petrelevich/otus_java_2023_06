@@ -1,18 +1,19 @@
 package ru.outs.command;
 
+@SuppressWarnings("java:S106")
 public class Demo {
-  public static void main(String[] args) {
-    var object = new SomeObject("initVal");
-    var executor = new Executor(object);
+    public static void main(String[] args) {
+        var object = new SomeObject("initVal");
+        var executor = new Executor(object);
 
-    // нужную операцию выделяем в отдельный класс
-    executor.addCommand(new AdderABC());
-    executor.addCommand(new Echo());
-    executor.addCommand(new AdderABC());
+        // нужную операцию выделяем в отдельный класс
+        executor.addCommand(new AdderABC());
+        executor.addCommand(new Echo());
+        executor.addCommand(new AdderABC());
 
-    // при необходимости можно выполнить позднее
-    executor.executeCommands();
+        // при необходимости можно выполнить позднее
+        executor.executeCommands();
 
-    System.out.println("result object:" + object);
-  }
+        System.out.println("result object:" + object);
+    }
 }

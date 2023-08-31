@@ -10,6 +10,7 @@ import ru.otus.annotations.inheritance.Immutable;
 @SuppressWarnings({
     "ResultOfMethodCallIgnored",
     "UnusedReturnValue",
+    "unchecked",
     "java:S1133",
     "java:S4968",
     "java:S1123"

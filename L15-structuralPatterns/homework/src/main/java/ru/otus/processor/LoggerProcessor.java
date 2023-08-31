@@ -2,8 +2,8 @@ package ru.otus.processor;
 
 import ru.otus.model.Message;
 
+@SuppressWarnings("java:S106")
 public class LoggerProcessor implements Processor {
-
 
     private final Processor processor;
 

@@ -2,11 +2,12 @@ package ru.outs.memento;
 
 import java.time.LocalDateTime;
 
+@SuppressWarnings("java:S106")
 public class Demo {
     public static void main(String[] args) {
         var originator = new Originator(LocalDateTime::now);
 
-        var abc = new State(new String[]{"A", "B", "C"});
+        var abc = new State(new String[] {"A", "B", "C"});
         System.out.println(abc);
 
         originator.saveState(abc);

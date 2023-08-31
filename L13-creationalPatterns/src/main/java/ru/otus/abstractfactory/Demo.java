@@ -4,8 +4,7 @@ import ru.otus.abstractfactory.led.LedFactory;
 import ru.otus.abstractfactory.luminescent.LuminescentFactory;
 
 /**
- * @author sergey
- * created on 17.09.18.
+ * @author sergey created on 17.09.18.
  */
 public class Demo {
 

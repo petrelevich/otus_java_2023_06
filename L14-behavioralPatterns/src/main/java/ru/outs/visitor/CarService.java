@@ -1,5 +1,6 @@
 package ru.outs.visitor;
 
+@SuppressWarnings("java:S106")
 public class CarService implements Visitor {
     @Override
     public void visit(Engine item) {

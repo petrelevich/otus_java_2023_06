@@ -1,15 +1,13 @@
 package ru.otus.objectpool;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-
-/**
- * Примеры Object Poll в JDK.
- */
+/** Примеры Object Poll в JDK. */
+@SuppressWarnings({"java:S106", "java:S4973", "java:S2129", "java:S1192"})
 public class DemoJdk {
 
     public static void main(String[] args) throws InterruptedException {

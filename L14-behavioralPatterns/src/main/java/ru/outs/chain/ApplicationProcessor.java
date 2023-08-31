@@ -1,5 +1,6 @@
 package ru.outs.chain;
 
+@SuppressWarnings("java:S106")
 abstract class ApplicationProcessor {
     private ApplicationProcessor next;
 

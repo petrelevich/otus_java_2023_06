@@ -3,8 +3,9 @@ package ru.outs.memento;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+@SuppressWarnings("java:S106")
 class Originator {
-    //Фактически, это stack
+    // Фактически, это stack
     private final Deque<Memento> stack = new ArrayDeque<>();
 
     private final DateTimeProvider dateTimeProvider;

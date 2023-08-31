@@ -5,11 +5,16 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-/**
- * author: Dmitry Arkhangelskiy
- * Изобретаем свои лямбды
- */
-@SuppressWarnings({"WeakerAccess", "SameParameterValue"})
+/** author: Dmitry Arkhangelskiy Изобретаем свои лямбды */
+@SuppressWarnings({
+    "WeakerAccess",
+    "SameParameterValue",
+    "java:S106",
+    "java:S1854",
+    "java:S4276",
+    "java:S1612",
+    "java:S1481"
+})
 public class MapReduceExample {
 
     // Integer -> Double
@@ -44,8 +49,7 @@ public class MapReduceExample {
     static <R> Collection<R> filter(Collection<R> src, Predicate<R> pred) {
         List<R> r = new ArrayList<>();
         for (R t : src) {
-            if (pred.test(t))
-                r.add(t);
+            if (pred.test(t)) r.add(t);
         }
         return r;
     }
@@ -66,5 +70,4 @@ public class MapReduceExample {
         // mySqrt() is Integer -> Double so it can be referenced as Function<Double, Integer>
         Function<Integer, Double> func2 = MapReduceExample::mySqrt;
     }
-
 }

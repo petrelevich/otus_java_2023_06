@@ -1,9 +1,9 @@
 package ru.otus.flyweight;
 
 /**
- * @author sergey
- * created on 16.01.19.
+ * @author sergey created on 16.01.19.
  */
+@SuppressWarnings("java:S106")
 public class Demo {
     public static void main(String[] args) {
         var objectFactory = new ObjectFactory();

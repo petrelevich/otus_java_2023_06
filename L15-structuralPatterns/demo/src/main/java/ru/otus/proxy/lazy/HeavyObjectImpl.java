@@ -1,5 +1,6 @@
 package ru.otus.proxy.lazy;
 
+@SuppressWarnings("java:S106")
 public class HeavyObjectImpl implements HeavyObject {
 
     private String value;
@@ -24,8 +25,6 @@ public class HeavyObjectImpl implements HeavyObject {
 
     @Override
     public String toString() {
-        return "HeavyObject{" +
-                "value='" + value + '\'' +
-                '}';
+        return "HeavyObject{" + "value='" + value + '\'' + '}';
     }
 }

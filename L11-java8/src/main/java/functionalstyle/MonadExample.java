@@ -3,6 +3,7 @@ package functionalstyle;
 import java.util.ArrayList;
 import java.util.Optional;
 
+@SuppressWarnings({"java:S106", "java:S1192"})
 public class MonadExample {
     public static void main(String[] args) {
         var monadExample = new MonadExample();
@@ -15,7 +16,6 @@ public class MonadExample {
 
         result = monadExample.functionWrong(null);
         System.out.println(result);
-
 
         System.out.println("------------------");
         result = monadExample.functionNorm("functionNorm");
@@ -32,7 +32,7 @@ public class MonadExample {
                 .orElse("param is NULL");
     }
 
-    //некорректное использование монады
+    // некорректное использование монады
     private String functionWrong(String str) {
         Optional<String> optional = anyFunction(str);
 
@@ -42,7 +42,7 @@ public class MonadExample {
         return "param is NULL";
     }
 
-    //но так уже нормально
+    // но так уже нормально
     private String functionNorm(String str) {
         var list = new ArrayList<String>();
         var listUpper = new ArrayList<String>();
@@ -61,7 +61,7 @@ public class MonadExample {
         return "param is NULL";
     }
 
-    //типовое применение - возврат значения, которое может быть null
+    // типовое применение - возврат значения, которое может быть null
     private Optional<String> anyFunction(String val) {
         return Optional.ofNullable(val);
     }

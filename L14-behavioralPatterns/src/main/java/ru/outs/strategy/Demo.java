@@ -1,6 +1,6 @@
 package ru.outs.strategy;
 
-
+@SuppressWarnings("java:S106")
 public class Demo {
     public static void main(String[] args) {
         var context = new Context();

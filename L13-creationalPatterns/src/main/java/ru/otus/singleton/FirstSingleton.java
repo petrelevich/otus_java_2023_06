@@ -1,8 +1,8 @@
 package ru.otus.singleton;
 
+@SuppressWarnings("java:S106")
 public class FirstSingleton {
-    private static final FirstSingleton instance =
-            new FirstSingleton();
+    private static final FirstSingleton instance = new FirstSingleton();
 
     // ! private constructor
     private FirstSingleton() {
@@ -15,6 +15,7 @@ public class FirstSingleton {
     }
 }
 
+@SuppressWarnings({"java:S106", "java:S3457"})
 class FirstSingletonDemo {
     public static void main(String[] args) {
         System.out.println("--- begin ---");

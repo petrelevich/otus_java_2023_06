@@ -3,16 +3,17 @@ package stream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@SuppressWarnings("java:S106")
 public class StudentExample {
 
-
     public static void main(String[] args) {
-        var students = List.of(new Student("Alex", 22, 5, 4.5),
-                new Student("Maria", 22, 5, 3.5),
-                new Student("John", 12, 4, 4.7),
-                new Student("Bob", 22, 5, 4.8));
+        var students =
+                List.of(
+                        new Student("Alex", 22, 5, 4.5),
+                        new Student("Maria", 22, 5, 3.5),
+                        new Student("John", 12, 4, 4.7),
+                        new Student("Bob", 22, 5, 4.8));
 
         var result = new ArrayList<Student>();
         // Напечатать имена топ-студентов 5го курса с оценкой больше 4, по убыванию
@@ -27,22 +28,23 @@ public class StudentExample {
             System.out.println(student.name());
         }
 
-        //обратите внимание: это чистая функция получения результата
-        var resultNew = students.stream()
-                .filter(student -> student.avgMark() > 4)
-                .filter(student -> student.course() == 5)
-                .sorted(Comparator.comparingDouble(Student::avgMark).reversed())
-                .toList();
+        // обратите внимание: это чистая функция получения результата
+        var resultNew =
+                students.stream()
+                        .filter(student -> student.avgMark() > 4)
+                        .filter(student -> student.course() == 5)
+                        .sorted(Comparator.comparingDouble(Student::avgMark).reversed())
+                        .toList();
 
-        //обратите внимание: побочный эффект в виде вывода на консоль отделен от чистого кода
+        // обратите внимание: побочный эффект в виде вывода на консоль отделен от чистого кода
         resultNew.forEach(student -> System.out.println(student.name()));
 
-        //идеологически так лучше
+        // идеологически так лучше
         for (var student : resultNew) {
             System.out.println(student);
         }
 
-        //пример гнусного применения. Изменяем другой объект из лямбда-функции.
+        // пример гнусного применения. Изменяем другой объект из лямбда-функции.
         var resultNew2 = new ArrayList<Student>();
         students.stream()
                 .filter(student -> student.avgMark() > 4)

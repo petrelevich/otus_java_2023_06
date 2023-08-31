@@ -1,8 +1,7 @@
 package ru.otus.adapter;
 
-/**
- * SDS-адаптер.
- */
+/** SDS-адаптер. */
+@SuppressWarnings("java:S106")
 public class SDSadapter implements SDSdril {
     private final Drill drill;
 

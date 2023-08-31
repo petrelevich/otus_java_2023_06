@@ -1,9 +1,6 @@
 package ru.otus.adapter;
 
-
-/**
- * Перфоратор
- */
+/** Перфоратор */
 public class RotaryHammer {
     public void drill(SDSdril sds) {
         sds.action();

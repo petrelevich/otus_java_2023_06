@@ -5,30 +5,31 @@ import java.util.Collection;
 import java.util.HashSet;
 
 /**
- * @author sergey
- * created on 09.09.19.
+ * @author sergey created on 09.09.19.
  */
+@SuppressWarnings({"java:S1144", "java:S106", "java:S2094"})
 public class OpenClosed {
 
-    //Плохой пример
-    //Эту функцию без модификации не получится использовать, например, с TreeSet и другим алгоритмом
+    // Плохой пример
+    // Эту функцию без модификации не получится использовать, например, с TreeSet и другим
+    // алгоритмом
     private void messageProcessing(ArrayList<Message> messageList) {
         messageList.forEach(msg -> System.out.println(msg.toString()));
     }
 
-    //Хороший пример
+    // Хороший пример
     private void messageProcessing(Collection<Message> messageList, Processor<Message> processor) {
         messageList.forEach(processor::action);
     }
 
-    //применение хорошего примера
-    //messageProcessing можно использовать без изменений
+    // применение хорошего примера
+    // messageProcessing можно использовать без изменений
     void good() {
 
-        //использование 1 (вызов, например, из другого класса)
+        // использование 1 (вызов, например, из другого класса)
         messageProcessing(new HashSet<>(), msg -> System.out.println(msg.toString()));
 
-        //использование 2 (вызов, например, из другого класса)
+        // использование 2 (вызов, например, из другого класса)
         messageProcessing(new ArrayList<>(), new Processor2());
     }
 
@@ -45,6 +46,5 @@ public class OpenClosed {
         void action(T msg);
     }
 
-    private class Message {
-    }
+    private class Message {}
 }

@@ -1,9 +1,9 @@
 package ru.otus.l12.solid;
 
 /**
- * @author sergey
- * created on 09.09.19.
+ * @author sergey created on 09.09.19.
  */
+@SuppressWarnings({"java:S106"})
 public class LiskovSubstitution {
 
     /*
@@ -33,7 +33,8 @@ public class LiskovSubstitution {
 
         System.out.println();
         System.out.println("--- Rectangle rectangleStrange = new Square();");
-        System.out.println("height:" + height + " rectangleStrange.height:" + rectangleStrange.height);
+        System.out.println(
+                "height:" + height + " rectangleStrange.height:" + rectangleStrange.height);
         System.out.println("width:" + width + " rectangleStrange.width:" + rectangleStrange.width);
     }
 

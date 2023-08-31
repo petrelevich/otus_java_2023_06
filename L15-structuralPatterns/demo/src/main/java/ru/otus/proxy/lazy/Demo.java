@@ -1,11 +1,10 @@
 package ru.otus.proxy.lazy;
 
-
+@SuppressWarnings("java:S106")
 public class Demo {
     public static void main(String[] args) {
         lazy();
     }
-
 
     private static void lazy() {
         HeavyObject heavyObject = new HeavyObjectImpl();
