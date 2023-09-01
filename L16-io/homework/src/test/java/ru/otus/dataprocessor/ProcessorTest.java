@@ -39,8 +39,8 @@ class ProcessorTest {
         serializer.serialize(aggregatedMeasurements);
 
         // then
-        assertThat(loadedMeasurements.size()).isEqualTo(9);
-        assertThat(aggregatedMeasurements.entrySet().size()).isEqualTo(3);
+        assertThat(loadedMeasurements).hasSize(9);
+        assertThat(aggregatedMeasurements.entrySet()).hasSize(3);
 
         var serializedOutput = Files.readString(Paths.get(fullOutputFilePath));
         // обратите внимание: важен порядок ключей
