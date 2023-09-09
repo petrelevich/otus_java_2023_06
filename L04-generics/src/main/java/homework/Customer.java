@@ -1,7 +1,7 @@
 package homework;
 
 @SuppressWarnings({"java:S1135"}) // при выполнении ДЗ эту аннотацию надо удалить
-public class Customer {
+public class Customer implements Comparable<Customer>{
     private final long id;
     private String name;
     private long scores;
@@ -15,11 +15,11 @@ public class Customer {
     }
 
     public long getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -27,7 +27,7 @@ public class Customer {
     }
 
     public long getScores() {
-        return scores;
+        return this.scores;
     }
 
     public void setScores(long scores) {
@@ -36,7 +36,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" + "id=" + id + ", name='" + name + '\'' + ", scores=" + scores + '}';
+        return "Customer{" + "id=" + this.id + ", name='" + this.name + '\'' + ", scores=" + this.scores + '}';
     }
 
     @Override
@@ -45,17 +45,24 @@ public class Customer {
         if (o == null || getClass() != o.getClass()) return false;
 
         Customer customer = (Customer) o;
-
-        if (id != customer.id) return false;
-        if (scores != customer.scores) return false;
-        return name != null ? name.equals(customer.name) : customer.name == null;
+        return this.id == customer.id;
+        //if (id != customer.id) return false;
+        //if (scores != customer.scores) return false;
+        //return name != null ? name.equals(customer.name) : customer.name == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (int) (scores ^ (scores >>> 32));
+        //result = 31 * result + (name != null ? name.hashCode() : 0);
+        //result = 31 * result + (int) (scores ^ (scores >>> 32));
         return result;
     }
+
+    public int compareTo(Customer anotherCustomer){
+        return Long.compare(this.scores, anotherCustomer.scores);
+    }
+
 }
+
+
