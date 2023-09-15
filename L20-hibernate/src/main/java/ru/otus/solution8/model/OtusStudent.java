@@ -34,7 +34,7 @@ public class OtusStudent {
     @JoinColumn(name = "avatar_id")
     private Avatar avatar;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "student_id")
     private List<EMail> emails;
     //private List<Course> courses;

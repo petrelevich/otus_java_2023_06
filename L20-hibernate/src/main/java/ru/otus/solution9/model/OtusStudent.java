@@ -45,7 +45,7 @@ public class OtusStudent {
     private Avatar avatar;
 
     // Указывает на связь между таблицами "один ко многим"
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "student_id")
     private List<EMail> emails;
 

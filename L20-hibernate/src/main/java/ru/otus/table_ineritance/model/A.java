@@ -3,7 +3,7 @@ package ru.otus.table_ineritance.model;
 import jakarta.persistence.*;
 
 @Entity
-@DiscriminatorColumn(name = "exterminator")
+@DiscriminatorColumn(name = "discriminator")
 @DiscriminatorValue("Root")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@Inheritance(strategy = InheritanceType.JOINED)
