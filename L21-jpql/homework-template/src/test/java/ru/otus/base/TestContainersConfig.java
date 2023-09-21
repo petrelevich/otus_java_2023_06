@@ -7,8 +7,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 public class TestContainersConfig {
     private static final Logger logger = LoggerFactory.getLogger(TestContainersConfig.class);
 
-    public static class CustomPostgreSQLContainer
-            extends PostgreSQLContainer<CustomPostgreSQLContainer> {
+    public static class CustomPostgreSQLContainer extends PostgreSQLContainer<CustomPostgreSQLContainer> {
         private static CustomPostgreSQLContainer container;
         private static final String IMAGE_VERSION = "postgres:12";
 

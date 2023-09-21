@@ -27,25 +27,17 @@ public class ASMdemoCreateClass {
 
         // Вызываем конструктор предка (Object)
         constructor.visitVarInsn(Opcodes.ALOAD, 0);
-        constructor.visitMethodInsn(
-                Opcodes.INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
+        constructor.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
         constructor.visitInsn(Opcodes.RETURN);
         constructor.visitMaxs(0, 0);
         constructor.visitEnd();
 
         // Создаем метод printHi
-        MethodVisitor mv =
-                cw.visitMethod(
-                        Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC, "printHi", "()V", null, null);
+        MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC, "printHi", "()V", null, null);
 
         mv.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
         mv.visitLdcInsn("Hello, World!");
-        mv.visitMethodInsn(
-                Opcodes.INVOKEVIRTUAL,
-                "java/io/PrintStream",
-                "println",
-                "(Ljava/lang/String;)V",
-                false);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
         mv.visitInsn(Opcodes.RETURN);
         mv.visitMaxs(0, 0);
         mv.visitEnd();

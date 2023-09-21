@@ -32,9 +32,7 @@ public class DemoIO {
     public void zipFile(String textFile) throws IOException {
         try (var bufferedInputStream = new BufferedInputStream(new FileInputStream(textFile));
                 var zipOut =
-                        new ZipOutputStream(
-                                new BufferedOutputStream(
-                                        new FileOutputStream(textFile + "_copy.zip")))) {
+                        new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(textFile + "_copy.zip")))) {
 
             var zipEntry = new ZipEntry(textFile);
             zipOut.putNextEntry(zipEntry);

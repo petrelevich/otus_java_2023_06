@@ -26,34 +26,33 @@ public class AsyncRead implements AutoCloseable {
     private final List<String> fileParts = new CopyOnWriteArrayList<>();
     private final CountDownLatch latch = new CountDownLatch(1);
 
-    private final CompletionHandler<Integer, ByteBuffer> completionHandler =
-            new CompletionHandler<>() {
-                private int lastPosition = 0;
+    private final CompletionHandler<Integer, ByteBuffer> completionHandler = new CompletionHandler<>() {
+        private int lastPosition = 0;
 
-                @Override
-                public void completed(Integer readBytes, ByteBuffer attachment) {
-                    logger.info("readBytes:{}", readBytes);
-                    if (readBytes > 0) {
-                        byte[] destArray = new byte[readBytes];
-                        attachment.flip();
-                        attachment.get(destArray, 0, destArray.length);
+        @Override
+        public void completed(Integer readBytes, ByteBuffer attachment) {
+            logger.info("readBytes:{}", readBytes);
+            if (readBytes > 0) {
+                byte[] destArray = new byte[readBytes];
+                attachment.flip();
+                attachment.get(destArray, 0, destArray.length);
 
-                        fileParts.add(new String(destArray));
+                fileParts.add(new String(destArray));
 
-                        buffer.clear();
-                        var position = lastPosition += readBytes;
-                        fileChannel.read(buffer, position, buffer, completionHandler);
-                    } else {
-                        logger.info("read completed");
-                        latch.countDown();
-                    }
-                }
+                buffer.clear();
+                var position = lastPosition += readBytes;
+                fileChannel.read(buffer, position, buffer, completionHandler);
+            } else {
+                logger.info("read completed");
+                latch.countDown();
+            }
+        }
 
-                @Override
-                public void failed(Throwable exc, ByteBuffer attachment) {
-                    logger.error("error:{}", exc.getMessage());
-                }
-            };
+        @Override
+        public void failed(Throwable exc, ByteBuffer attachment) {
+            logger.error("error:{}", exc.getMessage());
+        }
+    };
 
     public static void main(String[] args) throws Exception {
         var executor = Executors.newSingleThreadExecutor();
@@ -64,9 +63,7 @@ public class AsyncRead implements AutoCloseable {
     }
 
     public AsyncRead(ExecutorService executor) throws IOException {
-        fileChannel =
-                AsynchronousFileChannel.open(
-                        Path.of("textFile.txt"), Set.of(StandardOpenOption.READ), executor);
+        fileChannel = AsynchronousFileChannel.open(Path.of("textFile.txt"), Set.of(StandardOpenOption.READ), executor);
     }
 
     private void read() throws InterruptedException {

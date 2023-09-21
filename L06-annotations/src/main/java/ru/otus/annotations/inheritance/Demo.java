@@ -14,8 +14,7 @@ public class Demo {
 
         Class<?> clazzChild = EmailUseChild.class;
 
-        System.out.println(
-                "immutableEmail:" + clazzChild.isAnnotationPresent(ImmutableEmail.class));
+        System.out.println("immutableEmail:" + clazzChild.isAnnotationPresent(ImmutableEmail.class));
         System.out.println("email:" + clazzChild.isAnnotationPresent(Email.class));
         System.out.println("immutable:" + clazzChild.isAnnotationPresent(Immutable.class));
 

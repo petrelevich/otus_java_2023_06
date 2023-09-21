@@ -18,21 +18,20 @@ public class Agent {
 
     public static void premain(String agentArgs, Instrumentation inst) {
         System.out.println("premain");
-        inst.addTransformer(
-                new ClassFileTransformer() {
-                    @Override
-                    public byte[] transform(
-                            ClassLoader loader,
-                            String className,
-                            Class<?> classBeingRedefined,
-                            ProtectionDomain protectionDomain,
-                            byte[] classfileBuffer) {
-                        if (className.equals("ru/otus/aop/instrumentation/setter/MyClass")) {
-                            return addMethod(classfileBuffer);
-                        }
-                        return classfileBuffer;
-                    }
-                });
+        inst.addTransformer(new ClassFileTransformer() {
+            @Override
+            public byte[] transform(
+                    ClassLoader loader,
+                    String className,
+                    Class<?> classBeingRedefined,
+                    ProtectionDomain protectionDomain,
+                    byte[] classfileBuffer) {
+                if (className.equals("ru/otus/aop/instrumentation/setter/MyClass")) {
+                    return addMethod(classfileBuffer);
+                }
+                return classfileBuffer;
+            }
+        });
     }
 
     private static byte[] addMethod(byte[] originalClass) {
@@ -45,8 +44,7 @@ public class Agent {
 
         mv.visitVarInsn(Opcodes.ALOAD, 0);
         mv.visitVarInsn(Opcodes.ILOAD, 1);
-        mv.visitFieldInsn(
-                Opcodes.PUTFIELD, "ru/otus/aop/instrumentation/setter/MyClass", "value", "I");
+        mv.visitFieldInsn(Opcodes.PUTFIELD, "ru/otus/aop/instrumentation/setter/MyClass", "value", "I");
 
         mv.visitInsn(Opcodes.RETURN);
         mv.visitMaxs(0, 0);

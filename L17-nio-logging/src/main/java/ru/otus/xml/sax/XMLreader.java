@@ -12,16 +12,14 @@ import org.xml.sax.SAXException;
 public class XMLreader {
     private static final Logger logger = LoggerFactory.getLogger(XMLreader.class);
 
-    public static void main(String[] args)
-            throws ParserConfigurationException, SAXException, IOException {
+    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
         var file = new File(ClassLoader.getSystemResource("data.xml").getFile());
 
         List<Share> shareList = new XMLreader().parse(file);
         logger.info("shareList:{}", shareList);
     }
 
-    private List<Share> parse(File file)
-            throws ParserConfigurationException, SAXException, IOException {
+    private List<Share> parse(File file) throws ParserConfigurationException, SAXException, IOException {
         var factory = SAXParserFactory.newInstance();
         factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
         factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);

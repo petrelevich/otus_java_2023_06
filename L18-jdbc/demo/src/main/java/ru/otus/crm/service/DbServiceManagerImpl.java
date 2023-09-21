@@ -14,46 +14,41 @@ public class DbServiceManagerImpl implements DBServiceManager {
     private final DataTemplate<Manager> managerDataTemplate;
     private final TransactionRunner transactionRunner;
 
-    public DbServiceManagerImpl(
-            TransactionRunner transactionRunner, DataTemplate<Manager> managerDataTemplate) {
+    public DbServiceManagerImpl(TransactionRunner transactionRunner, DataTemplate<Manager> managerDataTemplate) {
         this.transactionRunner = transactionRunner;
         this.managerDataTemplate = managerDataTemplate;
     }
 
     @Override
     public Manager saveManager(Manager manager) {
-        return transactionRunner.doInTransaction(
-                connection -> {
-                    if (manager.getNo() == null) {
-                        var managerNo = managerDataTemplate.insert(connection, manager);
-                        var createdManager =
-                                new Manager(managerNo, manager.getLabel(), manager.getParam1());
-                        log.info("created manager: {}", createdManager);
-                        return createdManager;
-                    }
-                    managerDataTemplate.update(connection, manager);
-                    log.info("updated manager: {}", manager);
-                    return manager;
-                });
+        return transactionRunner.doInTransaction(connection -> {
+            if (manager.getNo() == null) {
+                var managerNo = managerDataTemplate.insert(connection, manager);
+                var createdManager = new Manager(managerNo, manager.getLabel(), manager.getParam1());
+                log.info("created manager: {}", createdManager);
+                return createdManager;
+            }
+            managerDataTemplate.update(connection, manager);
+            log.info("updated manager: {}", manager);
+            return manager;
+        });
     }
 
     @Override
     public Optional<Manager> getManager(long no) {
-        return transactionRunner.doInTransaction(
-                connection -> {
-                    var managerOptional = managerDataTemplate.findById(connection, no);
-                    log.info("manager: {}", managerOptional);
-                    return managerOptional;
-                });
+        return transactionRunner.doInTransaction(connection -> {
+            var managerOptional = managerDataTemplate.findById(connection, no);
+            log.info("manager: {}", managerOptional);
+            return managerOptional;
+        });
     }
 
     @Override
     public List<Manager> findAll() {
-        return transactionRunner.doInTransaction(
-                connection -> {
-                    var managerList = managerDataTemplate.findAll(connection);
-                    log.info("managerList:{}", managerList);
-                    return managerList;
-                });
+        return transactionRunner.doInTransaction(connection -> {
+            var managerList = managerDataTemplate.findAll(connection);
+            log.info("managerList:{}", managerList);
+            return managerList;
+        });
     }
 }

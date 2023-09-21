@@ -26,21 +26,20 @@ public class Agent {
 
     public static void premain(String agentArgs, Instrumentation inst) {
         System.out.println("premain");
-        inst.addTransformer(
-                new ClassFileTransformer() {
-                    @Override
-                    public byte[] transform(
-                            ClassLoader loader,
-                            String className,
-                            Class<?> classBeingRedefined,
-                            ProtectionDomain protectionDomain,
-                            byte[] classfileBuffer) {
-                        if (className.equals("ru/otus/aop/instrumentation/proxy/MyClassImpl")) {
-                            return addProxyMethod(classfileBuffer);
-                        }
-                        return classfileBuffer;
-                    }
-                });
+        inst.addTransformer(new ClassFileTransformer() {
+            @Override
+            public byte[] transform(
+                    ClassLoader loader,
+                    String className,
+                    Class<?> classBeingRedefined,
+                    ProtectionDomain protectionDomain,
+                    byte[] classfileBuffer) {
+                if (className.equals("ru/otus/aop/instrumentation/proxy/MyClassImpl")) {
+                    return addProxyMethod(classfileBuffer);
+                }
+                return classfileBuffer;
+            }
+        });
     }
 
     private static byte[] addProxyMethod(byte[] originalClass) {
@@ -48,63 +47,41 @@ public class Agent {
         var proxiedMethodName = "secureAccessProxied";
         var cr = new ClassReader(originalClass);
         var cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS);
-        ClassVisitor cv =
-                new ClassVisitor(Opcodes.ASM5, cw) {
-                    @Override
-                    public MethodVisitor visitMethod(
-                            int access,
-                            String name,
-                            String descriptor,
-                            String signature,
-                            String[] exceptions) {
-                        if (name.equals(originalMethodName)) {
-                            return super.visitMethod(
-                                    access, proxiedMethodName, descriptor, signature, exceptions);
-                        } else {
-                            return super.visitMethod(
-                                    access, name, descriptor, signature, exceptions);
-                        }
-                    }
-                };
+        ClassVisitor cv = new ClassVisitor(Opcodes.ASM5, cw) {
+            @Override
+            public MethodVisitor visitMethod(
+                    int access, String name, String descriptor, String signature, String[] exceptions) {
+                if (name.equals(originalMethodName)) {
+                    return super.visitMethod(access, proxiedMethodName, descriptor, signature, exceptions);
+                } else {
+                    return super.visitMethod(access, name, descriptor, signature, exceptions);
+                }
+            }
+        };
         cr.accept(cv, Opcodes.ASM5);
 
-        MethodVisitor mv =
-                cw.visitMethod(
-                        Opcodes.ACC_PUBLIC,
-                        originalMethodName,
-                        STRING_FIELD_DESCRIPTOR,
-                        null,
-                        null);
+        MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC, originalMethodName, STRING_FIELD_DESCRIPTOR, null, null);
 
-        var handle =
-                new Handle(
-                        H_INVOKESTATIC,
-                        Type.getInternalName(java.lang.invoke.StringConcatFactory.class),
-                        "makeConcatWithConstants",
-                        MethodType.methodType(
-                                        CallSite.class,
-                                        MethodHandles.Lookup.class,
-                                        String.class,
-                                        MethodType.class,
-                                        String.class,
-                                        Object[].class)
-                                .toMethodDescriptorString(),
-                        false);
+        var handle = new Handle(
+                H_INVOKESTATIC,
+                Type.getInternalName(java.lang.invoke.StringConcatFactory.class),
+                "makeConcatWithConstants",
+                MethodType.methodType(
+                                CallSite.class,
+                                MethodHandles.Lookup.class,
+                                String.class,
+                                MethodType.class,
+                                String.class,
+                                Object[].class)
+                        .toMethodDescriptorString(),
+                false);
 
         mv.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
         mv.visitVarInsn(Opcodes.ALOAD, 1);
         mv.visitInvokeDynamicInsn(
-                "makeConcatWithConstants",
-                "(Ljava/lang/String;)Ljava/lang/String;",
-                handle,
-                "logged param:\u0001");
+                "makeConcatWithConstants", "(Ljava/lang/String;)Ljava/lang/String;", handle, "logged param:\u0001");
 
-        mv.visitMethodInsn(
-                Opcodes.INVOKEVIRTUAL,
-                "java/io/PrintStream",
-                "println",
-                STRING_FIELD_DESCRIPTOR,
-                false);
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", STRING_FIELD_DESCRIPTOR, false);
 
         mv.visitVarInsn(Opcodes.ALOAD, 0);
         mv.visitVarInsn(Opcodes.ALOAD, 1);

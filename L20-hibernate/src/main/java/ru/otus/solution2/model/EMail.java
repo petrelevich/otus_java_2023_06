@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EMail {
-    @Id private long id;
+    @Id
+    private long id;
 
     @Column(name = "email_address")
     private String emailField;

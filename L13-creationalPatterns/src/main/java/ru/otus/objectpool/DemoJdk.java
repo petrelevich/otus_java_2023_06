@@ -44,8 +44,7 @@ public class DemoJdk {
 
         // Отложенный, периодический запуск
         ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(1);
-        scheduled.scheduleAtFixedRate(
-                () -> System.out.println("Hello from ScheduledThreadPool"), 0, 1, SECONDS);
+        scheduled.scheduleAtFixedRate(() -> System.out.println("Hello from ScheduledThreadPool"), 0, 1, SECONDS);
 
         Thread.sleep(SECONDS.toMillis(5));
         scheduled.shutdown();

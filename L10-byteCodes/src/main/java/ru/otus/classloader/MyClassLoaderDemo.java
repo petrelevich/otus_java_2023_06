@@ -10,19 +10,13 @@ import java.util.Arrays;
 @SuppressWarnings("java:S106")
 public class MyClassLoaderDemo {
     public static void main(String[] args)
-            throws IOException,
-                    InvocationTargetException,
-                    NoSuchMethodException,
-                    InstantiationException,
+            throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException,
                     IllegalAccessException {
         new MyClassLoaderDemo().start();
     }
 
     private void start()
-            throws IOException,
-                    NoSuchMethodException,
-                    InvocationTargetException,
-                    InstantiationException,
+            throws IOException, NoSuchMethodException, InvocationTargetException, InstantiationException,
                     IllegalAccessException {
         var loader = new MyClassLoader();
         Class<?> clazz = loader.defineClass("ru.otus.classloader.ClassForLoading");
@@ -43,10 +37,7 @@ public class MyClassLoaderDemo {
         }
 
         String getFileName(String className) {
-            return "myClass"
-                    + File.separator
-                    + className.substring(className.lastIndexOf('.') + 1)
-                    + ".class";
+            return "myClass" + File.separator + className.substring(className.lastIndexOf('.') + 1) + ".class";
         }
     }
 }

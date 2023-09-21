@@ -21,10 +21,7 @@ public class XMLreader {
     private static final String TICKER = "ticker";
 
     public static void main(String[] args)
-            throws ParserConfigurationException,
-                    IOException,
-                    SAXException,
-                    XPathExpressionException {
+            throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
         var file = new File(ClassLoader.getSystemResource("data.xml").getFile());
 
         var dbFactory = DocumentBuilderFactory.newInstance();
@@ -52,16 +49,14 @@ public class XMLreader {
                 logger.info(
                         "last:{}", eElement.getElementsByTagName("last").item(0).getTextContent());
                 logger.info(
-                        "date:{} ", eElement.getElementsByTagName("date").item(0).getTextContent());
+                        "date:{} ",
+                        eElement.getElementsByTagName("date").item(0).getTextContent());
 
-                shareList.add(
-                        new Share(
-                                eElement.getElementsByTagName(TICKER).item(0).getTextContent(),
-                                Double.parseDouble(
-                                        eElement.getElementsByTagName("last")
-                                                .item(0)
-                                                .getTextContent()),
-                                eElement.getElementsByTagName("date").item(0).getTextContent()));
+                shareList.add(new Share(
+                        eElement.getElementsByTagName(TICKER).item(0).getTextContent(),
+                        Double.parseDouble(
+                                eElement.getElementsByTagName("last").item(0).getTextContent()),
+                        eElement.getElementsByTagName("date").item(0).getTextContent()));
             }
         }
         logger.info("shareList:{}", shareList);
@@ -69,8 +64,7 @@ public class XMLreader {
         // XPath
         var xPath = XPathFactory.newInstance().newXPath();
         var expression = "/shares/share[@id='1']";
-        var nodeList =
-                (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+        var nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
         for (var idx = 0; idx < nodeList.getLength(); idx++) {
             var nNode = nodeList.item(idx);

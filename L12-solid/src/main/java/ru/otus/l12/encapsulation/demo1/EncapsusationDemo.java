@@ -40,7 +40,8 @@ public class EncapsusationDemo {
         System.out.println("------------");
 
         // Вроде подразделения добавились, их два
-        System.out.println("company.getDepartments().size() = " + company.getDepartments().size());
+        System.out.println(
+                "company.getDepartments().size() = " + company.getDepartments().size());
         // но Department привязан к разным Company
         System.out.println("departments[0].getCompany() = " + departments.get(0).getCompany());
         System.out.println("departments[1].getCompany() = " + departments.get(1).getCompany());

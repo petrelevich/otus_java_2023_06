@@ -18,13 +18,12 @@ public class Lambda {
         System.out.println(result2);
 
         // "Билдер" экземпляров Lambda с инициализацией поля value константой
-        var l =
-                lambda.func(
-                        lb -> {
-                            lb.value = "testValue";
-                            return lb;
-                        },
-                        new Lambda());
+        var l = lambda.func(
+                lb -> {
+                    lb.value = "testValue";
+                    return lb;
+                },
+                new Lambda());
         System.out.println(l.value);
 
         // int[] initValue - не поле инстанса или класса, но сохраняет свое значение между вызовами
@@ -41,9 +40,7 @@ public class Lambda {
     }
 
     private IntSupplier generator() {
-        int[] initValue = {
-            0
-        }; // Переменная не только effectively final, но и effectively private :)
+        int[] initValue = {0}; // Переменная не только effectively final, но и effectively private :)
         return () -> ++initValue[0];
     }
 }

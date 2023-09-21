@@ -8,12 +8,11 @@ import java.util.List;
 public class StudentExample {
 
     public static void main(String[] args) {
-        var students =
-                List.of(
-                        new Student("Alex", 22, 5, 4.5),
-                        new Student("Maria", 22, 5, 3.5),
-                        new Student("John", 12, 4, 4.7),
-                        new Student("Bob", 22, 5, 4.8));
+        var students = List.of(
+                new Student("Alex", 22, 5, 4.5),
+                new Student("Maria", 22, 5, 3.5),
+                new Student("John", 12, 4, 4.7),
+                new Student("Bob", 22, 5, 4.8));
 
         var result = new ArrayList<Student>();
         // Напечатать имена топ-студентов 5го курса с оценкой больше 4, по убыванию
@@ -29,12 +28,11 @@ public class StudentExample {
         }
 
         // обратите внимание: это чистая функция получения результата
-        var resultNew =
-                students.stream()
-                        .filter(student -> student.avgMark() > 4)
-                        .filter(student -> student.course() == 5)
-                        .sorted(Comparator.comparingDouble(Student::avgMark).reversed())
-                        .toList();
+        var resultNew = students.stream()
+                .filter(student -> student.avgMark() > 4)
+                .filter(student -> student.course() == 5)
+                .sorted(Comparator.comparingDouble(Student::avgMark).reversed())
+                .toList();
 
         // обратите внимание: побочный эффект в виде вывода на консоль отделен от чистого кода
         resultNew.forEach(student -> System.out.println(student.name()));

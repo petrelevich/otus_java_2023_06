@@ -26,8 +26,7 @@ class ProcessorTest {
         // given
         var inputDataFileName = "inputData.json";
         var outputDataFileName = "outputData.json";
-        var fullOutputFilePath =
-                String.format("%s%s%s", tempDir, File.separator, outputDataFileName);
+        var fullOutputFilePath = String.format("%s%s%s", tempDir, File.separator, outputDataFileName);
 
         var loader = new ResourcesFileLoader(inputDataFileName);
         var processor = new ProcessorAggregator();

@@ -24,11 +24,10 @@ class HistoryListenerTest {
         field13Data.add(data);
         field13.setData(field13Data);
 
-        var message =
-                new Message.Builder(id)
-                        .field10("field10")
-                        // TODO: раскоментировать       .field13(field13)
-                        .build();
+        var message = new Message.Builder(id)
+                .field10("field10")
+                // TODO: раскоментировать       .field13(field13)
+                .build();
 
         // when
         historyListener.onUpdated(message);

@@ -25,8 +25,7 @@ public class EhcacheDemo {
     // без кеширования
     private void withoutCache() {
         logger.info("first getting...");
-        IntStream.range(1, 10)
-                .forEach(val -> logger.info("withoutCache value: {}", SlowDataSrc.getValue(val)));
+        IntStream.range(1, 10).forEach(val -> logger.info("withoutCache value: {}", SlowDataSrc.getValue(val)));
         logger.info("second getting...");
         IntStream.range(1, 10)
                 .map(i -> 10 - i)
@@ -40,9 +39,7 @@ public class EhcacheDemo {
         logger.info("first getting...");
         IntStream.range(1, 10).forEach(val -> logger.info("value: {}", getValue(val)));
         logger.info("second getting...");
-        IntStream.range(1, 10)
-                .map(i -> 10 - i)
-                .forEach(val -> logger.info("value: {}", getValue(val)));
+        IntStream.range(1, 10).map(i -> 10 - i).forEach(val -> logger.info("value: {}", getValue(val)));
 
         closeEhcache();
     }
@@ -59,25 +56,19 @@ public class EhcacheDemo {
     private void initEhcache() {
         this.cacheManager = CacheManagerBuilder.newCacheManagerBuilder().build(true);
 
-        var cacheEventListenerConfiguration =
-                CacheEventListenerConfigurationBuilder.newEventListenerConfiguration(
-                                event ->
-                                        logger.info(
-                                                "updated key: {}, value: {}",
-                                                event.getKey(),
-                                                event.getNewValue()),
-                                EventType.CREATED,
-                                EventType.UPDATED)
-                        .ordered()
-                        .synchronous();
+        var cacheEventListenerConfiguration = CacheEventListenerConfigurationBuilder.newEventListenerConfiguration(
+                        event -> logger.info("updated key: {}, value: {}", event.getKey(), event.getNewValue()),
+                        EventType.CREATED,
+                        EventType.UPDATED)
+                .ordered()
+                .synchronous();
 
-        this.cache =
-                cacheManager.createCache(
-                        "Demo-Cache",
-                        CacheConfigurationBuilder.newCacheConfigurationBuilder(
-                                        Integer.class, Long.class, ResourcePoolsBuilder.heap(5))
-                                .withService(cacheEventListenerConfiguration)
-                                .build());
+        this.cache = cacheManager.createCache(
+                "Demo-Cache",
+                CacheConfigurationBuilder.newCacheConfigurationBuilder(
+                                Integer.class, Long.class, ResourcePoolsBuilder.heap(5))
+                        .withService(cacheEventListenerConfiguration)
+                        .build());
 
         logger.info("Cache setup is done");
     }

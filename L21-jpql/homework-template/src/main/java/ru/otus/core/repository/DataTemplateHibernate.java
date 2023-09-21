@@ -18,14 +18,11 @@ public class DataTemplateHibernate<T> implements DataTemplate<T> {
     }
 
     @Override
-    public List<T> findByEntityField(
-            Session session, String entityFieldName, Object entityFieldValue) {
+    public List<T> findByEntityField(Session session, String entityFieldName, Object entityFieldValue) {
         var criteriaBuilder = session.getCriteriaBuilder();
         var criteriaQuery = criteriaBuilder.createQuery(clazz);
         var root = criteriaQuery.from(clazz);
-        criteriaQuery
-                .select(root)
-                .where(criteriaBuilder.equal(root.get(entityFieldName), entityFieldValue));
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(entityFieldName), entityFieldValue));
 
         var query = session.createQuery(criteriaQuery);
         return query.getResultList();

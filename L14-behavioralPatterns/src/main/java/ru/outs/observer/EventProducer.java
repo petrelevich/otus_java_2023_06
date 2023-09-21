@@ -16,13 +16,12 @@ class EventProducer {
     }
 
     void event(String data) {
-        listeners.forEach(
-                listener -> {
-                    try {
-                        listener.onUpdate(data);
-                    } catch (Exception ex) {
-                        // логирование исключения
-                    }
-                });
+        listeners.forEach(listener -> {
+            try {
+                listener.onUpdate(data);
+            } catch (Exception ex) {
+                // логирование исключения
+            }
+        });
     }
 }

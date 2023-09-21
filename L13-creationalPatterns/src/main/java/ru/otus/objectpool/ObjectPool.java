@@ -13,11 +13,7 @@ public class ObjectPool<T> {
     private final Queue<T> free = new LinkedList<>();
     private final Queue<T> used = new LinkedList<>();
 
-    ObjectPool(
-            int initialSize,
-            int maxSize,
-            ObjectFactory<T> objectFactory,
-            Consumer<T> pooledObjectInitializer) {
+    ObjectPool(int initialSize, int maxSize, ObjectFactory<T> objectFactory, Consumer<T> pooledObjectInitializer) {
         this.maxSize = maxSize;
         this.objectFactory = objectFactory;
         this.pooledObjectInitializer = pooledObjectInitializer;
@@ -40,8 +36,7 @@ public class ObjectPool<T> {
         used.offer(obj);
 
         System.out.printf(
-                "get() free=%d used=%d | free=%d used=%d\n",
-                freeBefore, usedBefore, free.size(), used.size());
+                "get() free=%d used=%d | free=%d used=%d\n", freeBefore, usedBefore, free.size(), used.size());
         return obj;
     }
 
@@ -54,8 +49,7 @@ public class ObjectPool<T> {
         free.add(obj);
 
         System.out.printf(
-                "release() free=%d used=%d | free=%d used=%d\n",
-                freeBefore, usedBefore, free.size(), used.size());
+                "release() free=%d used=%d | free=%d used=%d\n", freeBefore, usedBefore, free.size(), used.size());
     }
 
     /** Первоначальное создание объектов в пуле. */

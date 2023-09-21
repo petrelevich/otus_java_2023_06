@@ -24,7 +24,10 @@ public class JMHexample {
     private List<Integer> arrayList;
 
     public static void main(String[] args) throws RunnerException {
-        var opt = new OptionsBuilder().include(JMHexample.class.getSimpleName()).forks(1).build();
+        var opt = new OptionsBuilder()
+                .include(JMHexample.class.getSimpleName())
+                .forks(1)
+                .build();
         new Runner(opt).run();
     }
 

@@ -11,14 +11,10 @@ public class MyArrayInt implements AutoCloseable {
     private long arrayBeginIdx;
 
     public MyArrayInt(int size)
-            throws InvocationTargetException,
-                    InstantiationException,
-                    IllegalAccessException,
-                    NoSuchMethodException {
+            throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
         this.size = size;
 
-        Constructor<sun.misc.Unsafe> unsafeConstructor =
-                sun.misc.Unsafe.class.getDeclaredConstructor();
+        Constructor<sun.misc.Unsafe> unsafeConstructor = sun.misc.Unsafe.class.getDeclaredConstructor();
         unsafeConstructor.setAccessible(true);
         unsafe = unsafeConstructor.newInstance();
         elementSizeBytes = Integer.SIZE / 8;

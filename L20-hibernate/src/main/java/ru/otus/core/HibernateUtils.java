@@ -14,8 +14,7 @@ public final class HibernateUtils {
 
     private HibernateUtils() {}
 
-    public static SessionFactory buildSessionFactory(
-            Configuration configuration, Class<?>... annotatedClasses) {
+    public static SessionFactory buildSessionFactory(Configuration configuration, Class<?>... annotatedClasses) {
         MetadataSources metadataSources = new MetadataSources(createServiceRegistry(configuration));
         Arrays.stream(annotatedClasses).forEach(metadataSources::addAnnotatedClass);
 
@@ -23,11 +22,9 @@ public final class HibernateUtils {
         return metadata.getSessionFactoryBuilder().build();
     }
 
-    public static SessionFactory buildSessionFactory(
-            String configResourceName, Class<?>... annotatedClasses) {
+    public static SessionFactory buildSessionFactory(String configResourceName, Class<?>... annotatedClasses) {
         Configuration configuration = new Configuration().configure(configResourceName);
-        configuration.setProperty(
-                "hibernate.hbm2ddl.auto", "create"); // !!! Только для упрощения учебного примера
+        configuration.setProperty("hibernate.hbm2ddl.auto", "create"); // !!! Только для упрощения учебного примера
         return buildSessionFactory(configuration, annotatedClasses);
     }
 

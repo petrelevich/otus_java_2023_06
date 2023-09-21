@@ -37,8 +37,7 @@ public class JacksonDemo {
     private void loadUser(String fileName) throws IOException {
         var file = new File(fileName);
         var userLoaded = mapper.readValue(file, User.class);
-        System.out.println(
-                "user loaded from the file:" + file.getAbsolutePath() + ", user:" + userLoaded);
+        System.out.println("user loaded from the file:" + file.getAbsolutePath() + ", user:" + userLoaded);
     }
 
     private String writeAsString() throws JsonProcessingException {
@@ -49,8 +48,7 @@ public class JacksonDemo {
         return mapper.readValue(userAsString, User.class);
     }
 
-    private String readPropValue(String userAsString, String nameForSerialization)
-            throws JsonProcessingException {
+    private String readPropValue(String userAsString, String nameForSerialization) throws JsonProcessingException {
         JsonNode node = mapper.readTree(userAsString);
         JsonNode jsonProp = node.get(nameForSerialization);
         return jsonProp.textValue();

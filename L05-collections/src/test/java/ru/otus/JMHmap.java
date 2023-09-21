@@ -25,7 +25,10 @@ public class JMHmap {
     private Map<String, Integer> hashMap;
 
     public static void main(String[] args) throws RunnerException {
-        var opt = new OptionsBuilder().include(JMHmap.class.getSimpleName()).forks(1).build();
+        var opt = new OptionsBuilder()
+                .include(JMHmap.class.getSimpleName())
+                .forks(1)
+                .build();
         new Runner(opt).run();
     }
 

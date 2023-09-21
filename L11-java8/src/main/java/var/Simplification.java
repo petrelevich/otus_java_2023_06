@@ -21,8 +21,7 @@ public class Simplification {
         StringBuilder output = new StringBuilder();
         try (InputStream inputStream = new BufferedInputStream(new FileInputStream("lines.txt"));
                 BufferedReader reader =
-                        new BufferedReader(
-                                new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                        new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
 
             String line = reader.readLine();
             while (line != null) {
@@ -37,9 +36,7 @@ public class Simplification {
     private static String funcVar() throws IOException {
         var output = new StringBuilder();
         try (var inputStream = new BufferedInputStream(new FileInputStream("lines.txt"));
-                var reader =
-                        new BufferedReader(
-                                new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                var reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
 
             var line = reader.readLine();
             while (line != null) {
@@ -52,9 +49,7 @@ public class Simplification {
 
     // Пример серьезнее
     boolean find(
-            Map<? extends String, ? extends Integer> mapA,
-            Map<? extends String, ? extends Integer> mapB,
-            int value) {
+            Map<? extends String, ? extends Integer> mapA, Map<? extends String, ? extends Integer> mapB, int value) {
         String keyA = null;
         for (Map.Entry<? extends String, ? extends Integer> entry : mapA.entrySet()) {
             if (entry.getValue().equals(value)) {
@@ -82,9 +77,7 @@ public class Simplification {
 
     // применяем var
     boolean findVar(
-            Map<? extends String, ? extends Integer> mapA,
-            Map<? extends String, ? extends Integer> mapB,
-            int value) {
+            Map<? extends String, ? extends Integer> mapA, Map<? extends String, ? extends Integer> mapB, int value) {
         String keyA = null;
         for (var entry : mapA.entrySet()) {
             if (entry.getValue().equals(value)) {

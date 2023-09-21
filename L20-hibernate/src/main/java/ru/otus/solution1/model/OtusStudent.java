@@ -12,7 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @SuppressWarnings("java:S125")
 public class OtusStudent {
-    @Id private long id;
+    @Id
+    private long id;
+
     private String name;
 
     // private Avatar avatar;

@@ -138,16 +138,15 @@ public class ReferenceDemo {
         ReferenceQueue<BigObject> refQueue = new ReferenceQueue<>();
         var phantomReference = new PhantomReference<>(a, refQueue);
 
-        new Thread(
-                        () -> {
-                            try {
-                                logger.info("Waiting for object cleaning...");
-                                Reference<? extends BigObject> removed = refQueue.remove();
-                                logger.info("Object cleaned:{}", removed);
-                            } catch (InterruptedException e) {
-                                Thread.currentThread().interrupt();
-                            }
-                        })
+        new Thread(() -> {
+                    try {
+                        logger.info("Waiting for object cleaning...");
+                        Reference<? extends BigObject> removed = refQueue.remove();
+                        logger.info("Object cleaned:{}", removed);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                })
                 .start();
         Thread.sleep(TimeUnit.SECONDS.toMillis(3));
         logger.info("cleaning...");

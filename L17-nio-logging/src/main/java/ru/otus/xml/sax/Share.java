@@ -32,15 +32,6 @@ public class Share {
 
     @Override
     public String toString() {
-        return "Share{"
-                + "ticker='"
-                + ticker
-                + '\''
-                + ", last="
-                + last
-                + ", date='"
-                + date
-                + '\''
-                + '}';
+        return "Share{" + "ticker='" + ticker + '\'' + ", last=" + last + ", date='" + date + '\'' + '}';
     }
 }

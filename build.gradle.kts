@@ -92,7 +92,7 @@ subprojects {
     apply<com.diffplug.gradle.spotless.SpotlessPlugin>()
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         java {
-            googleJavaFormat("1.16.0").aosp()
+            palantirJavaFormat("2.38.0")
         }
     }
 

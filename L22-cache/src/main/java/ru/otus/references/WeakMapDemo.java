@@ -5,14 +5,7 @@ import java.util.WeakHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SuppressWarnings({
-    "java:S125",
-    "java:S1144",
-    "java:S1854",
-    "java:S1192",
-    "java:S1215",
-    "java:S1481"
-})
+@SuppressWarnings({"java:S125", "java:S1144", "java:S1854", "java:S1192", "java:S1215", "java:S1481"})
 public class WeakMapDemo {
     private static final Logger logger = LoggerFactory.getLogger(WeakMapDemo.class);
 

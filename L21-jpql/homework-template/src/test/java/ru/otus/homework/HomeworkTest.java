@@ -45,31 +45,28 @@ class HomeworkTest {
     @Test
     void testHomeworkRequirementsForTablesCount() {
 
-        var tables =
-                StreamSupport.stream(metadata.getDatabase().getNamespaces().spliterator(), false)
-                        .flatMap(namespace -> namespace.getTables().stream())
-                        .collect(Collectors.toList());
+        var tables = StreamSupport.stream(metadata.getDatabase().getNamespaces().spliterator(), false)
+                .flatMap(namespace -> namespace.getTables().stream())
+                .collect(Collectors.toList());
         assertThat(tables).hasSize(3);
     }
 
     @Disabled("Удалить при выполнении ДЗ")
     @Test
     void testHomeworkRequirementsForUpdatesCount() {
-        applyCustomSqlStatementLogger(
-                new SqlStatementLogger(true, false, false, 0) {
-                    @Override
-                    public void logStatement(String statement) {
-                        super.logStatement(statement);
-                        assertThat(statement).doesNotContain("update");
-                    }
-                });
+        applyCustomSqlStatementLogger(new SqlStatementLogger(true, false, false, 0) {
+            @Override
+            public void logStatement(String statement) {
+                super.logStatement(statement);
+                assertThat(statement).doesNotContain("update");
+            }
+        });
 
-        var client =
-                new Client(
-                        null,
-                        "Vasya",
-                        new Address(null, "AnyStreet"),
-                        List.of(new Phone(null, "13-555-22"), new Phone(null, "14-666-333")));
+        var client = new Client(
+                null,
+                "Vasya",
+                new Address(null, "AnyStreet"),
+                List.of(new Phone(null, "13-555-22"), new Phone(null, "14-666-333")));
         try (var session = sessionFactory.openSession()) {
             session.getTransaction().begin();
             session.persist(client);
@@ -85,27 +82,23 @@ class HomeworkTest {
     @Disabled("Удалить при выполнении ДЗ")
     @Test
     void testForHomeworkRequirementsForClientReferences() throws Exception {
-        var client =
-                new Client(
-                        null,
-                        "Vasya",
-                        new Address(null, "AnyStreet"),
-                        List.of(new Phone(null, "13-555-22"), new Phone(null, "14-666-333")));
+        var client = new Client(
+                null,
+                "Vasya",
+                new Address(null, "AnyStreet"),
+                List.of(new Phone(null, "13-555-22"), new Phone(null, "14-666-333")));
         assertThatClientHasCorrectReferences(client);
     }
 
     @Disabled("Удалить при выполнении ДЗ")
     @Test
     void testForHomeworkRequirementsForClonedClientReferences() throws Exception {
-        var client =
-                new Client(
-                                null,
-                                "Vasya",
-                                new Address(null, "AnyStreet"),
-                                List.of(
-                                        new Phone(null, "13-555-22"),
-                                        new Phone(null, "14-666-333")))
-                        .clone();
+        var client = new Client(
+                        null,
+                        "Vasya",
+                        new Address(null, "AnyStreet"),
+                        List.of(new Phone(null, "13-555-22"), new Phone(null, "14-666-333")))
+                .clone();
         assertThatClientHasCorrectReferences(client);
     }
 
@@ -120,8 +113,7 @@ class HomeworkTest {
                 field.setAccessible(true);
                 var fieldValue = field.get(client);
                 assertThatObjectHasExpectedClientFieldValue(fieldValue, client);
-            } else if (fieldLowerName.contains("phone")
-                    && Collection.class.isAssignableFrom(field.getType())) {
+            } else if (fieldLowerName.contains("phone") && Collection.class.isAssignableFrom(field.getType())) {
                 hasPhones = true;
                 field.setAccessible(true);
                 var fieldValue = (Collection) field.get(client);
@@ -133,16 +125,15 @@ class HomeworkTest {
 
     private void assertThatObjectHasExpectedClientFieldValue(Object object, Client client) {
         assertThat(object).isNotNull();
-        assertThatCode(
-                        () -> {
-                            for (var field : object.getClass().getDeclaredFields()) {
-                                if (field.getType().equals(Client.class)) {
-                                    field.setAccessible(true);
-                                    var innerClient = field.get(object);
-                                    assertThat(innerClient).isNotNull().isSameAs(client);
-                                }
-                            }
-                        })
+        assertThatCode(() -> {
+                    for (var field : object.getClass().getDeclaredFields()) {
+                        if (field.getType().equals(Client.class)) {
+                            field.setAccessible(true);
+                            var innerClient = field.get(object);
+                            assertThat(innerClient).isNotNull().isSameAs(client);
+                        }
+                    }
+                })
                 .doesNotThrowAnyException();
     }
 
@@ -164,8 +155,9 @@ class HomeworkTest {
         cfg.setProperty("hibernate.hbm2ddl.auto", "create");
         cfg.setProperty("hibernate.enable_lazy_load_no_trans", "false");
 
-        serviceRegistry =
-                new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
+        serviceRegistry = new StandardServiceRegistryBuilder()
+                .applySettings(cfg.getProperties())
+                .build();
 
         MetadataSources metadataSources = new MetadataSources(serviceRegistry);
         metadataSources.addAnnotatedClass(Phone.class);

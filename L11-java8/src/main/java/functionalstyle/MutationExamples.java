@@ -9,10 +9,7 @@ public class MutationExamples {
     private final List<TestObjectMutable> listMute =
             List.of(new TestObjectMutable(1), new TestObjectMutable(2), new TestObjectMutable(3));
     private final List<TestObjectUnMutable> listUnMute =
-            List.of(
-                    new TestObjectUnMutable(1),
-                    new TestObjectUnMutable(2),
-                    new TestObjectUnMutable(3));
+            List.of(new TestObjectUnMutable(1), new TestObjectUnMutable(2), new TestObjectUnMutable(3));
 
     public static void main(String[] args) {
         new MutationExamples().mutableUnMutable();

@@ -13,11 +13,10 @@ public class DemoJdk {
         Locale locale = new Locale.Builder().setLanguage("ru").setRegion("RU").build();
 
         // Calendar
-        Calendar cal =
-                new Calendar.Builder()
-                        .setCalendarType("iso8601")
-                        .setWeekDate(2021, 1, MONDAY)
-                        .build();
+        Calendar cal = new Calendar.Builder()
+                .setCalendarType("iso8601")
+                .setWeekDate(2021, 1, MONDAY)
+                .build();
 
         // StringBuilder
         // not fluent

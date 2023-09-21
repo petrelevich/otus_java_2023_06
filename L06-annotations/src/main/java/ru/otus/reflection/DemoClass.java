@@ -26,12 +26,6 @@ public class DemoClass {
     @Override
     @SimpleAnnotation
     public String toString() {
-        return "DemoClass{"
-                + "publicFieldForDemo="
-                + publicFieldForDemo
-                + ", value='"
-                + valuePrivate
-                + '\''
-                + '}';
+        return "DemoClass{" + "publicFieldForDemo=" + publicFieldForDemo + ", value='" + valuePrivate + '\'' + '}';
     }
 }

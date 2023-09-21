@@ -25,8 +25,7 @@ public class AnnotationDemo {
                 System.out.println(annotation.annotationType().getName());
                 if (annotation instanceof AnnotationMethod annotationMethod) {
                     System.out.print("\t\t");
-                    System.out.printf(
-                            "AnnotationMethod runLevel = %d", annotationMethod.runLevel());
+                    System.out.printf("AnnotationMethod runLevel = %d", annotationMethod.runLevel());
                 }
             }
         }

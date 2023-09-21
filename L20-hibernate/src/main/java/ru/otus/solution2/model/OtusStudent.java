@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @SuppressWarnings("java:S125")
 public class OtusStudent {
-    @Id private long id;
+    @Id
+    private long id;
 
     @Column(name = "student_name")
     private String name;

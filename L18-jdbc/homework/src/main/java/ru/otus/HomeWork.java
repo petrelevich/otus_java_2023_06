@@ -32,56 +32,42 @@ public class HomeWork {
 
         // Работа с клиентом
         EntityClassMetaData<Client> entityClassMetaDataClient; // = new EntityClassMetaDataImpl();
-        EntitySQLMetaData entitySQLMetaDataClient =
-                null; // = new EntitySQLMetaDataImpl(entityClassMetaDataClient);
-        var dataTemplateClient =
-                new DataTemplateJdbc<Client>(
-                        dbExecutor,
-                        entitySQLMetaDataClient); // реализация DataTemplate, универсальная
+        EntitySQLMetaData entitySQLMetaDataClient = null; // = new EntitySQLMetaDataImpl(entityClassMetaDataClient);
+        var dataTemplateClient = new DataTemplateJdbc<Client>(
+                dbExecutor, entitySQLMetaDataClient); // реализация DataTemplate, универсальная
 
         // Код дальше должен остаться
         var dbServiceClient = new DbServiceClientImpl(transactionRunner, dataTemplateClient);
         dbServiceClient.saveClient(new Client("dbServiceFirst"));
 
         var clientSecond = dbServiceClient.saveClient(new Client("dbServiceSecond"));
-        var clientSecondSelected =
-                dbServiceClient
-                        .getClient(clientSecond.getId())
-                        .orElseThrow(
-                                () ->
-                                        new RuntimeException(
-                                                "Client not found, id:" + clientSecond.getId()));
+        var clientSecondSelected = dbServiceClient
+                .getClient(clientSecond.getId())
+                .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecond.getId()));
         log.info("clientSecondSelected:{}", clientSecondSelected);
 
         // Сделайте тоже самое с классом Manager (для него надо сделать свою таблицу)
 
         EntityClassMetaData<Manager> entityClassMetaDataManager; // = new EntityClassMetaDataImpl();
-        EntitySQLMetaData entitySQLMetaDataManager =
-                null; // = new EntitySQLMetaDataImpl(entityClassMetaDataManager);
-        var dataTemplateManager =
-                new DataTemplateJdbc<Manager>(dbExecutor, entitySQLMetaDataManager);
+        EntitySQLMetaData entitySQLMetaDataManager = null; // = new EntitySQLMetaDataImpl(entityClassMetaDataManager);
+        var dataTemplateManager = new DataTemplateJdbc<Manager>(dbExecutor, entitySQLMetaDataManager);
 
         var dbServiceManager = new DbServiceManagerImpl(transactionRunner, dataTemplateManager);
         dbServiceManager.saveManager(new Manager("ManagerFirst"));
 
         var managerSecond = dbServiceManager.saveManager(new Manager("ManagerSecond"));
-        var managerSecondSelected =
-                dbServiceManager
-                        .getManager(managerSecond.getNo())
-                        .orElseThrow(
-                                () ->
-                                        new RuntimeException(
-                                                "Manager not found, id:" + managerSecond.getNo()));
+        var managerSecondSelected = dbServiceManager
+                .getManager(managerSecond.getNo())
+                .orElseThrow(() -> new RuntimeException("Manager not found, id:" + managerSecond.getNo()));
         log.info("managerSecondSelected:{}", managerSecondSelected);
     }
 
     private static void flywayMigrations(DataSource dataSource) {
         log.info("db migration started...");
-        var flyway =
-                Flyway.configure()
-                        .dataSource(dataSource)
-                        .locations("classpath:/db/migration")
-                        .load();
+        var flyway = Flyway.configure()
+                .dataSource(dataSource)
+                .locations("classpath:/db/migration")
+                .load();
         flyway.migrate();
         log.info("db migration finished.");
         log.info("***");

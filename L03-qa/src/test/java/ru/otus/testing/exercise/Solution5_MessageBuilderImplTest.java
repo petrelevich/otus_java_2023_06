@@ -30,11 +30,9 @@ class Solution5_MessageBuilderImplTest {
     void shouldBuildCorrectMessageForGivenTemplateByTextAndSign() {
         BDDMockito.given(provider.getMessageTemplate(Mockito.any())).willReturn(DEFAULT_TEMPLATE);
 
-        String expectedMessage =
-                String.format(DEFAULT_TEMPLATE, DEFAULT_MESSAGE_TEXT, DEFAULT_SIGNATURE);
+        String expectedMessage = String.format(DEFAULT_TEMPLATE, DEFAULT_MESSAGE_TEXT, DEFAULT_SIGNATURE);
 
-        String actualMessage =
-                messageBuilder.buildMessage(null, DEFAULT_MESSAGE_TEXT, DEFAULT_SIGNATURE);
+        String actualMessage = messageBuilder.buildMessage(null, DEFAULT_MESSAGE_TEXT, DEFAULT_SIGNATURE);
 
         Assertions.assertThat(actualMessage).isEqualTo(expectedMessage);
     }
@@ -47,8 +45,7 @@ class Solution5_MessageBuilderImplTest {
         Mockito.verify(provider, Mockito.times(1)).getMessageTemplate(DEFAULT_TEMPLATE_NAME);
     }
 
-    @DisplayName(
-            "должен кидать нужное исключение, когда зависимость возвращает null вместо шаблона")
+    @DisplayName("должен кидать нужное исключение, когда зависимость возвращает null вместо шаблона")
     @Test
     void shouldThrowExpectedExceptionWhenDependencyReturnNullInsteadOfTemplate() {
         Assertions.assertThatThrownBy(() -> messageBuilder.buildMessage(null, null, null))

@@ -25,19 +25,14 @@ class PoolVsSingleConnectionTest {
 
     // will be started before and stopped after each test method
     @Container
-    private final PostgreSQLContainer<?> postgresqlContainer =
-            new PostgreSQLContainer<>("postgres:12-alpine")
-                    .withDatabaseName("testDataBase")
-                    .withUsername("owner")
-                    .withPassword("secret")
-                    .withClasspathResourceMapping(
-                            "00_createTables.sql",
-                            "/docker-entrypoint-initdb.d/00_createTables.sql",
-                            BindMode.READ_ONLY)
-                    .withClasspathResourceMapping(
-                            "01_insertData.sql",
-                            "/docker-entrypoint-initdb.d/01_insertData.sql",
-                            BindMode.READ_ONLY);
+    private final PostgreSQLContainer<?> postgresqlContainer = new PostgreSQLContainer<>("postgres:12-alpine")
+            .withDatabaseName("testDataBase")
+            .withUsername("owner")
+            .withPassword("secret")
+            .withClasspathResourceMapping(
+                    "00_createTables.sql", "/docker-entrypoint-initdb.d/00_createTables.sql", BindMode.READ_ONLY)
+            .withClasspathResourceMapping(
+                    "01_insertData.sql", "/docker-entrypoint-initdb.d/01_insertData.sql", BindMode.READ_ONLY);
 
     @DisplayName(" выполняем sql-запрос")
     @ParameterizedTest(name = " с использованием connection Pool: {0}")
@@ -52,10 +47,7 @@ class PoolVsSingleConnectionTest {
 
         try (Connection connection = getConnection(usePool)) {}
 
-        logger.info(
-                "usePool: {}, after getting connection, time:{}",
-                usePool,
-                (System.currentTimeMillis() - before));
+        logger.info("usePool: {}, after getting connection, time:{}", usePool, (System.currentTimeMillis() - before));
 
         if (usePool) {
             dataSourcePool.close();
@@ -72,8 +64,7 @@ class PoolVsSingleConnectionTest {
 
     private Connection makeSingleConnection() throws SQLException {
         Connection connection =
-                DriverManager.getConnection(
-                        postgresqlContainer.getJdbcUrl(), getConnectionProperties());
+                DriverManager.getConnection(postgresqlContainer.getJdbcUrl(), getConnectionProperties());
         connection.setAutoCommit(false);
         return connection;
     }

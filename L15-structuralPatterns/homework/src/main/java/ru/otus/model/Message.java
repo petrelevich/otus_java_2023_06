@@ -101,9 +101,7 @@ public class Message {
     }
 
     public Builder toBuilder() {
-        return new Builder(
-                id, field1, field2, field3, field4, field5, field6, field7, field8, field9,
-                field10);
+        return new Builder(id, field1, field2, field3, field4, field5, field6, field7, field8, field9, field10);
     }
 
     @Override
@@ -237,9 +235,7 @@ public class Message {
         }
 
         public Message build() {
-            return new Message(
-                    id, field1, field2, field3, field4, field5, field6, field7, field8, field9,
-                    field10);
+            return new Message(id, field1, field2, field3, field4, field5, field6, field7, field8, field9, field10);
         }
     }
 }

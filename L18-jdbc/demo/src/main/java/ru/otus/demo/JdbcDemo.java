@@ -56,11 +56,10 @@ public class JdbcDemo {
 
     private static void flywayMigrations() {
         logger.info("db migration started...");
-        var flyway =
-                Flyway.configure()
-                        .dataSource(URL, USER, PASSWORD)
-                        .locations("classpath:/db/migration")
-                        .load();
+        var flyway = Flyway.configure()
+                .dataSource(URL, USER, PASSWORD)
+                .locations("classpath:/db/migration")
+                .load();
         flyway.migrate();
         logger.info("db migration finished.");
         logger.info("***");

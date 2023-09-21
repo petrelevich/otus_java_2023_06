@@ -57,16 +57,12 @@ class ComplexProcessorTest {
 
         var processors = List.of(processor1, processor2);
 
-        var complexProcessor =
-                new ComplexProcessor(
-                        processors,
-                        (ex) -> {
-                            throw new TestException(ex.getMessage());
-                        });
+        var complexProcessor = new ComplexProcessor(processors, (ex) -> {
+            throw new TestException(ex.getMessage());
+        });
 
         // when
-        assertThatExceptionOfType(TestException.class)
-                .isThrownBy(() -> complexProcessor.handle(message));
+        assertThatExceptionOfType(TestException.class).isThrownBy(() -> complexProcessor.handle(message));
 
         // then
         verify(processor1, times(1)).process(message);

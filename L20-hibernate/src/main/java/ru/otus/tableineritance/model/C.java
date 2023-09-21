@@ -17,15 +17,6 @@ public class C extends A {
 
     @Override
     public String toString() {
-        return "C{"
-                + "id="
-                + id
-                + ", fieldA='"
-                + fieldA
-                + '\''
-                + ", fieldC='"
-                + fieldC
-                + '\''
-                + '}';
+        return "C{" + "id=" + id + ", fieldA='" + fieldA + '\'' + ", fieldC='" + fieldC + '\'' + '}';
     }
 }

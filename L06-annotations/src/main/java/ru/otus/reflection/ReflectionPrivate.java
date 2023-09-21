@@ -8,10 +8,7 @@ import java.lang.reflect.Method;
 @SuppressWarnings({"java:S106", "java:S3011"})
 public class ReflectionPrivate {
     public static void main(String[] args)
-            throws NoSuchMethodException,
-                    IllegalAccessException,
-                    InvocationTargetException,
-                    InstantiationException,
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException,
                     NoSuchFieldException {
 
         Class<DemoClass> clazz = DemoClass.class;

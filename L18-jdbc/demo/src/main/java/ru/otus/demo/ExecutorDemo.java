@@ -24,40 +24,32 @@ public class ExecutorDemo {
 
         try (var connection = dataSource.getConnection()) {
             var executor = new DbExecutorImpl();
-            var clientId =
-                    executor.executeStatement(
-                            connection,
-                            "insert into client(name) values (?)",
-                            Collections.singletonList("testUserName"));
+            var clientId = executor.executeStatement(
+                    connection, "insert into client(name) values (?)", Collections.singletonList("testUserName"));
             log.info("created client:{}", clientId);
             connection.commit();
 
-            var client =
-                    executor.executeSelect(
-                            connection,
-                            "select id, name from client where id  = ?",
-                            List.of(clientId),
-                            rs -> {
-                                try {
-                                    if (rs.next()) {
-                                        return new Client(rs.getLong("id"), rs.getString("name"));
-                                    }
-                                } catch (SQLException e) {
-                                    log.error(e.getMessage(), e);
-                                }
-                                return null;
-                            });
+            var client = executor.executeSelect(
+                    connection, "select id, name from client where id  = ?", List.of(clientId), rs -> {
+                        try {
+                            if (rs.next()) {
+                                return new Client(rs.getLong("id"), rs.getString("name"));
+                            }
+                        } catch (SQLException e) {
+                            log.error(e.getMessage(), e);
+                        }
+                        return null;
+                    });
             log.info("client:{}", client);
         }
     }
 
     private static void flywayMigrations(DataSource dataSource) {
         log.info("db migration started...");
-        var flyway =
-                Flyway.configure()
-                        .dataSource(dataSource)
-                        .locations("classpath:/db/migration")
-                        .load();
+        var flyway = Flyway.configure()
+                .dataSource(dataSource)
+                .locations("classpath:/db/migration")
+                .load();
         flyway.migrate();
         log.info("db migration finished.");
         log.info("***");

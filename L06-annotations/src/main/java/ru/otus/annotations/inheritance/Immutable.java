@@ -6,10 +6,5 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({
-    ElementType.TYPE_PARAMETER,
-    ElementType.PARAMETER,
-    ElementType.LOCAL_VARIABLE,
-    ElementType.ANNOTATION_TYPE
-})
+@Target({ElementType.TYPE_PARAMETER, ElementType.PARAMETER, ElementType.LOCAL_VARIABLE, ElementType.ANNOTATION_TYPE})
 public @interface Immutable {}

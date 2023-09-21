@@ -16,8 +16,7 @@ public class InheritanceDemo {
     public static final String HIBERNATE_CFG_FILE = "hibernate.cfg.xml";
 
     public static void main(String[] args) throws SQLException {
-        try (var sf =
-                HibernateUtils.buildSessionFactory(HIBERNATE_CFG_FILE, A.class, B.class, C.class)) {
+        try (var sf = HibernateUtils.buildSessionFactory(HIBERNATE_CFG_FILE, A.class, B.class, C.class)) {
             logger.info("\n\n-------------------------------------------\n\n");
             logger.info("Начинаем вставку сущностей A/B/C: ");
             try (var session = sf.openSession()) {

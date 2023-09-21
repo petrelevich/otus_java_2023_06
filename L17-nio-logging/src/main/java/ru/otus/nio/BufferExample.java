@@ -13,11 +13,7 @@ public class BufferExample {
 
     private void go() {
         var buffer = CharBuffer.allocate(10);
-        logger.info(
-                "capacity:{} limit:{} position:{}",
-                buffer.capacity(),
-                buffer.limit(),
-                buffer.position());
+        logger.info("capacity:{} limit:{} position:{}", buffer.capacity(), buffer.limit(), buffer.position());
 
         var text = "testText".toCharArray();
         for (var idx = 0; idx < text.length; idx += 2) {

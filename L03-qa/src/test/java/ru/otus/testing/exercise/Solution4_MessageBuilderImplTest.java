@@ -26,11 +26,9 @@ class Solution4_MessageBuilderImplTest {
     void buildMessageTest1() {
         Mockito.when(provider.getMessageTemplate(Mockito.any())).thenReturn(DEFAULT_TEMPLATE);
 
-        String expectedMessage =
-                String.format(DEFAULT_TEMPLATE, DEFAULT_MESSAGE_TEXT, DEFAULT_SIGNATURE);
+        String expectedMessage = String.format(DEFAULT_TEMPLATE, DEFAULT_MESSAGE_TEXT, DEFAULT_SIGNATURE);
 
-        String actualMessage =
-                messageBuilder.buildMessage(null, DEFAULT_MESSAGE_TEXT, DEFAULT_SIGNATURE);
+        String actualMessage = messageBuilder.buildMessage(null, DEFAULT_MESSAGE_TEXT, DEFAULT_SIGNATURE);
 
         Assertions.assertEquals(expectedMessage, actualMessage);
     }
@@ -44,8 +42,6 @@ class Solution4_MessageBuilderImplTest {
 
     @Test
     void buildMessageTest3() {
-        Assertions.assertThrows(
-                TemplateNotFoundException.class,
-                () -> messageBuilder.buildMessage(null, null, null));
+        Assertions.assertThrows(TemplateNotFoundException.class, () -> messageBuilder.buildMessage(null, null, null));
     }
 }

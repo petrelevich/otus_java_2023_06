@@ -57,48 +57,40 @@ class MainOperationsTest {
                 .hasCauseInstanceOf(PersistentObjectException.class);
     }
 
-    @DisplayName(
-            "persist выкидывает исключение если вставляемая сущность "
-                    + "содержит дочернюю в состоянии transient при выключенной каскадной операции PERSIST")
+    @DisplayName("persist выкидывает исключение если вставляемая сущность "
+            + "содержит дочернюю в состоянии transient при выключенной каскадной операции PERSIST")
     @Test
-    void
-            shouldThrowExceptionWhenPersistEntityWithChildInTransientStateAndDisabledCascadeOperation() {
+    void shouldThrowExceptionWhenPersistEntityWithChildInTransientStateAndDisabledCascadeOperation() {
         var teacher = new OtusTeacher(0, "AnyName", avatar);
         assertThatCode(() -> doInSessionWithTransaction(sf, session -> session.persist(teacher)))
                 .hasCauseInstanceOf(TransientObjectException.class);
     }
 
-    @DisplayName(
-            "изменения в сущности под управлением контекста попадают в БД " + "при закрытии сессии")
+    @DisplayName("изменения в сущности под управлением контекста попадают в БД " + "при закрытии сессии")
     @Test
     void shouldSaveEntityChangesToDBAfterSessionClosing() {
         var newName = "NameAny";
 
-        doInSessionWithTransaction(
-                sf,
-                session -> {
-                    session.persist(student);
+        doInSessionWithTransaction(sf, session -> {
+            session.persist(student);
 
-                    // Отключаем dirty checking (одно из двух)
-                    // session.setHibernateFlushMode(FlushMode.MANUAL);
-                    // session.detach(student);
+            // Отключаем dirty checking (одно из двух)
+            // session.setHibernateFlushMode(FlushMode.MANUAL);
+            // session.detach(student);
 
-                    student.setName(newName);
-                });
+            student.setName(newName);
+        });
 
         assertThat(sf.getStatistics().getEntityUpdateCount()).isEqualTo(1);
 
-        doInSessionWithTransaction(
-                sf,
-                session -> {
-                    var actualStudent = session.find(OtusStudent.class, student.getId());
-                    assertThat(actualStudent.getName()).isEqualTo(newName);
-                });
+        doInSessionWithTransaction(sf, session -> {
+            var actualStudent = session.find(OtusStudent.class, student.getId());
+            assertThat(actualStudent.getName()).isEqualTo(newName);
+        });
     }
 
-    @DisplayName(
-            "merge при сохранении transient сущности работает как persist,"
-                    + "а при сохранении detached делает дополнительный запрос в БД")
+    @DisplayName("merge при сохранении transient сущности работает как persist,"
+            + "а при сохранении detached делает дополнительный запрос в БД")
     @Test
     void shouldWorkAsPersistWhenSaveTransientEntityAndDoAdditionalSelectWhenSaveDetachedEntity() {
         doInSessionWithTransaction(sf, session -> session.merge(avatar));
@@ -128,8 +120,7 @@ class MainOperationsTest {
         try (var session = sf.openSession()) {
             actualStudent = session.find(OtusStudent.class, 1L);
         }
-        assertThatCode(() -> actualStudent.getAvatar().getPhotoUrl())
-                .isInstanceOf(LazyInitializationException.class);
+        assertThatCode(() -> actualStudent.getAvatar().getPhotoUrl()).isInstanceOf(LazyInitializationException.class);
     }
 
     @DisplayName("find загружает сущность со связями")

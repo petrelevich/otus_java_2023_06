@@ -78,8 +78,7 @@ class CustomerTest {
         // подсказка:
         // a key-value mapping associated with the least key strictly greater than the given key, or
         // null if there is no such key.
-        Map.Entry<Customer, String> middleScore =
-                customerService.getNext(new Customer(10, "Key", 20));
+        Map.Entry<Customer, String> middleScore = customerService.getNext(new Customer(10, "Key", 20));
         // then
         assertThat(middleScore.getKey()).isEqualTo(customer1);
         middleScore.getKey().setScores(10000);
@@ -91,8 +90,7 @@ class CustomerTest {
         assertThat(biggestScore.getKey()).isEqualTo(customer3);
 
         // when
-        Map.Entry<Customer, String> notExists =
-                customerService.getNext(new Customer(100, "Not exists", 20000));
+        Map.Entry<Customer, String> notExists = customerService.getNext(new Customer(100, "Not exists", 20000));
         // then
         assertThat(notExists).isNull();
     }
@@ -108,9 +106,7 @@ class CustomerTest {
 
         CustomerService customerService = new CustomerService();
         customerService.add(customer1, "Data1");
-        customerService.add(
-                new Customer(customer2.getId(), customer2.getName(), customer2.getScores()),
-                "Data2");
+        customerService.add(new Customer(customer2.getId(), customer2.getName(), customer2.getScores()), "Data2");
         customerService.add(customer3, "Data3");
 
         // when

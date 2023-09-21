@@ -12,10 +12,7 @@ class Ioc {
     static MyClassInterface createMyClass() {
         InvocationHandler handler = new DemoInvocationHandler(new MyClassImpl());
         return (MyClassInterface)
-                Proxy.newProxyInstance(
-                        Ioc.class.getClassLoader(),
-                        new Class<?>[] {MyClassInterface.class},
-                        handler);
+                Proxy.newProxyInstance(Ioc.class.getClassLoader(), new Class<?>[] {MyClassInterface.class}, handler);
     }
 
     static class DemoInvocationHandler implements InvocationHandler {

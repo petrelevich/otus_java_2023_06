@@ -13,7 +13,8 @@ import ru.otus.BasePersistenceTest;
 @AutoConfigureMockMvc
 class IndexControllerTest extends BasePersistenceTest {
 
-    @Autowired private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
     void jdbcDemo() throws Exception {

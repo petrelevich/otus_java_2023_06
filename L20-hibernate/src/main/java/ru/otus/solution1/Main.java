@@ -10,8 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         try (var sessionFactory =
-                HibernateUtils.buildSessionFactory(
-                        OtusStudent.class, Avatar.class, EMail.class, Course.class)) {
+                HibernateUtils.buildSessionFactory(OtusStudent.class, Avatar.class, EMail.class, Course.class)) {
             logger.info("Statistics:{}", sessionFactory.getStatistics());
         }
     }

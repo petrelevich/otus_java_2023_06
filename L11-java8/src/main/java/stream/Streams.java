@@ -11,13 +11,12 @@ import java.util.stream.Stream;
 @SuppressWarnings({"java:S106", "java:S125", "java:S3864", "java:S1130"})
 public class Streams {
 
-    private static final List<Student> students =
-            Arrays.asList(
-                    new Student("Alex", 22, 5, 4.5),
-                    new Student("Maria", 22, 5, 3.5),
-                    new Student("John", 12, 4, 4.7),
-                    new Student("Bob", 22, 5, 4.8),
-                    new Student("Anna", 20, 3, 4.5));
+    private static final List<Student> students = Arrays.asList(
+            new Student("Alex", 22, 5, 4.5),
+            new Student("Maria", 22, 5, 3.5),
+            new Student("John", 12, 4, 4.7),
+            new Student("Bob", 22, 5, 4.8),
+            new Student("Anna", 20, 3, 4.5));
 
     public static void main(String[] args) throws IOException {
         // creating();
@@ -57,10 +56,7 @@ public class Streams {
         System.out.println("filterMapReduce");
         var list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
         int result =
-                list.stream()
-                        .filter(val -> val % 2 > 0)
-                        .map(val -> val * 10)
-                        .reduce(0, Integer::sum);
+                list.stream().filter(val -> val % 2 > 0).map(val -> val * 10).reduce(0, Integer::sum);
         System.out.println("result:" + result);
     }
 
@@ -88,16 +84,14 @@ public class Streams {
     }
 
     public static void flatMap() {
-        var data =
-                List.of(List.of(1, 2, 3, 4), List.of(10, 20, 30, 40), List.of(100, 200, 300, 400));
+        var data = List.of(List.of(1, 2, 3, 4), List.of(10, 20, 30, 40), List.of(100, 200, 300, 400));
 
         var dataFlat = data.stream().flatMap(Collection::stream).toList();
         System.out.println(dataFlat);
     }
 
     public static void streamNotStarted() {
-        var dataStream =
-                List.of(1, 2, 3, 4, 5).stream().map(val -> val * 10).peek(System.out::println);
+        var dataStream = List.of(1, 2, 3, 4, 5).stream().map(val -> val * 10).peek(System.out::println);
         // .forEach(System.out::println);
 
         dataStream.forEach(System.out::println);

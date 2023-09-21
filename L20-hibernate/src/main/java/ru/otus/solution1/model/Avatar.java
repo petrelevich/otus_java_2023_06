@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Avatar {
-    @Id private long id;
+    @Id
+    private long id;
+
     private String photoUrl;
 }

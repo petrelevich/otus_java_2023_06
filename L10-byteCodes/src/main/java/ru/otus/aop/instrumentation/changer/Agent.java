@@ -20,44 +20,37 @@ public class Agent {
 
     public static void premain(String agentArgs, Instrumentation inst) {
         System.out.println("premain");
-        inst.addTransformer(
-                new ClassFileTransformer() {
-                    @Override
-                    public byte[] transform(
-                            ClassLoader loader,
-                            String className,
-                            Class<?> classBeingRedefined,
-                            ProtectionDomain protectionDomain,
-                            byte[] classfileBuffer) {
-                        if (className.equals("ru/otus/aop/instrumentation/changer/AnyClass")) {
-                            return changeMethod(classfileBuffer);
-                        }
-                        return classfileBuffer;
-                    }
-                });
+        inst.addTransformer(new ClassFileTransformer() {
+            @Override
+            public byte[] transform(
+                    ClassLoader loader,
+                    String className,
+                    Class<?> classBeingRedefined,
+                    ProtectionDomain protectionDomain,
+                    byte[] classfileBuffer) {
+                if (className.equals("ru/otus/aop/instrumentation/changer/AnyClass")) {
+                    return changeMethod(classfileBuffer);
+                }
+                return classfileBuffer;
+            }
+        });
     }
 
     private static byte[] changeMethod(byte[] originalClass) {
         var cr = new ClassReader(originalClass);
         var cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS);
-        ClassVisitor cv =
-                new ClassVisitor(Opcodes.ASM7, cw) {
-                    @Override
-                    public MethodVisitor visitMethod(
-                            int access,
-                            String name,
-                            String descriptor,
-                            String signature,
-                            String[] exceptions) {
-                        var methodVisitor =
-                                super.visitMethod(access, name, descriptor, signature, exceptions);
-                        if (name.equals("summator")) {
-                            return new ChangeMethodVisitor(methodVisitor, access, name, descriptor);
-                        } else {
-                            return methodVisitor;
-                        }
-                    }
-                };
+        ClassVisitor cv = new ClassVisitor(Opcodes.ASM7, cw) {
+            @Override
+            public MethodVisitor visitMethod(
+                    int access, String name, String descriptor, String signature, String[] exceptions) {
+                var methodVisitor = super.visitMethod(access, name, descriptor, signature, exceptions);
+                if (name.equals("summator")) {
+                    return new ChangeMethodVisitor(methodVisitor, access, name, descriptor);
+                } else {
+                    return methodVisitor;
+                }
+            }
+        };
         cr.accept(cv, Opcodes.ASM7);
 
         byte[] finalClass = cw.toByteArray();
@@ -71,8 +64,7 @@ public class Agent {
     }
 
     private static class ChangeMethodVisitor extends AdviceAdapter {
-        ChangeMethodVisitor(
-                MethodVisitor methodVisitor, int access, String name, String descriptor) {
+        ChangeMethodVisitor(MethodVisitor methodVisitor, int access, String name, String descriptor) {
             super(Opcodes.ASM7, methodVisitor, access, name, descriptor);
         }
 
@@ -94,15 +86,14 @@ public class Agent {
                 final Label start,
                 final Label end,
                 final int index) {
-            System.out.println(
-                    "visited name:"
-                            + name
-                            + ", descriptor:"
-                            + descriptor
-                            + ", signature:"
-                            + signature
-                            + ", index:"
-                            + index);
+            System.out.println("visited name:"
+                    + name
+                    + ", descriptor:"
+                    + descriptor
+                    + ", signature:"
+                    + signature
+                    + ", index:"
+                    + index);
             super.visitLocalVariable(name, descriptor, signature, start, end, index);
         }
     }

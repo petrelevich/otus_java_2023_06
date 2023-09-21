@@ -25,24 +25,18 @@ class DataTemplateHibernateTest extends AbstractHibernateTest {
         */
 
         // when
-        var savedClient =
-                transactionManager.doInTransaction(
-                        session -> {
-                            clientTemplate.insert(session, client);
-                            return client;
-                        });
+        var savedClient = transactionManager.doInTransaction(session -> {
+            clientTemplate.insert(session, client);
+            return client;
+        });
 
         // then
         assertThat(savedClient.getId()).isNotNull();
         assertThat(savedClient.getName()).isEqualTo(client.getName());
 
         // when
-        var loadedSavedClient =
-                transactionManager.doInReadOnlyTransaction(
-                        session ->
-                                clientTemplate
-                                        .findById(session, savedClient.getId())
-                                        .map(Client::clone));
+        var loadedSavedClient = transactionManager.doInReadOnlyTransaction(
+                session -> clientTemplate.findById(session, savedClient.getId()).map(Client::clone));
 
         // then
         assertThat(loadedSavedClient)
@@ -53,43 +47,30 @@ class DataTemplateHibernateTest extends AbstractHibernateTest {
 
         // when
         savedClient.setName("updatedName");
-        transactionManager.doInTransaction(
-                session -> {
-                    clientTemplate.update(session, savedClient);
-                    return null;
-                });
+        transactionManager.doInTransaction(session -> {
+            clientTemplate.update(session, savedClient);
+            return null;
+        });
 
         // then
-        Optional<Client> loadedClient =
-                transactionManager.doInReadOnlyTransaction(
-                        session ->
-                                clientTemplate
-                                        .findById(session, savedClient.getId())
-                                        .map(Client::clone));
+        Optional<Client> loadedClient = transactionManager.doInReadOnlyTransaction(
+                session -> clientTemplate.findById(session, savedClient.getId()).map(Client::clone));
         assertThat(loadedClient).isPresent();
         assertThat(loadedClient).get().usingRecursiveComparison().isEqualTo(savedClient);
 
         // when
-        var clientList =
-                transactionManager.doInReadOnlyTransaction(
-                        session ->
-                                clientTemplate.findAll(session).stream()
-                                        .map(Client::clone)
-                                        .collect(Collectors.toList()));
+        var clientList = transactionManager.doInReadOnlyTransaction(session ->
+                clientTemplate.findAll(session).stream().map(Client::clone).collect(Collectors.toList()));
 
         // then
         assertThat(clientList.size()).isEqualTo(1);
         assertThat(clientList.get(0)).usingRecursiveComparison().isEqualTo(savedClient);
 
         // when
-        clientList =
-                transactionManager.doInReadOnlyTransaction(
-                        session ->
-                                clientTemplate
-                                        .findByEntityField(session, "name", "updatedName")
-                                        .stream()
-                                        .map(Client::clone)
-                                        .collect(Collectors.toList()));
+        clientList = transactionManager.doInReadOnlyTransaction(
+                session -> clientTemplate.findByEntityField(session, "name", "updatedName").stream()
+                        .map(Client::clone)
+                        .collect(Collectors.toList()));
 
         // then
         assertThat(clientList.size()).isEqualTo(1);

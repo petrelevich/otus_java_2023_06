@@ -15,15 +15,7 @@ public class BagOfPrimitives {
 
     @Override
     public String toString() {
-        return "BagOfPrimitives{"
-                + "value1="
-                + value1
-                + ", value2='"
-                + value2
-                + '\''
-                + ", value3="
-                + value3
-                + '}';
+        return "BagOfPrimitives{" + "value1=" + value1 + ", value2='" + value2 + '\'' + ", value3=" + value3 + '}';
     }
 
     @Override
@@ -31,9 +23,7 @@ public class BagOfPrimitives {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BagOfPrimitives that = (BagOfPrimitives) o;
-        return value1 == that.value1
-                && value3 == that.value3
-                && Objects.equals(value2, that.value2);
+        return value1 == that.value1 && value3 == that.value3 && Objects.equals(value2, that.value2);
     }
 
     @Override

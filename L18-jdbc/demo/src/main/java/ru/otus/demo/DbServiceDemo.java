@@ -24,34 +24,22 @@ public class DbServiceDemo {
         var transactionRunner = new TransactionRunnerJdbc(dataSource);
         var dbExecutor = new DbExecutorImpl();
         ///
-        var clientTemplate =
-                new ClientDataTemplateJdbc(
-                        dbExecutor); // реализация DataTemplate, заточена на Client
+        var clientTemplate = new ClientDataTemplateJdbc(dbExecutor); // реализация DataTemplate, заточена на Client
 
         ///
         var dbServiceClient = new DbServiceClientImpl(transactionRunner, clientTemplate);
         dbServiceClient.saveClient(new Client("dbServiceFirst"));
 
         var clientSecond = dbServiceClient.saveClient(new Client("dbServiceSecond"));
-        var clientSecondSelected =
-                dbServiceClient
-                        .getClient(clientSecond.getId())
-                        .orElseThrow(
-                                () ->
-                                        new RuntimeException(
-                                                "Client not found, id:" + clientSecond.getId()));
+        var clientSecondSelected = dbServiceClient
+                .getClient(clientSecond.getId())
+                .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecond.getId()));
         log.info("clientSecondSelected:{}", clientSecondSelected);
         ///
-        dbServiceClient.saveClient(
-                new Client(clientSecondSelected.getId(), "dbServiceSecondUpdated"));
-        var clientUpdated =
-                dbServiceClient
-                        .getClient(clientSecondSelected.getId())
-                        .orElseThrow(
-                                () ->
-                                        new RuntimeException(
-                                                "Client not found, id:"
-                                                        + clientSecondSelected.getId()));
+        dbServiceClient.saveClient(new Client(clientSecondSelected.getId(), "dbServiceSecondUpdated"));
+        var clientUpdated = dbServiceClient
+                .getClient(clientSecondSelected.getId())
+                .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecondSelected.getId()));
         log.info("clientUpdated:{}", clientUpdated);
 
         log.info("All clients");
@@ -60,11 +48,10 @@ public class DbServiceDemo {
 
     private static void flywayMigrations(DataSource dataSource) {
         log.info("db migration started...");
-        var flyway =
-                Flyway.configure()
-                        .dataSource(dataSource)
-                        .locations("classpath:/db/migration")
-                        .load();
+        var flyway = Flyway.configure()
+                .dataSource(dataSource)
+                .locations("classpath:/db/migration")
+                .load();
         flyway.migrate();
         log.info("db migration finished.");
         log.info("***");

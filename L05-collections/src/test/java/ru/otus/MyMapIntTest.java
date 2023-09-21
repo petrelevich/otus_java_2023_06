@@ -59,12 +59,11 @@ class MyMapIntTest {
             }
             hashSetAbs.add(Math.abs(key.hashCode()));
         }
-        System.out.println(
-                "hashSetAll:"
-                        + hashSetAll.size()
-                        + ", hashSetNeg:"
-                        + hashSetNeg.size()
-                        + ", hashSetAbs:"
-                        + hashSetAbs.size());
+        System.out.println("hashSetAll:"
+                + hashSetAll.size()
+                + ", hashSetNeg:"
+                + hashSetNeg.size()
+                + ", hashSetAbs:"
+                + hashSetAbs.size());
     }
 }

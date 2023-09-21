@@ -70,8 +70,7 @@ public class BigObject {
 
         Builder withParam3(String param3) {
             // Можем здесь также проверить аргумент
-            if (param3.length() < 10)
-                throw new IllegalArgumentException("length of param3 must be >= 10");
+            if (param3.length() < 10) throw new IllegalArgumentException("length of param3 must be >= 10");
 
             this.param3 = param3;
             return this;

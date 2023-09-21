@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Course {
-    @Id private long id;
+    @Id
+    private long id;
 
     @Column(name = "course_name")
     private String name;

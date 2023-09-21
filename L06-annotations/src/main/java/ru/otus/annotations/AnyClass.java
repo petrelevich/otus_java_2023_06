@@ -1,7 +1,8 @@
 package ru.otus.annotations;
 
 public class AnyClass {
-    @AnnotationField private final int fieldAnnotated;
+    @AnnotationField
+    private final int fieldAnnotated;
 
     private final int field;
 

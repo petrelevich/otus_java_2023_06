@@ -43,13 +43,12 @@ public class ComplexProcessor implements Handler {
     }
 
     private void notify(Message msg) {
-        listeners.forEach(
-                listener -> {
-                    try {
-                        listener.onUpdated(msg);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                });
+        listeners.forEach(listener -> {
+            try {
+                listener.onUpdated(msg);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 }
