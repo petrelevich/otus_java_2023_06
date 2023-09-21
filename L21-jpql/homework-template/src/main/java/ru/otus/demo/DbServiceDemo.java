@@ -28,20 +28,32 @@ public class DbServiceDemo {
         var sessionFactory = HibernateUtils.buildSessionFactory(configuration, Client.class);
 
         var transactionManager = new TransactionManagerHibernate(sessionFactory);
-///
+        ///
         var clientTemplate = new DataTemplateHibernate<>(Client.class);
-///
+        ///
         var dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate);
         dbServiceClient.saveClient(new Client("dbServiceFirst"));
 
         var clientSecond = dbServiceClient.saveClient(new Client("dbServiceSecond"));
-        var clientSecondSelected = dbServiceClient.getClient(clientSecond.getId())
-                .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecond.getId()));
+        var clientSecondSelected =
+                dbServiceClient
+                        .getClient(clientSecond.getId())
+                        .orElseThrow(
+                                () ->
+                                        new RuntimeException(
+                                                "Client not found, id:" + clientSecond.getId()));
         log.info("clientSecondSelected:{}", clientSecondSelected);
-///
-        dbServiceClient.saveClient(new Client(clientSecondSelected.getId(), "dbServiceSecondUpdated"));
-        var clientUpdated = dbServiceClient.getClient(clientSecondSelected.getId())
-                .orElseThrow(() -> new RuntimeException("Client not found, id:" + clientSecondSelected.getId()));
+        ///
+        dbServiceClient.saveClient(
+                new Client(clientSecondSelected.getId(), "dbServiceSecondUpdated"));
+        var clientUpdated =
+                dbServiceClient
+                        .getClient(clientSecondSelected.getId())
+                        .orElseThrow(
+                                () ->
+                                        new RuntimeException(
+                                                "Client not found, id:"
+                                                        + clientSecondSelected.getId()));
         log.info("clientUpdated:{}", clientUpdated);
 
         log.info("All clients");

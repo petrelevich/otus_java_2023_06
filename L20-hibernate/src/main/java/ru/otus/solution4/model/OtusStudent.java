@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@SuppressWarnings("java:S125")
 public class OtusStudent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +30,6 @@ public class OtusStudent {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "avatar_id")
     private Avatar avatar;
-    //private List<EMail> emails;
-    //private List<Course> courses;
+    // private List<EMail> emails;
+    // private List<Course> courses;
 }

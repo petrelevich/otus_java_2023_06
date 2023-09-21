@@ -13,11 +13,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 // Указывает, что данный класс является сущностью
 @Entity
@@ -26,6 +25,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@SuppressWarnings("java:S125")
 public class OtusStudent {
 
     // Позволяет указать какое поле является идентификатором
@@ -52,7 +52,9 @@ public class OtusStudent {
     // Указывает на связь между таблицами "многие ко многим"
     @ManyToMany(fetch = FetchType.LAZY)
     // Задает таблицу связей между таблицами для хранения родительской и связанной сущностью
-    @JoinTable(name = "student_courses", joinColumns = @JoinColumn(name = "student_id"),
+    @JoinTable(
+            name = "student_courses",
+            joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
     private List<Course> courses;
 }

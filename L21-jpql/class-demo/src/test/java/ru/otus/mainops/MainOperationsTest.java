@@ -1,5 +1,11 @@
 package ru.otus.mainops;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static ru.otus.core.HibernateUtils.buildSessionFactory;
+import static ru.otus.core.HibernateUtils.doInSession;
+import static ru.otus.core.HibernateUtils.doInSessionWithTransaction;
+
 import org.hibernate.LazyInitializationException;
 import org.hibernate.PersistentObjectException;
 import org.hibernate.SessionFactory;
@@ -10,12 +16,6 @@ import org.junit.jupiter.api.Test;
 import ru.otus.mainops.model.Avatar;
 import ru.otus.mainops.model.OtusStudent;
 import ru.otus.mainops.model.OtusTeacher;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static ru.otus.core.HibernateUtils.buildSessionFactory;
-import static ru.otus.core.HibernateUtils.doInSession;
-import static ru.otus.core.HibernateUtils.doInSessionWithTransaction;
 
 class MainOperationsTest {
 
@@ -35,15 +35,15 @@ class MainOperationsTest {
 
     @DisplayName("persist не вставляет сущность в БД без транзакции")
     @Test
-    public void shouldNeverPersistEntityToDBWhenTransactionDoesNotExists() {
+    void shouldNeverPersistEntityToDBWhenTransactionDoesNotExists() {
         doInSession(sf, session -> session.persist(student));
 
-        assertThat(sf.getStatistics().getPrepareStatementCount()).isEqualTo(0);
+        assertThat(sf.getStatistics().getPrepareStatementCount()).isZero();
     }
 
     @DisplayName("persist вставляет сущность и ее связь в БД при наличии транзакции")
     @Test
-    public void shouldNeverEntityWithRelationToDBWhenTransactionExists() {
+    void shouldNeverEntityWithRelationToDBWhenTransactionExists() {
         doInSessionWithTransaction(sf, session -> session.persist(student));
 
         assertThat(sf.getStatistics().getPrepareStatementCount()).isEqualTo(2);
@@ -51,59 +51,61 @@ class MainOperationsTest {
 
     @DisplayName("выкидывает исключение если вставляемая сущность в состоянии detached")
     @Test
-    public void shouldThrowExceptionWhenPersistDetachedEntity() {
+    void shouldThrowExceptionWhenPersistDetachedEntity() {
         var avatar = new Avatar(1L, "http://any-addr.ru/");
-        assertThatCode(() ->
-                doInSessionWithTransaction(sf, session -> session.persist(avatar))
-        ).hasCauseInstanceOf(PersistentObjectException.class);
+        assertThatCode(() -> doInSessionWithTransaction(sf, session -> session.persist(avatar)))
+                .hasCauseInstanceOf(PersistentObjectException.class);
     }
 
-
-    @DisplayName("persist выкидывает исключение если вставляемая сущность " +
-            "содержит дочернюю в состоянии transient при выключенной каскадной операции PERSIST")
+    @DisplayName(
+            "persist выкидывает исключение если вставляемая сущность "
+                    + "содержит дочернюю в состоянии transient при выключенной каскадной операции PERSIST")
     @Test
-    public void shouldThrowExceptionWhenPersistEntityWithChildInTransientStateAndDisabledCascadeOperation() {
+    void
+            shouldThrowExceptionWhenPersistEntityWithChildInTransientStateAndDisabledCascadeOperation() {
         var teacher = new OtusTeacher(0, "AnyName", avatar);
-        assertThatCode(() ->
-                doInSessionWithTransaction(sf, session -> session.persist(teacher))
-        ).hasCauseInstanceOf(TransientObjectException.class);
+        assertThatCode(() -> doInSessionWithTransaction(sf, session -> session.persist(teacher)))
+                .hasCauseInstanceOf(TransientObjectException.class);
     }
 
-
-    @DisplayName("изменения в сущности под управлением контекста попадают в БД " +
-            "при закрытии сессии")
+    @DisplayName(
+            "изменения в сущности под управлением контекста попадают в БД " + "при закрытии сессии")
     @Test
-    public void shouldSaveEntityChangesToDBAfterSessionClosing() {
+    void shouldSaveEntityChangesToDBAfterSessionClosing() {
         var newName = "NameAny";
 
-        doInSessionWithTransaction(sf, session -> {
-            session.persist(student);
+        doInSessionWithTransaction(
+                sf,
+                session -> {
+                    session.persist(student);
 
-            // Отключаем dirty checking (одно из двух)
-            // session.setHibernateFlushMode(FlushMode.MANUAL);
-            // session.detach(student);
+                    // Отключаем dirty checking (одно из двух)
+                    // session.setHibernateFlushMode(FlushMode.MANUAL);
+                    // session.detach(student);
 
-            student.setName(newName);
-        });
+                    student.setName(newName);
+                });
 
         assertThat(sf.getStatistics().getEntityUpdateCount()).isEqualTo(1);
 
-        doInSessionWithTransaction(sf, session -> {
-            var actualStudent = session.find(OtusStudent.class, student.getId());
-            assertThat(actualStudent.getName()).isEqualTo(newName);
-        });
+        doInSessionWithTransaction(
+                sf,
+                session -> {
+                    var actualStudent = session.find(OtusStudent.class, student.getId());
+                    assertThat(actualStudent.getName()).isEqualTo(newName);
+                });
     }
 
-
-    @DisplayName("merge при сохранении transient сущности работает как persist," +
-            "а при сохранении detached делает дополнительный запрос в БД")
+    @DisplayName(
+            "merge при сохранении transient сущности работает как persist,"
+                    + "а при сохранении detached делает дополнительный запрос в БД")
     @Test
-    public void shouldWorkAsPersistWhenSaveTransientEntityAndDoAdditionalSelectWhenSaveDetachedEntity() {
+    void shouldWorkAsPersistWhenSaveTransientEntityAndDoAdditionalSelectWhenSaveDetachedEntity() {
         doInSessionWithTransaction(sf, session -> session.merge(avatar));
 
         assertThat(sf.getStatistics().getEntityInsertCount()).isEqualTo(1);
-        assertThat(sf.getStatistics().getEntityLoadCount()).isEqualTo(0);
-        assertThat(sf.getStatistics().getEntityUpdateCount()).isEqualTo(0);
+        assertThat(sf.getStatistics().getEntityLoadCount()).isZero();
+        assertThat(sf.getStatistics().getEntityUpdateCount()).isZero();
 
         avatar.setId(1L);
         avatar.setPhotoUrl("http://any-addr2.ru/");
@@ -113,13 +115,13 @@ class MainOperationsTest {
 
         assertThat(sf.getStatistics().getEntityLoadCount()).isEqualTo(1);
         assertThat(sf.getStatistics().getEntityUpdateCount()).isEqualTo(1);
-        assertThat(sf.getStatistics().getEntityInsertCount()).isEqualTo(0);
+        assertThat(sf.getStatistics().getEntityInsertCount()).isZero();
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @DisplayName("при доступе к LAZY полю за пределами сессии выкидывается исключение")
     @Test
-    public void shouldThrowExceptionWhenAccessingToLazyField() {
+    void shouldThrowExceptionWhenAccessingToLazyField() {
         doInSessionWithTransaction(sf, session -> session.persist(student));
 
         OtusStudent actualStudent;
@@ -132,7 +134,7 @@ class MainOperationsTest {
 
     @DisplayName("find загружает сущность со связями")
     @Test
-    public void shouldFindEntityWithChildField() {
+    void shouldFindEntityWithChildField() {
         doInSessionWithTransaction(sf, session -> session.persist(student));
 
         try (var session = sf.openSession()) {

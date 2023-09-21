@@ -1,9 +1,8 @@
 package ru.otus.crm.service;
 
-import ru.otus.crm.model.Client;
-
 import java.util.List;
 import java.util.Optional;
+import ru.otus.crm.model.Client;
 
 public interface DBServiceClient {
 

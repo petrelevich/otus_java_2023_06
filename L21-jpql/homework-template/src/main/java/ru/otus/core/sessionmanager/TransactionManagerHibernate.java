@@ -1,7 +1,7 @@
 package ru.otus.core.sessionmanager;
 
-import org.hibernate.SessionFactory;
 import java.util.concurrent.Callable;
+import org.hibernate.SessionFactory;
 
 public class TransactionManagerHibernate implements TransactionManager {
     private final SessionFactory sessionFactory;
@@ -20,24 +20,24 @@ public class TransactionManagerHibernate implements TransactionManager {
         return doInTransaction(action, true);
     }
 
-
-    private  <T> T doInTransaction(TransactionAction<T> action, boolean readOnlyTran) {
-        return wrapException(() -> {
-            try (var session = sessionFactory.openSession()) {
-                if (readOnlyTran) {
-                    session.setDefaultReadOnly(true);
-                }
-                var transaction = session.beginTransaction();
-                try {
-                    var result = action.apply(session);
-                    transaction.commit();
-                    return result;
-                } catch (Exception ex) {
-                    transaction.rollback();
-                    throw ex;
-                }
-            }
-        });
+    private <T> T doInTransaction(TransactionAction<T> action, boolean readOnlyTran) {
+        return wrapException(
+                () -> {
+                    try (var session = sessionFactory.openSession()) {
+                        if (readOnlyTran) {
+                            session.setDefaultReadOnly(true);
+                        }
+                        var transaction = session.beginTransaction();
+                        try {
+                            var result = action.apply(session);
+                            transaction.commit();
+                            return result;
+                        } catch (Exception ex) {
+                            transaction.rollback();
+                            throw ex;
+                        }
+                    }
+                });
     }
 
     private <T> T wrapException(Callable<T> action) {

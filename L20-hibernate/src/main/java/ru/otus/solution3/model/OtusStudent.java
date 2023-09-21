@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@SuppressWarnings("java:S125")
 public class OtusStudent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +24,7 @@ public class OtusStudent {
     @Column(name = "student_name")
     private String name;
 
-    //private Avatar avatar;
-    //private List<EMail> emails;
-    //private List<Course> courses;
+    // private Avatar avatar;
+    // private List<EMail> emails;
+    // private List<Course> courses;
 }

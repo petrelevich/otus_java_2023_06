@@ -13,12 +13,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
-
 
 @Entity
 @Table(name = "students")
@@ -46,10 +44,12 @@ public class OtusStudent {
     @JoinColumn(name = "student_id")
     private List<EMail> emails;
 
-    //@BatchSize(size = 5)
-    //@Fetch(FetchMode.SUBSELECT)
+    // @BatchSize(size = 5)
+    // @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "student_courses", joinColumns = @JoinColumn(name = "student_id"),
+    @JoinTable(
+            name = "student_courses",
+            joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
     private List<Course> courses;
 }

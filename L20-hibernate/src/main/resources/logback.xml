@@ -8,7 +8,7 @@
     </encoder>
   </appender>
 
-  <!--<logger name="org.hibernate.SQL" level="ERROR"/>-->
+  <logger name="org.hibernate.SQL" level="ERROR"/>
   <logger name="org.hibernate" level="ERROR"/>
   <logger name="ch.qos.logback" level="ERROR"/>
 

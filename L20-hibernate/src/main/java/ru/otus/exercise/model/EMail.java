@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EMail {
     private long id;
-    private String email;
+    private String emailField;
 }

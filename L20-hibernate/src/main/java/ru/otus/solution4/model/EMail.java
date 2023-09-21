@@ -21,5 +21,5 @@ public class EMail {
     private long id;
 
     @Column(name = "email_address")
-    private String email;
+    private String emailField;
 }
