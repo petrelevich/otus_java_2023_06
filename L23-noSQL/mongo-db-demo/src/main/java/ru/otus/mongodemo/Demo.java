@@ -63,9 +63,9 @@ public class Demo {
             System.out.printf("All sliver phones from db:%n"
                     + allSilverPhones.stream().map(Objects::toString).collect(Collectors.joining("%n")));
 
-            System.out.println();
+            System.out.println(":%n:%n");
 
-            collection.insertOne(Document.parse("{\"model\":\"Sasha Stetsenko\", \"color\": \"white\"}"));
+            collection.insertOne(Document.parse("{\"model\":\"Sasha Stetsenko\", \"color\": \"white\", \"parent\": \"Vasya\"}"));
 
             val allPhones = mongoTemplate.findAll(Phone.class);
             System.out.printf("All phones from db:%n"
