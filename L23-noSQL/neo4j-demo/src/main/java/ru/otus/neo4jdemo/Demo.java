@@ -13,7 +13,7 @@ import ru.otus.neo4jdemo.repository.PhoneUserRepository;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+@SuppressWarnings({"squid:S106", "squid:S125", "squid:S2142", "squid:S3457"})
 public class Demo {
     private static final int NEO4J_PORT = 7687;
      private static final String NEO4J_HOST = "localhost"; // Работа без DockerToolbox
@@ -49,29 +49,29 @@ public class Demo {
             phoneUserRepository.insert(vasya);
             phoneUserRepository.insert(anya);
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
 
             Optional<Phone> motorolaZ800iOptional = phoneRepository.findOne(sonyEricssonZ800i.getId());
-            motorolaZ800iOptional.ifPresent(p -> System.out.printf("Phone from db is:\n%s", p));
+            motorolaZ800iOptional.ifPresent(p -> System.out.printf("Phone from db is:%n%s", p));
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
 
             List<Phone> allPhones = phoneRepository.findAll();
-            System.out.println("All phones from db:\n" + allPhones.stream()
-                    .map(Objects::toString).collect(Collectors.joining("\n")));
+            System.out.printf("All phones from db:%n" + allPhones.stream()
+                    .map(Objects::toString).collect(Collectors.joining("%n")));
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
 
             Optional<PhoneUser> vasyaOptional = phoneUserRepository.findOne(vasya.getId());
-            vasyaOptional.ifPresent(u -> System.out.printf("User from db is:\n%s", u));
+            vasyaOptional.ifPresent(u -> System.out.printf("User from db is:%n%s", u));
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
 
             List<PhoneUser> allPhoneUsers = phoneUserRepository.findAll();
-            System.out.println("All users from db:\n" + allPhoneUsers.stream()
-                    .map(Objects::toString).collect(Collectors.joining("\n")));
+            System.out.printf("All users from db:%n" + allPhoneUsers.stream()
+                    .map(Objects::toString).collect(Collectors.joining("%n")));
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
 
         }
     }

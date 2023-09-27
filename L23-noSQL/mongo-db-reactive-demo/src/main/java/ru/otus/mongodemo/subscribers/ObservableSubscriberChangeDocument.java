@@ -11,15 +11,15 @@ public class ObservableSubscriberChangeDocument
         super(true);
     }
 
-    public ObservableSubscriberChangeDocument(boolean printOnNextRecord) {
-        super(printOnNextRecord);
+    public ObservableSubscriberChangeDocument(boolean printOnNextElement) {
+        super(printOnNextElement);
     }
 
     @Override
     public void onNext(ChangeStreamDocument<Document> changedDocument) {
         Document document = changedDocument.getFullDocument();
         OperationType operation = changedDocument.getOperationType();
-        System.out.println(String.format("operation: %s, changed document: %s", operation, document));
+        System.out.printf("operation: %s, changed document: %s%n", operation, document); // NOSONAR
     }
 
 }

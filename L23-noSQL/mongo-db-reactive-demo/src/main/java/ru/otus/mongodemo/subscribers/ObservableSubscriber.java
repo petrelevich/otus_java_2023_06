@@ -10,19 +10,20 @@ import java.util.concurrent.CountDownLatch;
 
 import static java.util.concurrent.TimeUnit.MINUTES;
 
+@SuppressWarnings({"squid:S106", "squid:S112"})
 public class ObservableSubscriber<T> implements Subscriber<T> {
     private final CountDownLatch latch = new CountDownLatch(1);
-    private volatile Throwable error;
-    private List<T> result = new ArrayList<>();
+    private volatile Throwable error; // NOSONAR
+    private final List<T> result = new ArrayList<>();
 
-    private final boolean printOnNextRecord;
+    private final boolean printOnNextElement;
 
     public ObservableSubscriber() {
-        printOnNextRecord = true;
+        printOnNextElement = true;
     }
 
-    public ObservableSubscriber(boolean printOnNextRecord) {
-        this.printOnNextRecord = printOnNextRecord;
+    public ObservableSubscriber(boolean printOnNextElement) {
+        this.printOnNextElement = printOnNextElement;
     }
 
     @Override
@@ -31,10 +32,10 @@ public class ObservableSubscriber<T> implements Subscriber<T> {
     }
 
     @Override
-    public void onNext(T record) {
-        result.add(record);
-        if (printOnNextRecord) {
-            System.out.println(String.format("onNext, result: %s", record));
+    public void onNext(T element) {
+        result.add(element);
+        if (printOnNextElement) {
+            System.out.printf("onNext, result: %s%n", element);
         }
     }
 

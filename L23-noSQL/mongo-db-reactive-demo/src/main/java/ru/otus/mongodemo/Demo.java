@@ -12,6 +12,7 @@ import ru.otus.mongodemo.subscribers.ObservableSubscriber;
 
 import java.util.List;
 
+@SuppressWarnings("squid:S106")
 public class Demo {
 
     public static final String MONGODB_URL = "mongodb://localhost:30001"; // Работа без DockerToolbox
@@ -24,13 +25,13 @@ public class Demo {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(PRODUCTS_COLLECTION);
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
 
             ReactiveMongoHelper.dropDatabase(database);
 
             doInsertAndFindDemo(collection);
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
         }
     }
 

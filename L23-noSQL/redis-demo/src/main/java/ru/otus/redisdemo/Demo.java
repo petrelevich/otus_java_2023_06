@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-
+@SuppressWarnings("squid:S106")
 public class Demo {
     private static final int REDIS_PORT = 6379;
     private static final String REDIS_HOST = "localhost"; // Работа ,tp DockerToolbox
@@ -37,24 +37,24 @@ public class Demo {
 
 
         val motorolaC350Optional = redisTemplate.findOne(motorolaC350.getId(), Phone.class);
-        motorolaC350Optional.ifPresent(sm -> System.out.printf("Phone from db is:\n%s", sm));
+        motorolaC350Optional.ifPresent(sm -> System.out.printf("Phone from db is:%n%s", sm));
 
-        System.out.println("\n");
+        System.out.printf("%n%n");
 
         val motorolaZ800iOptional = redisTemplate.findOne(sonyEricssonZ800i.getId(), Phone.class);
-        motorolaZ800iOptional.ifPresent(sm -> System.out.printf("Phone from db is:\n%s", sm));
+        motorolaZ800iOptional.ifPresent(sm -> System.out.printf("Phone from db is:%n%s", sm));
 
-        System.out.println("\n");
+        System.out.printf("%n%n");
 
         val huaweiP20Optional = redisTemplate.findOne(huaweiP20.getId(), SmartPhone.class);
-        huaweiP20Optional.ifPresent(sm -> System.out.printf("Smartphone from db is:\n%s", sm));
+        huaweiP20Optional.ifPresent(sm -> System.out.printf("Smartphone from db is:%n%s", sm));
 
-        System.out.println("\n");
+        System.out.printf("%n%n");
 
         val allPhones = redisTemplate.findAll(Phone.class);
-        System.out.println("All phones from db:\n" + allPhones.stream()
-                .map(Objects::toString).collect(Collectors.joining("\n")));
+        System.out.printf("All phones from db:%n" + allPhones.stream()
+                .map(Objects::toString).collect(Collectors.joining("%n")));
 
-        System.out.println();
+        System.out.printf("%n%n");
     }
 }

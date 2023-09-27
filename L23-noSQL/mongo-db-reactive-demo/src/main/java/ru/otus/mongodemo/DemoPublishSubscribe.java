@@ -10,6 +10,7 @@ import ru.otus.mongodemo.subscribers.ObservableSubscriberChangeDocument;
 
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("squid:S106")
 public class DemoPublishSubscribe {
 
     public static final String MONGODB_URL = "mongodb://localhost:30001"; // Работа без DockerToolbox
@@ -22,15 +23,16 @@ public class DemoPublishSubscribe {
             MongoDatabase database = mongoClient.getDatabase(DB_NAME);
             MongoCollection<Document> collection = database.getCollection(PRODUCTS_COLLECTION);
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
 
             ReactiveMongoHelper.dropDatabase(database);
 
             doWriteAndReadDemo(collection);
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
         }
     }
+
     private static void doWriteAndReadDemo(MongoCollection<Document> collection) throws Throwable {
         startWritingToCollectionInANewThread(collection);
         subscribeForCollectionChanges(collection);
@@ -42,8 +44,9 @@ public class DemoPublishSubscribe {
                 int counter = 0;
                 val subscriber = new ObservableSubscriber<InsertOneResult>();
                 while (true) {
+                    //noinspection BusyWait
                     Thread.sleep(TimeUnit.SECONDS.toMillis(3));
-                    System.out.println(String.format("counter: %d", counter));
+                    System.out.printf("counter: %d%n", counter);
                     val doc = new Document("key", System.currentTimeMillis())
                             .append("item", "apple")
                             .append("counter", counter++)
@@ -52,6 +55,9 @@ public class DemoPublishSubscribe {
                     collection.insertOne(doc).subscribe(subscriber);
                     subscriber.await();
                 }
+            } catch (InterruptedException ex) {
+                System.err.println(ex.getMessage());
+                Thread.currentThread().interrupt();
             } catch (Throwable ex) {
                 System.err.println(ex.getMessage());
             }

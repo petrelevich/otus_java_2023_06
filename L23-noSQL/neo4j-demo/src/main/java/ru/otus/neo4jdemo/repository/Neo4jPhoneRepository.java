@@ -56,7 +56,7 @@ public class Neo4jPhoneRepository implements PhoneRepository {
                     "model: \" + n.model + \", " +
                     "color: \" + n.color + \", " +
                     "serialNumber: \" + n.serialNumber + \"}\" as res");
-            return result.list().stream().map(r -> mapper.fromJson(r.get("res").asString(), Phone.class)).collect(Collectors.toList());
+            return result.list().stream().map(r -> mapper.fromJson(r.get("res").asString(), Phone.class)).toList();
         }
     }
 
@@ -68,7 +68,7 @@ public class Neo4jPhoneRepository implements PhoneRepository {
                     "model: \" + p.model + \", " +
                     "color: \" + p.color + \", " +
                     "serialNumber: \" + p.serialNumber + \"}\" as res", Map.of("userId", userId));
-            return result.list().stream().map(r -> mapper.fromJson(r.get("res").asString(), Phone.class)).collect(Collectors.toList());
+            return result.list().stream().map(r -> mapper.fromJson(r.get("res").asString(), Phone.class)).toList();
         }
     }
 }

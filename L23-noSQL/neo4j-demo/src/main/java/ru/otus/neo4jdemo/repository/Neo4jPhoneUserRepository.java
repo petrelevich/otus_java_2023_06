@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class Neo4jPhoneUserRepository implements PhoneUserRepository {
@@ -65,11 +64,9 @@ public class Neo4jPhoneUserRepository implements PhoneUserRepository {
                     "name: \" + n.name + \"}\" as res");
             List<PhoneUser> users = result.list().stream()
                     .map(r -> mapper.fromJson(r.get("res").asString(), PhoneUser.class))
-                    .collect(Collectors.toList());
+                    .toList();
 
-            users.forEach(u -> {
-                u.setPhones(phoneRepository.findAllByUserId(u.getId()));
-            });
+            users.forEach(u -> u.setPhones(phoneRepository.findAllByUserId(u.getId())));
             return users;
         }
     }

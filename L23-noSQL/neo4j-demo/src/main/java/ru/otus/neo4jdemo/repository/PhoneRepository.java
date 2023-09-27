@@ -4,7 +4,6 @@ import ru.otus.neo4jdemo.model.Phone;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface PhoneRepository {
     void insert(Phone phone);

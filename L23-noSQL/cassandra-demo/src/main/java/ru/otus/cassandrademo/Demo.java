@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("squid:S106")
 public class Demo {
 
     private static final int CASSANDRA_PORT = 9042;
@@ -37,29 +38,29 @@ public class Demo {
             repository.insert(sonyEricssonZ800i, Phone.class);
             repository.insert(huaweiP20, SmartPhone.class);
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
 
             val motorolaC350Optional = repository.findOne(motorolaC350.getId(), Phone.class);
             motorolaC350Optional.ifPresent(sm ->
-                    System.out.printf("Phone from db is:\n%s", sm));
+                    System.out.printf("Phone from db is:%n%s", sm));
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
 
             val motorolaZ800iOptional = repository.findOne(sonyEricssonZ800i.getId(), Phone.class);
             motorolaZ800iOptional.ifPresent(sm ->
-                    System.out.printf("Phone from db is:\n%s", sm));
+                    System.out.printf("Phone from db is:%n%s", sm));
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
 
             val huaweiP20Optional = repository.findOne(huaweiP20.getId(), SmartPhone.class);
             huaweiP20Optional.ifPresent(sm ->
-                    System.out.printf("Smartphone from db is:\n%s", sm));
+                    System.out.printf("Smartphone from db is:%n%s", sm));
 
-            System.out.println("\n");
+            System.out.printf("%n%n");
 
             val allPhones = repository.findAll(SmartPhone.class);
-            System.out.println("All phones from db:\n" + allPhones.stream()
-                    .map(Objects::toString).collect(Collectors.joining("\n")));
+            System.out.printf("All phones from db:%n" + allPhones.stream()
+                    .map(Objects::toString).collect(Collectors.joining("%n")));
         }
     }
 

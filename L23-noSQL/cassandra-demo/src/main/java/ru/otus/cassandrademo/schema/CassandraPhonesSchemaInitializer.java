@@ -7,7 +7,6 @@ import ru.otus.cassandrademo.db.CassandraConnection;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 
 @RequiredArgsConstructor
 public class CassandraPhonesSchemaInitializer implements CassandraSchemaInitializer {

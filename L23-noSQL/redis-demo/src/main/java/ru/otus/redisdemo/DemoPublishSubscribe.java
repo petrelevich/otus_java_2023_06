@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 
+@SuppressWarnings("squid:S106")
 public class DemoPublishSubscribe {
     private static final Logger logger = LoggerFactory.getLogger(DemoPublishSubscribe.class);
     private static final String MESSAGE_QUEUE_CHANNEL_NAME = "message-queue";

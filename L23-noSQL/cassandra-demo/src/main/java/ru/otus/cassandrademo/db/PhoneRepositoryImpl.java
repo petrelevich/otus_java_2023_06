@@ -3,7 +3,6 @@ package ru.otus.cassandrademo.db;
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.driver.api.core.cql.Row;
-import com.datastax.oss.driver.api.core.session.Session;
 import lombok.RequiredArgsConstructor;
 import ru.otus.cassandrademo.model.Phone;
 import ru.otus.cassandrademo.model.SmartPhone;
@@ -11,8 +10,8 @@ import ru.otus.cassandrademo.model.SmartPhone;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+@SuppressWarnings("squid:S112")
 @RequiredArgsConstructor
 public class PhoneRepositoryImpl implements PhoneRepository {
     private final CassandraConnection cassandraConnection;
@@ -57,7 +56,7 @@ public class PhoneRepositoryImpl implements PhoneRepository {
         ResultSet resultSet = session.execute("SELECT * FROM Products.Phones");
 
         return resultSet.all().stream()
-                .map(row -> mapRow(row, tClass)).collect(Collectors.toList());
+                .map(row -> mapRow(row, tClass)).toList();
     }
 
     private void assertClass(Class<?> tClass) {
