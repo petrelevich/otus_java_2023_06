@@ -2,19 +2,18 @@ package ru.otus.mongodemo;
 
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.reactivestreams.client.*;
+import java.util.concurrent.TimeUnit;
 import lombok.val;
 import org.bson.Document;
 import ru.otus.mongodemo.helpers.ReactiveMongoHelper;
 import ru.otus.mongodemo.subscribers.ObservableSubscriber;
 import ru.otus.mongodemo.subscribers.ObservableSubscriberChangeDocument;
 
-import java.util.concurrent.TimeUnit;
-
 @SuppressWarnings("squid:S106")
 public class DemoPublishSubscribe {
 
     public static final String MONGODB_URL = "mongodb://localhost:30001"; // Работа без DockerToolbox
-    //public static final String MONGODB_URL = "mongodb://192.168.99.100:30001"; // Работа через DockerToolbox
+    // public static final String MONGODB_URL = "mongodb://192.168.99.100:30001"; // Работа через DockerToolbox
     private static final String DB_NAME = "mongo-db-test";
     private static final String PRODUCTS_COLLECTION = "products";
 

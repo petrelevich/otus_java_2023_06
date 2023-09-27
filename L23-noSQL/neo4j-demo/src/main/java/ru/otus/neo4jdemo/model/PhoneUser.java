@@ -1,9 +1,8 @@
 package ru.otus.neo4jdemo.model;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @AllArgsConstructor

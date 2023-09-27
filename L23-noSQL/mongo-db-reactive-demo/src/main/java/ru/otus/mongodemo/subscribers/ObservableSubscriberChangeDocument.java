@@ -4,8 +4,8 @@ import com.mongodb.client.model.changestream.ChangeStreamDocument;
 import com.mongodb.client.model.changestream.OperationType;
 import org.bson.Document;
 
-public class ObservableSubscriberChangeDocument
-        extends ObservableSubscriber<ChangeStreamDocument<Document>> {
+@SuppressWarnings("unused")
+public class ObservableSubscriberChangeDocument extends ObservableSubscriber<ChangeStreamDocument<Document>> {
 
     public ObservableSubscriberChangeDocument() {
         super(true);
@@ -21,5 +21,4 @@ public class ObservableSubscriberChangeDocument
         OperationType operation = changedDocument.getOperationType();
         System.out.printf("operation: %s, changed document: %s%n", operation, document); // NOSONAR
     }
-
 }

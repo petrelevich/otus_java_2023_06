@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 public class SmartPhone {
     @BsonId
     private ObjectId id;
+
     private String model;
     private String color;
     private String serialNumber;

@@ -1,18 +1,17 @@
 package ru.otus.mongodemo.template;
 
+import static com.mongodb.client.model.Filters.eq;
+
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static com.mongodb.client.model.Filters.eq;
 
 @RequiredArgsConstructor
 public class MongoTemplateImpl implements MongoTemplate {
@@ -43,7 +42,7 @@ public class MongoTemplateImpl implements MongoTemplate {
     }
 
     @Override
-    public <T> List<T> findAll(Class<T> tClass)  {
+    public <T> List<T> findAll(Class<T> tClass) {
         return find(Document.parse("{}"), tClass);
     }
 }

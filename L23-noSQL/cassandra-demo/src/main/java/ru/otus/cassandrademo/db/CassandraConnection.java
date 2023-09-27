@@ -1,8 +1,6 @@
 package ru.otus.cassandrademo.db;
 
-
 import com.datastax.oss.driver.api.core.CqlSession;
-
 import java.net.InetSocketAddress;
 
 public class CassandraConnection implements AutoCloseable {

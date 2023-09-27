@@ -3,13 +3,12 @@ package ru.otus.cassandrademo.db;
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.driver.api.core.cql.Row;
-import lombok.RequiredArgsConstructor;
-import ru.otus.cassandrademo.model.Phone;
-import ru.otus.cassandrademo.model.SmartPhone;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import ru.otus.cassandrademo.model.Phone;
+import ru.otus.cassandrademo.model.SmartPhone;
 
 @SuppressWarnings("squid:S112")
 @RequiredArgsConstructor
@@ -22,16 +21,24 @@ public class PhoneRepositoryImpl implements PhoneRepository {
         if (tClass.equals(Phone.class)) {
 
             Phone phone = (Phone) value;
-            session.execute("INSERT INTO Products.Phones (id, model, color, serialNumber) " +
-                            "VALUES (?, ?, ?, ?)", phone.getId(), phone.getModel(), phone.getColor(),
+            session.execute(
+                    "INSERT INTO Products.Phones (id, model, color, serialNumber) " + "VALUES (?, ?, ?, ?)",
+                    phone.getId(),
+                    phone.getModel(),
+                    phone.getColor(),
                     phone.getSerialNumber());
 
         } else if (tClass.equals(SmartPhone.class)) {
 
             SmartPhone phone = (SmartPhone) value;
-            session.execute("INSERT INTO Products.Phones (id, model, color, serialNumber, operatingSystem) " +
-                            "VALUES (?, ?, ?, ?, ?)", phone.getId(), phone.getModel(), phone.getColor(),
-                    phone.getSerialNumber(), phone.getOperatingSystem());
+            session.execute(
+                    "INSERT INTO Products.Phones (id, model, color, serialNumber, operatingSystem) "
+                            + "VALUES (?, ?, ?, ?, ?)",
+                    phone.getId(),
+                    phone.getModel(),
+                    phone.getColor(),
+                    phone.getSerialNumber(),
+                    phone.getOperatingSystem());
 
         } else {
             throw new RuntimeException("Unsupported object class");
@@ -47,7 +54,6 @@ public class PhoneRepositoryImpl implements PhoneRepository {
         return Optional.ofNullable(resultSet.one()).map(row -> mapRow(row, tClass));
     }
 
-
     @Override
     public <T> List<T> findAll(Class<T> tClass) {
         assertClass(tClass);
@@ -55,8 +61,7 @@ public class PhoneRepositoryImpl implements PhoneRepository {
         CqlSession session = cassandraConnection.getSession();
         ResultSet resultSet = session.execute("SELECT * FROM Products.Phones");
 
-        return resultSet.all().stream()
-                .map(row -> mapRow(row, tClass)).toList();
+        return resultSet.all().stream().map(row -> mapRow(row, tClass)).toList();
     }
 
     private void assertClass(Class<?> tClass) {
@@ -78,6 +83,4 @@ public class PhoneRepositoryImpl implements PhoneRepository {
         }
         return (T) new SmartPhone(id, model, color, serialNumber, operatingSystem);
     }
-
-    
 }

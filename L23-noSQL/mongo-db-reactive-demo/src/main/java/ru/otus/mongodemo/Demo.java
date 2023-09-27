@@ -5,18 +5,17 @@ import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import com.mongodb.reactivestreams.client.MongoDatabase;
+import java.util.List;
 import lombok.val;
 import org.bson.Document;
 import ru.otus.mongodemo.helpers.ReactiveMongoHelper;
 import ru.otus.mongodemo.subscribers.ObservableSubscriber;
 
-import java.util.List;
-
 @SuppressWarnings("squid:S106")
 public class Demo {
 
     public static final String MONGODB_URL = "mongodb://localhost:30001"; // Работа без DockerToolbox
-    //public static final String MONGODB_URL = "mongodb://192.168.99.100:30001"; // Работа через DockerToolbox
+    // public static final String MONGODB_URL = "mongodb://192.168.99.100:30001"; // Работа через DockerToolbox
     private static final String DB_NAME = "mongo-db-test";
     private static final String PRODUCTS_COLLECTION = "products";
 
@@ -56,6 +55,6 @@ public class Demo {
         subscriberPrinter.await();
 
         List<Document> results = subscriberPrinter.getResult();
-        System.out.println(String.format("result.size: %d", results.size()));
+        System.out.printf("result.size: %d%n", results.size());
     }
 }

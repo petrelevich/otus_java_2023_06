@@ -1,14 +1,13 @@
 package ru.otus.mongodemo.subscribers;
 
-import com.mongodb.MongoTimeoutException;
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
+import static java.util.concurrent.TimeUnit.MINUTES;
 
+import com.mongodb.MongoTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-
-import static java.util.concurrent.TimeUnit.MINUTES;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 
 @SuppressWarnings({"squid:S106", "squid:S112"})
 public class ObservableSubscriber<T> implements Subscriber<T> {

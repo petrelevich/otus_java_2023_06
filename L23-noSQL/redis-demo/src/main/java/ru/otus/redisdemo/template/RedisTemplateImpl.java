@@ -1,13 +1,12 @@
 package ru.otus.redisdemo.template;
 
 import com.google.gson.Gson;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
-import redis.clients.jedis.Jedis;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import lombok.val;
+import redis.clients.jedis.Jedis;
 
 @RequiredArgsConstructor
 public class RedisTemplateImpl implements RedisTemplate {
@@ -29,7 +28,6 @@ public class RedisTemplateImpl implements RedisTemplate {
     public <T> Optional<T> findOne(String id, Class<T> tClass) {
         val key = buildKey(tClass, id);
         return Optional.ofNullable(jedis.get(key)).map(v -> mapper.fromJson(v, tClass));
-
     }
 
     @Override
