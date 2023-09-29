@@ -7,11 +7,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import ru.otus.services.TemplateProcessor;
-import ru.otus.services.UserAuthService;
-
 import java.io.IOException;
 import java.util.Collections;
+import ru.otus.services.TemplateProcessor;
+import ru.otus.services.UserAuthService;
 
 @SuppressWarnings({"squid:S1948"})
 public class LoginServlet extends HttpServlet {
