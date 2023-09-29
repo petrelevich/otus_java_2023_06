@@ -44,6 +44,9 @@ allprojects {
     val neo4j: String by project
     val jedis: String by project
 
+    val jetty: String by project
+    val freemarker: String by project
+
     apply(plugin = "io.spring.dependency-management")
     dependencyManagement {
         dependencies {
@@ -66,6 +69,15 @@ allprojects {
             dependency("org.mongodb:mongodb-driver-reactivestreams:${mongodbReactive}")
             dependency("org.neo4j.driver:neo4j-java-driver:$neo4j")
             dependency("redis.clients:jedis:$jedis")
+
+            dependency("org.eclipse.jetty:jetty-servlet:$jetty")
+            dependency("org.eclipse.jetty:jetty-server:$jetty")
+            dependency("org.eclipse.jetty:jetty-webapp:$jetty")
+            dependency("org.eclipse.jetty:jetty-security:$jetty")
+            dependency("org.eclipse.jetty:jetty-http:$jetty")
+            dependency("org.eclipse.jetty:jetty-io:$jetty")
+            dependency("org.eclipse.jetty:jetty-util:$jetty")
+            dependency("org.freemarker:freemarker:$freemarker")
         }
     }
 
