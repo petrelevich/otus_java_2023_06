@@ -13,6 +13,7 @@ import java.util.Collections;
 
 import static jakarta.servlet.http.HttpServletResponse.*;
 
+@SuppressWarnings({"squid:S1948"})
 public class LoginServlet extends HttpServlet {
 
     private static final String PARAM_LOGIN = "login";

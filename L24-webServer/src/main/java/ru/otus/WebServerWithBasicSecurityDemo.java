@@ -9,7 +9,7 @@ import ru.otus.dao.UserDao;
 import ru.otus.helpers.FileSystemHelper;
 import ru.otus.server.UsersWebServer;
 import ru.otus.server.UsersWebServerWithBasicSecurity;
-import ru.otus.services.InMemoryLoginServiceImpl;
+import ru.otus.services.InMemoryLoginServiceImpl; // NOSONAR
 import ru.otus.services.TemplateProcessor;
 import ru.otus.services.TemplateProcessorImpl;
 
@@ -38,7 +38,7 @@ public class WebServerWithBasicSecurityDemo {
 
         String hashLoginServiceConfigPath = FileSystemHelper.localFileNameOrResourceNameToFullPath(HASH_LOGIN_SERVICE_CONFIG_NAME);
         LoginService loginService = new HashLoginService(REALM_NAME, hashLoginServiceConfigPath);
-        //LoginService loginService = new InMemoryLoginServiceImpl(userDao);
+        //LoginService loginService = new InMemoryLoginServiceImpl(userDao); // NOSONAR
 
         UsersWebServer usersWebServer = new UsersWebServerWithBasicSecurity(WEB_SERVER_PORT,
                 loginService, userDao, gson, templateProcessor);

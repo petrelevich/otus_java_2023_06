@@ -62,6 +62,7 @@ public class UsersWebServerSimple implements UsersWebServer {
         return server;
     }
 
+    @SuppressWarnings({"squid:S1172"})
     protected Handler applySecurity(ServletContextHandler servletContextHandler, String ...paths) {
         return servletContextHandler;
     }

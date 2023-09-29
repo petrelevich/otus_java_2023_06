@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
+@SuppressWarnings({"squid:S112"})
 public final class FileSystemHelper {
 
     private FileSystemHelper() {
@@ -18,7 +19,6 @@ public final class FileSystemHelper {
         }
 
         if (path == null) {
-            System.out.println("Local file not found, looking into resources");
             path = Optional.ofNullable(FileSystemHelper.class.getClassLoader().getResource(fileOrResourceName))
                     .orElseThrow(() -> new RuntimeException(String.format("File \"%s\" not found", fileOrResourceName))).toExternalForm();
 

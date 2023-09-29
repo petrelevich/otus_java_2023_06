@@ -32,6 +32,7 @@ public class UsersWebServerWithBasicSecurity extends UsersWebServerSimple {
         this.loginService = loginService;
     }
 
+    @Override
     protected Handler applySecurity(ServletContextHandler servletContextHandler, String... paths) {
         Constraint constraint = new Constraint();
         constraint.setName(CONSTRAINT_NAME);

@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+@SuppressWarnings({"squid:S1948"})
 public class UsersApiServlet extends HttpServlet {
 
     private static final int ID_PATH_PARAM_POSITION = 1;
