@@ -33,8 +33,8 @@ public class WebServerWithFilterBasedSecurityDemo {
         TemplateProcessor templateProcessor = new TemplateProcessorImpl(TEMPLATES_DIR);
         UserAuthService authService = new UserAuthServiceImpl(userDao);
 
-        UsersWebServer usersWebServer = new UsersWebServerWithFilterBasedSecurity(WEB_SERVER_PORT,
-                authService, userDao, gson, templateProcessor);
+        UsersWebServer usersWebServer = new UsersWebServerWithFilterBasedSecurity(
+                WEB_SERVER_PORT, authService, userDao, gson, templateProcessor);
 
         usersWebServer.start();
         usersWebServer.join();

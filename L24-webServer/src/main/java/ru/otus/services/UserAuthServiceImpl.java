@@ -16,5 +16,4 @@ public class UserAuthServiceImpl implements UserAuthService {
                 .map(user -> user.getPassword().equals(password))
                 .orElse(false);
     }
-
 }

@@ -13,7 +13,6 @@ import ru.otus.services.TemplateProcessor;
 import ru.otus.servlet.UsersApiServlet;
 import ru.otus.servlet.UsersServlet;
 
-
 public class UsersWebServerSimple implements UsersWebServer {
     private static final String START_PAGE_NAME = "index.html";
     private static final String COMMON_RESOURCES_DIR = "static";
@@ -57,20 +56,19 @@ public class UsersWebServerSimple implements UsersWebServer {
         handlers.addHandler(resourceHandler);
         handlers.addHandler(applySecurity(servletContextHandler, "/users", "/api/user/*"));
 
-
         server.setHandler(handlers);
         return server;
     }
 
     @SuppressWarnings({"squid:S1172"})
-    protected Handler applySecurity(ServletContextHandler servletContextHandler, String ...paths) {
+    protected Handler applySecurity(ServletContextHandler servletContextHandler, String... paths) {
         return servletContextHandler;
     }
 
     private ResourceHandler createResourceHandler() {
         ResourceHandler resourceHandler = new ResourceHandler();
         resourceHandler.setDirectoriesListed(false);
-        resourceHandler.setWelcomeFiles(new String[]{START_PAGE_NAME});
+        resourceHandler.setWelcomeFiles(new String[] {START_PAGE_NAME});
         resourceHandler.setResourceBase(FileSystemHelper.localFileNameOrResourceNameToFullPath(COMMON_RESOURCES_DIR));
         return resourceHandler;
     }

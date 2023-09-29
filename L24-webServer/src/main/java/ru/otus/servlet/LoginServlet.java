@@ -1,5 +1,7 @@
 package ru.otus.servlet;
 
+import static jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,8 +13,6 @@ import ru.otus.services.UserAuthService;
 import java.io.IOException;
 import java.util.Collections;
 
-import static jakarta.servlet.http.HttpServletResponse.*;
-
 @SuppressWarnings({"squid:S1948"})
 public class LoginServlet extends HttpServlet {
 
@@ -20,7 +20,6 @@ public class LoginServlet extends HttpServlet {
     private static final String PARAM_PASSWORD = "password";
     private static final int MAX_INACTIVE_INTERVAL = 30;
     private static final String LOGIN_PAGE_TEMPLATE = "login.html";
-
 
     private final TemplateProcessor templateProcessor;
     private final UserAuthService userAuthService;
@@ -31,7 +30,8 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html");
         response.getWriter().println(templateProcessor.getPage(LOGIN_PAGE_TEMPLATE, Collections.emptyMap()));
     }
@@ -49,7 +49,5 @@ public class LoginServlet extends HttpServlet {
         } else {
             response.setStatus(SC_UNAUTHORIZED);
         }
-
     }
-
 }

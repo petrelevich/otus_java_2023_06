@@ -1,8 +1,10 @@
 package ru.otus.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
 import ru.otus.model.User;
-
-import java.util.*;
 
 public class InMemoryUserDao implements UserDao {
 

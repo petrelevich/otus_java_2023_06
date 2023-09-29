@@ -1,7 +1,18 @@
 package ru.otus.server;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+import static ru.otus.server.utils.WebServerHelper.buildUrl;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.Optional;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -9,18 +20,6 @@ import org.junit.jupiter.api.Test;
 import ru.otus.dao.UserDao;
 import ru.otus.model.User;
 import ru.otus.services.TemplateProcessor;
-
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static ru.otus.server.utils.WebServerHelper.buildUrl;
 
 @DisplayName("Тест сервера должен ")
 class UsersWebServerImplTest {
@@ -31,7 +30,7 @@ class UsersWebServerImplTest {
 
     private static final long DEFAULT_USER_ID = 1L;
 
-    private static final User DEFAULT_USER = new User(DEFAULT_USER_ID, "Vasya",  "user1", "11111");
+    private static final User DEFAULT_USER = new User(DEFAULT_USER_ID, "Vasya", "user1", "11111");
 
     private static Gson gson;
     private static UsersWebServer webServer;
@@ -59,8 +58,9 @@ class UsersWebServerImplTest {
     @DisplayName("возвращать корректные данные при запросе пользователя по id если вход выполнен")
     @Test
     void shouldReturnCorrectUserWhenAuthorized() throws Exception {
-        HttpRequest request = HttpRequest.newBuilder().GET()
-                .uri(URI.create(buildUrl(WEB_SERVER_URL, API_USER_URL,String.valueOf(DEFAULT_USER_ID))))
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(buildUrl(WEB_SERVER_URL, API_USER_URL, String.valueOf(DEFAULT_USER_ID))))
                 .build();
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
 

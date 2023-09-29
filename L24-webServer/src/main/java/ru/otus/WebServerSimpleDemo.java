@@ -29,8 +29,7 @@ public class WebServerSimpleDemo {
         Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
         TemplateProcessor templateProcessor = new TemplateProcessorImpl(TEMPLATES_DIR);
 
-        UsersWebServer usersWebServer = new UsersWebServerSimple(WEB_SERVER_PORT, userDao,
-                gson, templateProcessor);
+        UsersWebServer usersWebServer = new UsersWebServerSimple(WEB_SERVER_PORT, userDao, gson, templateProcessor);
 
         usersWebServer.start();
         usersWebServer.join();

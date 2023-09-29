@@ -1,14 +1,13 @@
 package ru.otus.servlet;
 
-import ru.otus.dao.UserDao;
-import ru.otus.services.TemplateProcessor;
-
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import ru.otus.dao.UserDao;
+import ru.otus.services.TemplateProcessor;
 
 @SuppressWarnings({"squid:S1948"})
 public class UsersServlet extends HttpServlet {
@@ -32,5 +31,4 @@ public class UsersServlet extends HttpServlet {
         response.setContentType("text/html");
         response.getWriter().println(templateProcessor.getPage(USERS_PAGE_TEMPLATE, paramsMap));
     }
-
 }
