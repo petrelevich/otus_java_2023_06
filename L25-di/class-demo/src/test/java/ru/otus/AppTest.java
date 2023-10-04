@@ -1,19 +1,19 @@
 package ru.otus;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.PrintStream;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.otus.services.EquationPreparer;
 import ru.otus.services.IOService;
 import ru.otus.services.PlayerService;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class AppTest {
 
