@@ -10,10 +10,11 @@ import ru.otus.services.PlayerService;
 import ru.otus.services.PlayerServiceImpl;
 
 
+@SuppressWarnings({"squid:S125", "squid:S106"})
 public class App {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         EquationPreparer equationPreparer = new EquationPreparerImpl();
-        IOService ioService = new IOServiceStreams(System.out, System.in);
+        IOService ioService = new IOServiceStreams(System.out, System.in); // NOSONAR
         PlayerService playerService = new PlayerServiceImpl(ioService);
         GameProcessor gameProcessor = new GameProcessorImpl(ioService, equationPreparer, playerService);
 

@@ -26,6 +26,7 @@ public class AppConfig {
         return new GameProcessorImpl(ioService, equationPreparer, playerService);
     }
 
+    @SuppressWarnings("squid:S106")
     @Bean
     public IOService ioService() {
         return new IOServiceStreams(System.out, System.in);

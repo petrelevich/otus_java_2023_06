@@ -24,6 +24,7 @@ public class AppConfig {
         return new GameProcessorImpl(ioService, equationPreparer, playerService);
     }
 
+    @SuppressWarnings("squid:S106")
     @AppComponent(order = 0, name = "ioService")
     public IOService ioService() {
         return new IOServiceStreams(System.out, System.in);

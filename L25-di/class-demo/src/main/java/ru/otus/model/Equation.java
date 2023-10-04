@@ -5,7 +5,7 @@ public abstract class Equation {
     protected final int rightPart;
     protected final int result;
 
-    public Equation(int leftPart, int rightPart) {
+    protected Equation(int leftPart, int rightPart) {
         this.leftPart = leftPart;
         this.rightPart = rightPart;
         this.result = calcResult();

@@ -13,7 +13,9 @@ public class GameResult {
 
     public void incrementRightAnswers(boolean mustIncremented) {
         total++;
-        rightAnswers = mustIncremented? ++rightAnswers: rightAnswers;
+        if (mustIncremented) {
+            rightAnswers++;
+        }
     }
 
     @Override
