@@ -1,12 +1,11 @@
 package ru.otus.services;
 
-import ru.otus.model.DivisionEquation;
-import ru.otus.model.Equation;
-import ru.otus.model.MultiplicationEquation;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import ru.otus.model.DivisionEquation;
+import ru.otus.model.Equation;
+import ru.otus.model.MultiplicationEquation;
 
 public class EquationPreparerImpl implements EquationPreparer {
     @Override
@@ -17,7 +16,6 @@ public class EquationPreparerImpl implements EquationPreparer {
             var divisionEquation = new DivisionEquation(multiplicationEquation.getResult(), base);
             equations.add(multiplicationEquation);
             equations.add(divisionEquation);
-
         }
         Collections.shuffle(equations);
         return equations;

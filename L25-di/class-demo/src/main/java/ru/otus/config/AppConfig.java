@@ -7,12 +7,10 @@ import ru.otus.services.*;
 @Configuration
 public class AppConfig {
 
-
     @Bean
-    public EquationPreparer equationPreparer(){
+    public EquationPreparer equationPreparer() {
         return new EquationPreparerImpl();
     }
-
 
     @Bean
     public PlayerService playerService(IOService ioService) {
@@ -20,9 +18,8 @@ public class AppConfig {
     }
 
     @Bean
-    public GameProcessor gameProcessor(IOService ioService,
-                                       PlayerService playerService,
-                                       EquationPreparer equationPreparer) {
+    public GameProcessor gameProcessor(
+            IOService ioService, PlayerService playerService, EquationPreparer equationPreparer) {
         return new GameProcessorImpl(ioService, equationPreparer, playerService);
     }
 
@@ -31,5 +28,4 @@ public class AppConfig {
     public IOService ioService() {
         return new IOServiceStreams(System.out, System.in);
     }
-
 }

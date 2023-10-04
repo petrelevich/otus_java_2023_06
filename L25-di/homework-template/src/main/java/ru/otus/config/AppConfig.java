@@ -8,7 +8,7 @@ import ru.otus.services.*;
 public class AppConfig {
 
     @AppComponent(order = 0, name = "equationPreparer")
-    public EquationPreparer equationPreparer(){
+    public EquationPreparer equationPreparer() {
         return new EquationPreparerImpl();
     }
 
@@ -18,9 +18,8 @@ public class AppConfig {
     }
 
     @AppComponent(order = 2, name = "gameProcessor")
-    public GameProcessor gameProcessor(IOService ioService,
-                                       PlayerService playerService,
-                                       EquationPreparer equationPreparer) {
+    public GameProcessor gameProcessor(
+            IOService ioService, PlayerService playerService, EquationPreparer equationPreparer) {
         return new GameProcessorImpl(ioService, equationPreparer, playerService);
     }
 
@@ -29,5 +28,4 @@ public class AppConfig {
     public IOService ioService() {
         return new IOServiceStreams(System.out, System.in);
     }
-
 }

@@ -1,8 +1,7 @@
 package ru.otus.services;
 
-import ru.otus.model.Equation;
-
 import java.util.List;
+import ru.otus.model.Equation;
 
 public interface EquationPreparer {
     List<Equation> prepareEquationsFor(int base);

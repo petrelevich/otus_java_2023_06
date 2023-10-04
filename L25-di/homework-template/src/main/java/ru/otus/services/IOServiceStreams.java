@@ -13,7 +13,6 @@ public class IOServiceStreams implements IOService {
         this.in = new Scanner(in);
     }
 
-
     @Override
     public void out(String message) {
         out.println(message);

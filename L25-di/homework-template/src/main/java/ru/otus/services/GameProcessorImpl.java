@@ -1,10 +1,9 @@
 package ru.otus.services;
 
+import java.util.List;
 import ru.otus.model.Equation;
 import ru.otus.model.GameResult;
 import ru.otus.model.Player;
-
-import java.util.List;
 
 public class GameProcessorImpl implements GameProcessor {
 
@@ -17,9 +16,7 @@ public class GameProcessorImpl implements GameProcessor {
     private final EquationPreparer equationPreparer;
     private final PlayerService playerService;
 
-    public GameProcessorImpl(IOService ioService,
-                             EquationPreparer equationPreparer,
-                             PlayerService playerService) {
+    public GameProcessorImpl(IOService ioService, EquationPreparer equationPreparer, PlayerService playerService) {
         this.ioService = ioService;
         this.equationPreparer = equationPreparer;
         this.playerService = playerService;
@@ -37,7 +34,7 @@ public class GameProcessorImpl implements GameProcessor {
         equations.forEach(e -> {
             boolean isRight = ioService.readInt(e.toString()) == e.getResult();
             gameResult.incrementRightAnswers(isRight);
-            ioService.out(isRight? MSG_RIGHT_ANSWER : MSG_WRONG_ANSWER);
+            ioService.out(isRight ? MSG_RIGHT_ANSWER : MSG_WRONG_ANSWER);
         });
         ioService.out(gameResult.toString());
     }
