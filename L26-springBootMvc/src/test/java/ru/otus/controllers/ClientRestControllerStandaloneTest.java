@@ -1,5 +1,10 @@
 package ru.otus.controllers;
 
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,11 +18,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.otus.domain.Client;
 import ru.otus.services.ClientService;
 
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @DisplayName("StandaloneTest: REST-контроллер клиентов ")
 @ExtendWith(MockitoExtension.class)
 class ClientRestControllerStandaloneTest {
@@ -29,7 +29,8 @@ class ClientRestControllerStandaloneTest {
 
     @BeforeEach
     public void setUp() {
-        mvc = MockMvcBuilders.standaloneSetup(new ClientRestController(clientService)).build();
+        mvc = MockMvcBuilders.standaloneSetup(new ClientRestController(clientService))
+                .build();
     }
 
     @DisplayName("должен возвращать корректного клиента по его id")

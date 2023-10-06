@@ -1,8 +1,7 @@
 package ru.otus.generators;
 
-import org.springframework.stereotype.Component;
-
 import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.stereotype.Component;
 
 @Component
 public class ClientIdGeneratorImpl implements ClientIdGenerator {

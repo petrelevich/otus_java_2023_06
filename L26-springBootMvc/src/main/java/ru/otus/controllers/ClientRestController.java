@@ -33,5 +33,4 @@ public class ClientRestController {
     public Client findRandomClient() {
         return clientService.findRandom();
     }
-
 }

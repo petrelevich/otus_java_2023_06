@@ -1,8 +1,7 @@
 package ru.otus.repostory;
 
-import ru.otus.domain.Client;
-
 import java.util.List;
+import ru.otus.domain.Client;
 
 public interface ClientRepository {
 

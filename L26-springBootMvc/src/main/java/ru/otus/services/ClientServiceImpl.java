@@ -1,11 +1,10 @@
 package ru.otus.services;
 
+import java.util.List;
+import java.util.Random;
 import org.springframework.stereotype.Service;
 import ru.otus.domain.Client;
 import ru.otus.repostory.ClientRepository;
-
-import java.util.List;
-import java.util.Random;
 
 @Service
 public class ClientServiceImpl implements ClientService {

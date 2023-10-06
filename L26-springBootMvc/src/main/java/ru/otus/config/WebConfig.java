@@ -10,5 +10,4 @@ public class WebConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/no-handler-view").setViewName("noHandlerView");
     }
-
 }
