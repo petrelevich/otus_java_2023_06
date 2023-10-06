@@ -28,6 +28,7 @@ public class ClientRestController {
         return clientService.save(client);
     }
 
+    @SuppressWarnings("squid:S4488")
     @RequestMapping(method = RequestMethod.GET, value = "/api/client/random")
     public Client findRandomClient() {
         return clientService.findRandom();

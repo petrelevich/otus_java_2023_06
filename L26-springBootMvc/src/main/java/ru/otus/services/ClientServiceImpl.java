@@ -12,6 +12,8 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
 
+    private final Random random = new Random();
+
     public ClientServiceImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
@@ -34,8 +36,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client findRandom() {
         List<Client> clients = clientRepository.findAll();
-        Random r = new Random();
-        return clients.stream().skip(r.nextInt(clients.size() - 1)).findFirst().orElse(null);
+        return clients.stream()
+                .skip(random.nextInt(clients.size() - 1))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
