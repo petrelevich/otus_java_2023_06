@@ -6,7 +6,6 @@ import java.io.PrintStream;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -34,12 +33,12 @@ class AppTest {
                 "EquationPreparerImpl, ru.otus.services.EquationPreparer",
                 "equationPreparer, ru.otus.services.EquationPreparer"
             })
-    public void shouldExtractFromContextCorrectComponentWithNotNullFields(String classNameOrBeanId, Class<?> rootClass)
+    void shouldExtractFromContextCorrectComponentWithNotNullFields(String classNameOrBeanId, Class<?> rootClass)
             throws Exception {
         var ctx = new ClassPathXmlApplicationContext("/spring-context.xml");
 
         assertThat(classNameOrBeanId).isNotEmpty();
-        Object component = null;
+        Object component;
         if (classNameOrBeanId.charAt(0) == classNameOrBeanId.toUpperCase().charAt(0)) {
             Class<?> gameProcessorClass = Class.forName("ru.otus.services." + classNameOrBeanId);
             assertThat(rootClass).isAssignableFrom(gameProcessorClass);
@@ -54,7 +53,7 @@ class AppTest {
         var fields = Arrays.stream(component.getClass().getDeclaredFields())
                 .filter(f -> !Modifier.isStatic(f.getModifiers()))
                 .peek(f -> f.setAccessible(true))
-                .collect(Collectors.toList());
+                .toList();
 
         for (var field : fields) {
             var fieldValue = field.get(component);

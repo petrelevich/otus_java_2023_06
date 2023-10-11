@@ -65,7 +65,8 @@ public class Demo {
 
             System.out.println(":%n:%n");
 
-            collection.insertOne(Document.parse("{\"model\":\"Sasha Stetsenko\", \"color\": \"white\", \"parent\": \"Vasya\"}"));
+            collection.insertOne(
+                    Document.parse("{\"model\":\"Sasha Stetsenko\", \"color\": \"white\", \"parent\": \"Vasya\"}"));
 
             val allPhones = mongoTemplate.findAll(Phone.class);
             System.out.printf("All phones from db:%n"
