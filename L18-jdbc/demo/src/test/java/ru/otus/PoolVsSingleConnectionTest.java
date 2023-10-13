@@ -18,6 +18,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @DisplayName("Сравниваем скорость работы с connectionPool и без него ")
 @Testcontainers
+@SuppressWarnings("java:S2699")
 class PoolVsSingleConnectionTest {
     private static final Logger logger = LoggerFactory.getLogger(PoolVsSingleConnectionTest.class);
 
@@ -45,7 +46,9 @@ class PoolVsSingleConnectionTest {
         logger.info("before getting connection");
         long before = System.currentTimeMillis();
 
-        try (Connection connection = getConnection(usePool)) {}
+        try (Connection connection = getConnection(usePool)) {
+            logger.info("connection.isValid:{}", connection.isValid(100));
+        }
 
         logger.info("usePool: {}, after getting connection, time:{}", usePool, (System.currentTimeMillis() - before));
 

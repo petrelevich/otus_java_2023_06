@@ -76,7 +76,11 @@ public class AsyncRead implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
-        fileChannel.close();
+    public void close() {
+        try {
+            fileChannel.close();
+        } catch (Exception ex) {
+            throw new AsyncReadException(ex);
+        }
     }
 }

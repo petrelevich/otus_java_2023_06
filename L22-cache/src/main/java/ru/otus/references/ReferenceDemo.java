@@ -170,7 +170,7 @@ public class ReferenceDemo {
         }
 
         @Override
-        @SuppressWarnings({"deprecation", "java:S1113", "java:S2696"})
+        @SuppressWarnings({"deprecation", "removal", "java:S1113", "java:S2696"})
         protected void finalize() {
             logger.info("finalize it");
             if (doRevival) {

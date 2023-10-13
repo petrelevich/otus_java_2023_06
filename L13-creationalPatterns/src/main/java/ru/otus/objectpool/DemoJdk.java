@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 /** Примеры Object Poll в JDK. */
-@SuppressWarnings({"java:S106", "java:S4973", "java:S2129", "java:S1192"})
+@SuppressWarnings({"java:S106", "java:S4973", "java:S2129", "java:S1192", "java:S2095"})
 public class DemoJdk {
 
     public static void main(String[] args) throws InterruptedException {
@@ -48,6 +48,7 @@ public class DemoJdk {
 
         Thread.sleep(SECONDS.toMillis(5));
         scheduled.shutdown();
-        System.exit(0);
+        fixed.shutdownNow();
+        cached.shutdown();
     }
 }

@@ -2,6 +2,7 @@ package ru.otus.mainops;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static ru.otus.core.HibernateUtils.buildSessionFactory;
 import static ru.otus.core.HibernateUtils.doInSession;
 import static ru.otus.core.HibernateUtils.doInSessionWithTransaction;
@@ -53,8 +54,8 @@ class MainOperationsTest {
     @Test
     void shouldThrowExceptionWhenPersistDetachedEntity() {
         var avatar = new Avatar(1L, "http://any-addr.ru/");
-        assertThatCode(() -> doInSessionWithTransaction(sf, session -> session.persist(avatar)))
-                .hasCauseInstanceOf(PersistentObjectException.class);
+        assertThatThrownBy(() -> doInSessionWithTransaction(sf, session -> session.persist(avatar)))
+                .isInstanceOf(PersistentObjectException.class);
     }
 
     @DisplayName("persist выкидывает исключение если вставляемая сущность "
@@ -120,7 +121,8 @@ class MainOperationsTest {
         try (var session = sf.openSession()) {
             actualStudent = session.find(OtusStudent.class, 1L);
         }
-        assertThatCode(() -> actualStudent.getAvatar().getPhotoUrl()).isInstanceOf(LazyInitializationException.class);
+        var avatar = actualStudent.getAvatar();
+        assertThatThrownBy(avatar::getPhotoUrl).isInstanceOf(LazyInitializationException.class);
     }
 
     @DisplayName("find загружает сущность со связями")

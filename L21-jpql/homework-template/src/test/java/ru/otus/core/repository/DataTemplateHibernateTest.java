@@ -63,7 +63,7 @@ class DataTemplateHibernateTest extends AbstractHibernateTest {
                 clientTemplate.findAll(session).stream().map(Client::clone).collect(Collectors.toList()));
 
         // then
-        assertThat(clientList.size()).isEqualTo(1);
+        assertThat(clientList).hasSize(1);
         assertThat(clientList.get(0)).usingRecursiveComparison().isEqualTo(savedClient);
 
         // when
@@ -73,7 +73,7 @@ class DataTemplateHibernateTest extends AbstractHibernateTest {
                         .collect(Collectors.toList()));
 
         // then
-        assertThat(clientList.size()).isEqualTo(1);
+        assertThat(clientList).hasSize(1);
         assertThat(clientList.get(0)).usingRecursiveComparison().isEqualTo(savedClient);
     }
 }
