@@ -1,5 +1,4 @@
 plugins {
-    id ("java")
     id ("org.springframework.boot")
     id ("com.google.cloud.tools.jib")
     id ("fr.brouillard.oss.gradle.jgitver")
