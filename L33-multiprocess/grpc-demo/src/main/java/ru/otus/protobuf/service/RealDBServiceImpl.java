@@ -1,10 +1,9 @@
 package ru.otus.protobuf.service;
 
-import ru.otus.protobuf.model.User;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import ru.otus.protobuf.model.User;
 
 public class RealDBServiceImpl implements RealDBService {
     private final AtomicInteger idCounter;
