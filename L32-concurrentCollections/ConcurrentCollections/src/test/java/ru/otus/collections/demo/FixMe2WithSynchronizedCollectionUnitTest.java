@@ -1,18 +1,18 @@
 package ru.otus.collections.demo;
 
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-
 import static java.lang.System.out;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.assertj.core.api.Assertions.assertThat;
 
-//TODO please FIXME with synchronized collection
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+// TODO please FIXME with synchronized collection
 // Вопросы:
 // - Какую коллекцию будем синхронизировать и как?
 // - Фиксим тест сейчас!
@@ -24,6 +24,7 @@ class FixMe2WithSynchronizedCollectionUnitTest {
     private static final int ITERATIONS_COUNT = 1000;
 
     @Test
+    @Disabled("Удалить перед исправлением")
     void testSyncCollectionWorksGreat() throws InterruptedException {
 
         final List<String> list = new ArrayList<>();

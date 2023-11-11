@@ -1,11 +1,10 @@
 package ru.otus.executors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Arrays;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ForkJoinPoolDemo {
     private static final Logger logger = LoggerFactory.getLogger(ForkJoinPoolDemo.class);
@@ -14,10 +13,11 @@ public class ForkJoinPoolDemo {
         new ForkJoinPoolDemo().go();
     }
 
+    @SuppressWarnings("java:S2095") // до переезда на java 21
     private void go() {
         var forkJoinPool = new ForkJoinPool();
 
-        var result = forkJoinPool.invoke(new TaskSumInt(new int[]{1, 2, 3, 4, 5, 6, 7}));
+        var result = forkJoinPool.invoke(new TaskSumInt(new int[] {1, 2, 3, 4, 5, 6, 7}));
         logger.info("result:{}", result);
     }
 

@@ -1,13 +1,10 @@
 package ru.otus.locks;
 
-import java.util.concurrent.locks.Lock;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ReadWriteLockDemo {
     private static final Logger logger = LoggerFactory.getLogger(ReadWriteLockDemo.class);
@@ -46,25 +43,19 @@ public class ReadWriteLockDemo {
 
     private void reader() {
         while (!Thread.currentThread().isInterrupted()) {
-           // logger.info("before lock");
-            if (tryLock(lock.readLock())) {
-                try {
-                    logger.info("read:{}", this.sharedCounter);
-                } finally {
-                    lock.readLock().unlock();
+            try {
+                if (lock.readLock().tryLock(2, TimeUnit.SECONDS)) {
+                    try {
+                        logger.info("read:{}", this.sharedCounter);
+                    } finally {
+                        lock.readLock().unlock();
+                    }
+                } else {
+                    logger.info("blocked for read");
                 }
-            } else {
-                logger.info("blocked for read");
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
             }
-        }
-    }
-
-    private boolean tryLock(Lock lock) {
-        try {
-            return lock.tryLock(2, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return false;
         }
     }
 

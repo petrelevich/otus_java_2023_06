@@ -8,10 +8,10 @@ public class PingPong {
     private String last = "PONG";
 
     private synchronized void action(String message) {
-        while(!Thread.currentThread().isInterrupted()) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
-                //spurious wakeup https://en.wikipedia.org/wiki/Spurious_wakeup
-                //поэтому не if
+                // spurious wakeup https://en.wikipedia.org/wiki/Spurious_wakeup
+                // поэтому не if
                 while (last.equals(message)) {
                     this.wait();
                 }

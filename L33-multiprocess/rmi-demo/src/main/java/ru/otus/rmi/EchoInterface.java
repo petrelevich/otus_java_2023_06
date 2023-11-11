@@ -5,5 +5,5 @@ import java.rmi.RemoteException;
 
 public interface EchoInterface extends Remote {
 
-  String echo(String data) throws RemoteException;
+    String echo(String data) throws RemoteException;
 }

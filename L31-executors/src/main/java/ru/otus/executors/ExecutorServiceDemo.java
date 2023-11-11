@@ -1,22 +1,20 @@
 package ru.otus.executors;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
+@SuppressWarnings("java:S125")
 public class ExecutorServiceDemo {
     private static final Logger logger = LoggerFactory.getLogger(ExecutorServiceDemo.class);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-       // new ExecutorServiceDemo().singleThread();
-       // new ExecutorServiceDemo().newFixedThreadPool();
-       // new ExecutorServiceDemo().scheduledThreadPoolExecutor();
+        // new ExecutorServiceDemo().singleThread();
+        // new ExecutorServiceDemo().newFixedThreadPool();
+        // new ExecutorServiceDemo().scheduledThreadPoolExecutor();
     }
 
     private String task(int id) {
@@ -29,8 +27,9 @@ public class ExecutorServiceDemo {
         return "done " + id;
     }
 
-    private void singleThread() throws ExecutionException, InterruptedException {
-        //Один поток выполняет задачи из внутренней НЕОГРАНИЧЕННОЙ очереди
+    @SuppressWarnings("java:S2095") // до переезда на java 21
+    void singleThread() throws ExecutionException, InterruptedException {
+        // Один поток выполняет задачи из внутренней НЕОГРАНИЧЕННОЙ очереди
         var executor = Executors.newSingleThreadExecutor();
         var resultInFuture1 = executor.submit(() -> task(1));
         logger.info("task1 submitted");
@@ -52,8 +51,9 @@ public class ExecutorServiceDemo {
         executor.shutdown();
     }
 
-    private void newFixedThreadPool() throws ExecutionException, InterruptedException {
-        //Заданное количество потоков выполняют задачи из внутренней НЕОГРАНИЧЕННОЙ очереди
+    @SuppressWarnings("java:S2095") // до переезда на java 21
+    void newFixedThreadPool() throws ExecutionException, InterruptedException {
+        // Заданное количество потоков выполняют задачи из внутренней НЕОГРАНИЧЕННОЙ очереди
         var executor = Executors.newFixedThreadPool(3);
         var resultInFuture1 = executor.submit(() -> task(1));
         logger.info("task1 submitted");
@@ -75,8 +75,9 @@ public class ExecutorServiceDemo {
         executor.shutdown();
     }
 
-    private void scheduledThreadPoolExecutor() {
-        //Заданное количество потоков выполняют задачи с задержкой или периодически
+    @SuppressWarnings("java:S2095") // до переезда на java 21
+    void scheduledThreadPoolExecutor() {
+        // Заданное количество потоков выполняют задачи с задержкой или периодически
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(() -> logger.info("task is done"), 0, 3, TimeUnit.SECONDS);
     }

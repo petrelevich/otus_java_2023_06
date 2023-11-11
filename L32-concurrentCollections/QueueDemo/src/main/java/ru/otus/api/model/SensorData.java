@@ -1,6 +1,5 @@
 package ru.otus.api.model;
 
-
 import java.time.LocalDateTime;
 
 public class SensorData {
@@ -28,10 +27,9 @@ public class SensorData {
 
     @Override
     public String toString() {
-        return "SensorData{" +
-                "measurementTime=" + measurementTime +
-                ", room='" + room + '\'' +
-                ", value=" + value +
-                '}';
+        return "SensorData{" + "measurementTime="
+                + measurementTime + ", room='"
+                + room + '\'' + ", value="
+                + value + '}';
     }
 }

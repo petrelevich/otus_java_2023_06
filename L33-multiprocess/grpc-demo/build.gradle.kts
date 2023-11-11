@@ -23,40 +23,52 @@ dependencies {
     implementation("org.apache.tomcat:annotations-api:$tomcatAnnotationsApi")
 }
 
-val filesBaseDir = "$projectDir/build/generated"
-val protoSrcDir = "$projectDir/build/generated/main/proto"
-val grpcSrcDir = "$projectDir/build/generated/main/grpc"
+val protoSrcDir = "$projectDir/build/generated"
+
+idea {
+    module {
+        sourceDirs = sourceDirs.plus(file(protoSrcDir))
+    }
+}
 
 sourceSets {
     main {
         proto {
             srcDir(protoSrcDir)
         }
-        java {
-            srcDir(grpcSrcDir)
-        }
-    }
-}
-
-idea {
-    module {
-        sourceDirs = sourceDirs.plus(file(protoSrcDir))
-        sourceDirs = sourceDirs.plus(file(grpcSrcDir))
     }
 }
 
 protobuf {
+    generatedFilesBaseDir = protoSrcDir
+
     protoc {
         artifact = "com.google.protobuf:protoc:3.19.4"
     }
 
+    generateProtoTasks {
+        ofSourceSet("main")
+    }
+}
+
+afterEvaluate {
+    tasks {
+        getByName("generateProto").dependsOn(processResources)
+    }
+}
+
+protobuf {
+    generatedFilesBaseDir = protoSrcDir
+
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.19.4"
+    }
     plugins {
         id("grpc") {
             artifact = "io.grpc:protoc-gen-grpc-java:1.56.1"
         }
     }
 
-    generatedFilesBaseDir = filesBaseDir
     generateProtoTasks {
         ofSourceSet("main").forEach {
             it.plugins {

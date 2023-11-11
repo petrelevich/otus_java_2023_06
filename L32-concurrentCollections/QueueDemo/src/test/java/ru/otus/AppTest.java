@@ -1,17 +1,12 @@
 package ru.otus;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-import ru.otus.api.model.SensorData;
-import ru.otus.services.FakeSensorDataGenerator;
-import ru.otus.services.SensorDataProcessingFlowImpl;
-import ru.otus.services.SensorsDataQueueChannel;
-import ru.otus.services.SensorsDataServerImpl;
-import ru.otus.services.processors.SensorDataProcessorCommon;
-import ru.otus.services.processors.SensorDataProcessorRoom;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +16,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
+import org.mockito.ArgumentCaptor;
+import ru.otus.api.model.SensorData;
+import ru.otus.services.FakeSensorDataGenerator;
+import ru.otus.services.SensorDataProcessingFlowImpl;
+import ru.otus.services.SensorsDataQueueChannel;
+import ru.otus.services.SensorsDataServerImpl;
+import ru.otus.services.processors.SensorDataProcessorCommon;
+import ru.otus.services.processors.SensorDataProcessorRoom;
 
 class AppTest {
     private static final String ALL_ROOMS_BINDING = "*";
@@ -52,8 +48,7 @@ class AppTest {
         sensorDataProcessingFlow = new SensorDataProcessingFlowImpl(sensorsDataChannel);
 
         randomGenerator = spy(RandomGenerator.class);
-        fakeSensorDataGenerator = new FakeSensorDataGenerator(randomGenerator, sensorsDataServer,
-                SENSORS_COUNT);
+        fakeSensorDataGenerator = new FakeSensorDataGenerator(randomGenerator, sensorsDataServer, SENSORS_COUNT);
         sensorDataProcessorCommon = mock(SensorDataProcessorCommon.class);
         sensorDataProcessorRoom = mock(SensorDataProcessorRoom.class);
 
@@ -64,24 +59,28 @@ class AppTest {
     @RepeatedTest(10)
     void shouldInvokeCorrectProcessorsAccordingItsBindings() throws InterruptedException {
         AtomicInteger randomIntInvocationsCount = new AtomicInteger();
-        doAnswer(a -> (randomIntInvocationsCount.incrementAndGet() % 2 == 0)
-                ? BINDED_ROOM_NUMBER
-                : a.callRealMethod()
-        ).when(randomGenerator).nextInt(1, SENSORS_COUNT + 1);
+        doAnswer(a -> (randomIntInvocationsCount.incrementAndGet() % 2 == 0) ? BINDED_ROOM_NUMBER : a.callRealMethod())
+                .when(randomGenerator)
+                .nextInt(1, SENSORS_COUNT + 1);
 
         var allDataByRooms = new ConcurrentHashMap<String, List<SensorData>>();
         doAnswer(a -> {
-            SensorData sd = a.getArgument(0, SensorData.class);
-            allDataByRooms.computeIfAbsent(sd.getRoom(), k -> new ArrayList<>()).add(sd);
-            return null;
-        }).when(sensorDataProcessorCommon).process(any());
+                    SensorData sd = a.getArgument(0, SensorData.class);
+                    allDataByRooms
+                            .computeIfAbsent(sd.getRoom(), k -> new ArrayList<>())
+                            .add(sd);
+                    return null;
+                })
+                .when(sensorDataProcessorCommon)
+                .process(any());
 
         CountDownLatch roomProcessorInvocationCountLatch = new CountDownLatch(10);
         doAnswer(a -> {
-            roomProcessorInvocationCountLatch.countDown();
-            return null;
-        }).when(sensorDataProcessorRoom).process(any());
-
+                    roomProcessorInvocationCountLatch.countDown();
+                    return null;
+                })
+                .when(sensorDataProcessorRoom)
+                .process(any());
 
         fakeSensorDataGenerator.start();
         sensorDataProcessingFlow.startProcessing();
@@ -104,7 +103,9 @@ class AppTest {
         assertThat(argumentCaptorForProcessorCommon.getAllValues()).containsExactlyInAnyOrderElementsOf(allData);
 
         ArgumentCaptor<SensorData> argumentCaptorForProcessorRoom = ArgumentCaptor.forClass(SensorData.class);
-        verify(sensorDataProcessorRoom, times(allDataByBindedRoom.size())).process(argumentCaptorForProcessorRoom.capture());
-        assertThat(argumentCaptorForProcessorRoom.getAllValues()).containsExactlyInAnyOrderElementsOf(allDataByBindedRoom);
+        verify(sensorDataProcessorRoom, times(allDataByBindedRoom.size()))
+                .process(argumentCaptorForProcessorRoom.capture());
+        assertThat(argumentCaptorForProcessorRoom.getAllValues())
+                .containsExactlyInAnyOrderElementsOf(allDataByBindedRoom);
     }
 }

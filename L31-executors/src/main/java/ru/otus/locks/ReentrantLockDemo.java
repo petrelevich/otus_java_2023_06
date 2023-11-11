@@ -1,12 +1,12 @@
 package ru.otus.locks;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("java:S1144")
 public class ReentrantLockDemo {
     private static final Logger logger = LoggerFactory.getLogger(ReentrantLockDemo.class);
 
@@ -50,13 +50,12 @@ public class ReentrantLockDemo {
             logger.info("in the critical section");
             sleep();
         } finally {
-            //сколько раз заблокировали, столько надо и разблокировать
+            // сколько раз заблокировали, столько надо и разблокировать
             lock.unlock();
             lock.unlock();
         }
         logger.info("after critical section");
     }
-
 
     private static void sleep() {
         try {

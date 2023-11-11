@@ -15,7 +15,6 @@ dependencies {
     implementation("com.google.protobuf:protobuf-java-util")
 }
 
-
 val protoSrcDir = "$projectDir/build/generated"
 
 idea {
@@ -49,8 +48,3 @@ afterEvaluate {
         getByName("generateProto").dependsOn(processResources)
     }
 }
-
-
-
-
-

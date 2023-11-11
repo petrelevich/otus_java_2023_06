@@ -1,13 +1,15 @@
 package ru.otus.sockets;
 
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SocketClient {
+    private static final Logger logger = LoggerFactory.getLogger(SocketClient.class);
     private static final int PORT = 8090;
     private static final String HOST = "localhost";
 
@@ -23,21 +25,23 @@ public class SocketClient {
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 for (int idx = 0; idx < 3; idx++) {
                     String msg = String.format("##%d - I Believe", idx);
-                    System.out.printf("sending to server: %s%n", msg);
+                    logger.info("sending to server: {}", msg);
                     outputStream.println(msg);
 
                     String responseMsg = in.readLine();
-                    System.out.printf("server response: %s%n", responseMsg);
+                    logger.info("server response: {}", responseMsg);
                     Thread.sleep(TimeUnit.SECONDS.toMillis(3));
 
-                    System.out.println();
+                    logger.info("");
                 }
 
-                System.out.println("\nstop communication");
+                logger.info("\nstop communication");
                 outputStream.println("stop");
             }
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            logger.error("error", ex);
         }
     }
 }

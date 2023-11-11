@@ -1,18 +1,15 @@
 package ru.otus.collections.demo;
 
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-//DEMO with BlockingQueue
+// DEMO with BlockingQueue
 // Вопросы:
 // - Что делает это многопоточное приложение?
 // - Какие есть проблемы в данном многопоточном приложении?
@@ -20,11 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 // - Фиксим тест сейчас!
 // - *Для какого сценария по нагрузке больше всего подходит BlockingQueue?
 class FixMe5WithBlockingQueueTest {
-    private static final Logger log = LoggerFactory.getLogger(FixMe5WithBlockingQueueTest.class);
     private static final int ITERATIONS_COUNT = 1000;
-    private final Random random = new Random();
 
     @Test
+    @Disabled("Удалить перед исправлением")
     void testBlockingQueueWorksGreat() throws InterruptedException {
 
         List<Integer> list = new ArrayList<>();

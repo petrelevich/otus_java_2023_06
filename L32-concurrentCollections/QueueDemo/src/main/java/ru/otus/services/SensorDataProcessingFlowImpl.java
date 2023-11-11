@@ -1,13 +1,5 @@
 package ru.otus.services;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ru.otus.api.SensorDataProcessingFlow;
-import ru.otus.api.SensorDataProcessor;
-import ru.otus.api.SensorsDataChannel;
-import ru.otus.api.model.SensorData;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +9,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.otus.api.SensorDataProcessingFlow;
+import ru.otus.api.SensorDataProcessor;
+import ru.otus.api.SensorsDataChannel;
+import ru.otus.api.model.SensorData;
 
 public class SensorDataProcessingFlowImpl implements SensorDataProcessingFlow {
     private static final Logger log = LoggerFactory.getLogger(SensorDataProcessingFlowImpl.class);
@@ -48,8 +45,7 @@ public class SensorDataProcessingFlowImpl implements SensorDataProcessingFlow {
 
     @Override
     public void bindProcessor(String roomPattern, SensorDataProcessor processor) {
-        var roomPatternBindings = bindings.computeIfAbsent(roomPattern,
-                k -> new ArrayList<>());
+        var roomPatternBindings = bindings.computeIfAbsent(roomPattern, k -> new ArrayList<>());
         roomPatternBindings.add(processor);
     }
 
@@ -82,8 +78,7 @@ public class SensorDataProcessingFlowImpl implements SensorDataProcessingFlow {
     }
 
     private void doShutdown() {
-        bindings.values().stream().flatMap(Collection::stream)
-                .forEach(this::fireProcessorShutdownEvent);
+        bindings.values().stream().flatMap(Collection::stream).forEach(this::fireProcessorShutdownEvent);
         dataProcessThreadPool.shutdown();
         pollingThreadPool.shutdown();
     }

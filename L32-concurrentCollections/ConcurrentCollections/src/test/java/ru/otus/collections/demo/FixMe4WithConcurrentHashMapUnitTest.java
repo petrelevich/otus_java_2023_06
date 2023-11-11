@@ -1,20 +1,20 @@
 package ru.otus.collections.demo;
 
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.lang.System.out;
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import static java.lang.System.out;
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-import static org.assertj.core.api.Assertions.assertThat;
-
-//TODO please FIXME with ConcurrentHashMap
+// TODO please FIXME with ConcurrentHashMap
 // Вопросы:
 // - Какую коллекцию будем менять и на какую?
 // - Фиксим тест сейчас!
@@ -25,6 +25,7 @@ class FixMe4WithConcurrentHashMapUnitTest {
     private static final int ITERATIONS_COUNT = 1000;
 
     @Test
+    @Disabled("Удалить перед исправлением")
     void testConcurrentHashMapWorksGreat() throws InterruptedException {
 
         final Map<String, String> map = new HashMap<>();

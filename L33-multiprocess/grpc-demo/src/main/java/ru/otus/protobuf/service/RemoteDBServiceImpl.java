@@ -2,9 +2,9 @@ package ru.otus.protobuf.service;
 
 import io.grpc.stub.StreamObserver;
 import java.util.List;
-import ru.otus.protobuf.generated.Empty;
-import ru.otus.protobuf.generated.RemoteDBServiceGrpc;
-import ru.otus.protobuf.generated.UserMessage;
+import ru.otus.protobuf.Empty;
+import ru.otus.protobuf.RemoteDBServiceGrpc;
+import ru.otus.protobuf.UserMessage;
 import ru.otus.protobuf.model.User;
 
 @SuppressWarnings({"squid:S2142"})

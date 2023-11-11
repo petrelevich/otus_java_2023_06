@@ -3,9 +3,6 @@ package ru.otus.protobuf;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 import java.util.concurrent.CountDownLatch;
-import ru.otus.protobuf.generated.Empty;
-import ru.otus.protobuf.generated.RemoteDBServiceGrpc;
-import ru.otus.protobuf.generated.UserMessage;
 
 @SuppressWarnings({"squid:S106", "squid:S2142"})
 public class GRPCClient {

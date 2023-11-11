@@ -1,26 +1,36 @@
 package ru.otus.processrunner.jobs;
 
-import java.util.Scanner;
 import java.util.stream.IntStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*
 from location: src/main/java
 javac ru/otus/processrunner/jobs/Job.java
 java ru.otus.processrunner.jobs.Job
  */
+@SuppressWarnings("java:S125")
 public class Job {
-  public static void main(String[] args) {
-    String endOfRangeEnvVar = System.getenv("endOfRange");
-/*
-    Scanner sc = new Scanner(System.in);
-    System.out.println("Введите первую строку:");
-    System.out.println("Первая строка: " + sc.nextLine());
+    private static final Logger logger = LoggerFactory.getLogger(Job.class);
 
-    System.out.println("Введите вторую строку:");
-    System.out.println("Вторая строка: " + sc.nextLine());
-*/
-    System.out.printf("EndOfRange environment variable: %s\n", endOfRangeEnvVar);
-    int endOfRange = endOfRangeEnvVar == null? 100: Integer.parseInt(endOfRangeEnvVar);
-    IntStream.range(1, endOfRange).forEach(System.out::println);
-  }
+    public static void main(String[] args) {
+        String endOfRangeEnvVar = System.getenv("endOfRange");
+        /*
+                    var sc = new java.util.Scanner(System.in);
+                    logger.info("Введите первую строку:");
+                    logger.atInfo()
+                            .setMessage("Первая строка: {}")
+                            .addArgument(sc.nextLine())
+                            .log();
+
+                    logger.info("Введите вторую строку:");
+                    logger.atInfo()
+                        .setMessage("Вторая строка: {}")
+                        .addArgument(sc.nextLine())
+                        .log();
+        */
+        logger.info("EndOfRange environment variable: {}\n", endOfRangeEnvVar);
+        int endOfRange = endOfRangeEnvVar == null ? 100 : Integer.parseInt(endOfRangeEnvVar);
+        IntStream.range(1, endOfRange).forEach(val -> logger.info("{}", val));
+    }
 }

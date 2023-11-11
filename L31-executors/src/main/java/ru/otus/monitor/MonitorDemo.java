@@ -15,8 +15,8 @@ public class MonitorDemo {
         counter.go();
     }
 
-    //ошибочное импользование мониторов - у каждого потока свой монитор
-    //что является монитором здесь?
+    // ошибочное импользование мониторов - у каждого потока свой монитор
+    // что является монитором здесь?
     private void inc1() {
         synchronized (monitor) {
             for (int i = 0; i < LIMIT; i++) {
@@ -25,14 +25,14 @@ public class MonitorDemo {
         }
     }
 
-    //что является монитором здесь?
+    // что является монитором здесь?
     private static synchronized void inc2(MonitorDemo demo) {
         for (int i = 0; i < LIMIT; i++) {
             demo.count++;
         }
     }
 
-    //что является монитором здесь?
+    // что является монитором здесь?
     private synchronized void inc3() {
         for (int i = 0; i < LIMIT; i++) {
             count++;
