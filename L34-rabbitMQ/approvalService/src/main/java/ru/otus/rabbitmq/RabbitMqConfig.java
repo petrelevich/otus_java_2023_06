@@ -42,10 +42,8 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    public Binding newClientsEventsQueueBinding(){
-        return BindingBuilder.bind(newClientsEventsQueue())
-                .to(topicExchange())
-                .with("clients.new_created");
+    public Binding newClientsEventsQueueBinding() {
+        return BindingBuilder.bind(newClientsEventsQueue()).to(topicExchange()).with("clients.new_created");
     }
 
     @Bean
@@ -54,10 +52,8 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    public Binding allClientsEventsQueueBinding(){
-        return BindingBuilder.bind(allClientsEventsQueue())
-                .to(topicExchange())
-                .with("clients.#");
+    public Binding allClientsEventsQueueBinding() {
+        return BindingBuilder.bind(allClientsEventsQueue()).to(topicExchange()).with("clients.#");
     }
 
     @Bean
