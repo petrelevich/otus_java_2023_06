@@ -1,5 +1,7 @@
 package ru.otus.rabbitmq;
 
+import static ru.otus.services.RabbitMqService.MAIN_EXCHANGE;
+
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
@@ -11,8 +13,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import static ru.otus.services.RabbitMqService.MAIN_EXCHANGE;
 
 @Configuration
 public class RabbitMqConfig {
@@ -30,12 +30,12 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    public TopicExchange topicExchange(){
+    public TopicExchange topicExchange() {
         return new TopicExchange(MAIN_EXCHANGE, false, false);
     }
 
     @Bean
-    public Queue newClientsEventsQueue(){
+    public Queue newClientsEventsQueue() {
         return QueueBuilder.durable("new-clients-queue")
                 .withArgument("x-dead-letter-exchange", "dead-letter-exchange")
                 .build();
@@ -49,7 +49,7 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    public Queue allClientsEventsQueue(){
+    public Queue allClientsEventsQueue() {
         return new Queue("all-clients-events-queue");
     }
 
@@ -75,13 +75,13 @@ public class RabbitMqConfig {
         return BindingBuilder.bind(deadLetterQueue()).to(deadLetterExchange());
     }
 
-  @Bean
-    public Queue newClientsEventsRpcQueue(){
+    @Bean
+    public Queue newClientsEventsRpcQueue() {
         return new Queue("new-clients-rpc-queue");
     }
 
     @Bean
-    public Binding newClientsEventsRpcQueueBinding(){
+    public Binding newClientsEventsRpcQueueBinding() {
         return BindingBuilder.bind(newClientsEventsRpcQueue())
                 .to(topicExchange())
                 .with("clients.rpc.new_created");

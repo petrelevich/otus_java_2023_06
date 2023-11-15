@@ -1,7 +1,13 @@
 package ru.otus.domain;
 
-
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "clients")
@@ -18,7 +24,7 @@ public class Client {
     @Enumerated(value = EnumType.STRING)
     private VerificationStatus verificationStatus;
 
-    public Client(){
+    public Client() {
         this.verificationStatus = VerificationStatus.IN_PROGRESS;
     }
 
@@ -27,7 +33,6 @@ public class Client {
         this.name = name;
         this.verificationStatus = VerificationStatus.IN_PROGRESS;
     }
-
 
     public long getId() {
         return id;

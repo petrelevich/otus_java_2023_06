@@ -11,6 +11,4 @@ public enum VerificationStatus {
     VerificationStatus(String status) {
         this.status = status;
     }
-
-
 }

@@ -1,10 +1,9 @@
 package ru.otus.services;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 import ru.otus.domain.Client;
 import ru.otus.repostory.ClientRepository;
-
-import java.util.List;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -33,15 +32,6 @@ public class ClientServiceImpl implements ClientService {
         rabbitMqService.sendClientCreatedEvent(savedClient);
         return savedClient;
     }
-
-
-
-
-
-
-
-
-
 
     @Override
     public Client saveAndSendForApproveAndWait(Client client) {
