@@ -16,6 +16,7 @@ import ru.otus.services.RabbitMqService;
 @Slf4j
 @Component
 public class RabbitMqListeners {
+    private final Random random = new Random();
 
     private final RabbitMqService rabbitMqService;
 
@@ -23,9 +24,10 @@ public class RabbitMqListeners {
         this.rabbitMqService = rabbitMqService;
     }
 
+    @SuppressWarnings("java:S125")
     @RabbitListener(queues = "new-clients-queue", ackMode = "NONE")
     public void newClientsEventsQueueListener(
-            Client client, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
+            Client client, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws InterruptedException {
         client.setVerificationStatus(getRandomStatus());
         TimeUnit.SECONDS.sleep(10);
         // channel.basicAck(tag, false);
@@ -46,12 +48,11 @@ public class RabbitMqListeners {
     }
 
     private VerificationStatus getRandomStatus() {
-        Random random = new Random();
         return random.nextBoolean() ? VerificationStatus.VERIFIED : VerificationStatus.REJECTED;
     }
 
     @RabbitListener(queues = "new-clients-rpc-queue")
-    public Client newClientsEventsRpcQueueListener(Client client) throws Exception {
+    public Client newClientsEventsRpcQueueListener(Client client) throws InterruptedException {
         client.setVerificationStatus(getRandomStatus());
         TimeUnit.SECONDS.sleep(10);
         return client;
