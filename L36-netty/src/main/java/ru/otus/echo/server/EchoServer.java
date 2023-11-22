@@ -23,7 +23,7 @@ public class EchoServer {
     private static final int THREAD_POOL_SIZE = 2;
     private static final int PORT = 8080;
 
-    private final Executor longActionExecutor = Executors.newFixedThreadPool(4);
+    private final Executor longActionExecutor = Executors.newFixedThreadPool(2);
 
     public static void main(String[] args) throws Exception {
         new EchoServer().start();
@@ -35,9 +35,7 @@ public class EchoServer {
 
             @Override
             public Thread newThread(@Nonnull Runnable task) {
-                var thread = new Thread(task);
-                thread.setName("event-loop-thread-" + threadIdGenerator.incrementAndGet());
-                return thread;
+                return new Thread(task, "event-loop-thread-" + threadIdGenerator.incrementAndGet());
             }
         });
         try {

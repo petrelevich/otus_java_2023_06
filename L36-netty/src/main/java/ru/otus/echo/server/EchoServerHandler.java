@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(EchoServerHandler.class);
     private final ByteBuf bufForInMsg = new PooledByteBufAllocator(true).directBuffer(5);
@@ -26,7 +28,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws IOException {
+    public void channelRead(@Nonnull ChannelHandlerContext ctx, @Nonnull Object msg) throws IOException {
         var in = (ByteBuf) msg;
 
         if (in.readableBytes() > bufForInMsg.capacity()) {
